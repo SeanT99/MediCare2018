@@ -29,7 +29,7 @@ public partial class Nurse_Registration : System.Web.UI.Page
             //int result = 0;
 
             //variables for the patient
-            string id = IDTB.Text;
+            string id = IDTB.Text.ToUpper();
             string family_Name = FNameTB.Text.ToUpper();
             string given_Name = GNameTB.Text;
             string dob = dobTB.Text;

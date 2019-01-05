@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
+using System.Web.UI;    
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Net;
 using System.IO;
-using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 
 public partial class Login_Login : System.Web.UI.Page
@@ -57,7 +56,7 @@ public partial class Login_Login : System.Web.UI.Page
 
     protected void Login_Method(object sender, EventArgs e)
     {
-        LoginNRIC = UsernameField.Text;
+        LoginNRIC = UsernameField.Text.ToUpper();
         Password = PasswordField.Text;
         string hashStr = "";
         string reCaptchaSecret = "[6LdCW4UUAAAAADK9eQFh6LdFvhWaxgji0dv9iyc6]";
