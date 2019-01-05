@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Diagnostics;
 
 /// <summary>
 /// Summary description for PasswordUtility
 /// </summary>
 public class PasswordUtility
 {
+    //database connection string
+    readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
+
     public PasswordUtility()
     {
         //
@@ -51,4 +58,31 @@ public class PasswordUtility
         hashDetail = new string[] { saltStr, hashStr };
         return hashDetail;
     }
+
+    public int updatePassword(string id, string salt, string hash)
+    {
+        int result = 0;
+
+        string queryStr = "UPDATE PatientInfo SET salt = @salt, login_password = @hash WHERE id = @id";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@salt", salt);
+        cmd.Parameters.AddWithValue("@hash", hash);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
 }

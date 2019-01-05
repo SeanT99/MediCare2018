@@ -142,14 +142,17 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 318px">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td style="width: 318px; height: 4px;"></td>
+            <td style="height: 4px">
+            </td>
         </tr>
         <tr>
-            <td style="width: 318px">&nbsp;</td>
+            <td style="width: 318px">
+                <asp:Button ID="PwResetBtn" runat="server" OnClick="PwResetBtn_Click" Text="Reset Password" Width="135px" />
+            </td>
             <td>&nbsp;</td>
         </tr>
-    </table>
+        </table>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
 </asp:Content>

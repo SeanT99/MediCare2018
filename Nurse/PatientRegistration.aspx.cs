@@ -21,6 +21,11 @@ public partial class Nurse_Registration : System.Web.UI.Page
 
     }
 
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------SUBMIT ACTION---------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
+
     protected void SubmitBtn_Click(object sender, EventArgs e)
     {
         string id_Type = idDDL.SelectedItem.Text.ToUpper();
@@ -72,7 +77,6 @@ public partial class Nurse_Registration : System.Web.UI.Page
             String rawPassword = CreatePassword(10);
 
             //HASHING
-            //hashDetail = new string[] { saltStr, hashStr };
             string[] hashing = passwordUtil.generateHash(id, rawPassword);
             //generateHash(id, rawPassword);
             string login_password = hashing[1];
@@ -112,8 +116,9 @@ public partial class Nurse_Registration : System.Web.UI.Page
     }
 
 
-
-    //---------------------------------------------------VALIDATORS---------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------VALIDATORS------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
 
     //Validate the dob make sure dob is before todays date
     protected void dobValid_ServerValidate(object source, ServerValidateEventArgs args)
@@ -248,8 +253,9 @@ public partial class Nurse_Registration : System.Web.UI.Page
         }
     }
 
-
-    //-------------------------------password hashing-------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------password hashing---------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     public string CreatePassword(int length)
     {
         const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
