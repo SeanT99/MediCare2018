@@ -8,21 +8,40 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 public partial class Login_Login : System.Web.UI.Page
 {
     public static int UserLoginAttempts = 1;
     private string LoginNRIC;
     private string Password;
+    bool cValidated = false;
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
         IncorrectUsernameAndPasswordLabel.Visible = false;
-        SecurityTable.Visible = false;
+        CaptchaClass.Visible = false;
+
+
 
     }
 
+    public class CaptchaResponse
+    {
+        public bool success { get; set; }
+        public string challenge_ts { get; set; }
+        public string hostname { get; set; }
+        public string errorCodes { get; set; }
+    }
+
+    public class MyObject
+    {
+        public string success { get; set; }
+    }
 
 
     protected void forgotPassword_Click(object sender, EventArgs e)
@@ -40,22 +59,19 @@ public partial class Login_Login : System.Web.UI.Page
     {
         LoginNRIC = UsernameField.Text;
         Password = PasswordField.Text;
-
         string hashStr = "";
+        string reCaptchaSecret = "[6LdCW4UUAAAAADK9eQFh6LdFvhWaxgji0dv9iyc6]";
+        string reCaptchaRequest = "";
+
         //add the username to the password then hash the summed string
         string ToHashUserLoginInput = LoginNRIC + Password;
-
-        Debug.Write(ToHashUserLoginInput);
         PatientInfo LoginInfo = new PatientInfo();
         PatientInfo UserLoginDetails = LoginInfo.GetLoginDetails(LoginNRIC);
-
-
         if (UserLoginDetails != null)
         {
 
             string originalSaltValue = UserLoginDetails.Salt;
             byte[] array = Convert.FromBase64String(originalSaltValue);
-            Debug.Write("Original Salt Value" + " " + originalSaltValue);
 
 
             //2. concatenate the plaintext to the salt and hash it (using PBKDF2)
@@ -73,30 +89,120 @@ public partial class Login_Login : System.Web.UI.Page
             Array.Copy(hash, 0, hashBytes, 16, 20);
 
             ////4. convert the byte array to a string
-
             hashStr = Convert.ToBase64String(hashBytes);
-
-            Debug.Write("Final hash value" + " " + hashStr);
-
-            if (hashStr == UserLoginDetails.Login_password)
+            if (hashStr == UserLoginDetails.Login_password && LoginNRIC == UserLoginDetails.Id)
             {
                 if (UserLoginDetails.Acctype == "PATIENT   ")
                 {
-                    //login as patient
-                    Response.Redirect("../Appointment/OnlineAppt.aspx");
+                    Response.Redirect("../Appointment/OnlineAppt.aspx",false);
                 }
-                else
+                else if (UserLoginDetails.Acctype != "PATIENT   ")
                 {
-                    //login as nurse
-                    Response.Redirect("../Nurse/PatientRegistration.aspx");
+                    Response.Redirect("../Nurse/PatientRegistration.aspx",false);
                 }
             }
             else
             {
                 IncorrectUsernameAndPasswordLabel.Visible = true;
-
+                UserLoginAttempts++;
             }
+            //End of Login
+
+            //Regarding Captcha
+            // if UserLoginAttempts more than 3, Make sure the login take into account the response of the captcha, so that it does not login the user when the captcha is not completed
+            // thats why have to seperate another login validation method
+
+            if (UserLoginAttempts > 3)
+            {
+                CaptchaClass.Visible = true;
+
+                if (Request.Form["g-recaptcha-response"] != null) // To Check If The Captcha Box Is Clicked
+                {                    
+                    if (CheckReCaptcha() == true)
+                    {
+                        Debug.Write("Captcha returned true");
+
+                    }
+
+                    
+
+                }
+               
+
+            }                    
+            // End Of Regarding Captcha
+
         }
     }
-    
-}
+
+
+    //Checking Captcha Success True Or False
+    public bool CheckReCaptcha()
+    {
+        string Response = Request["g-recaptcha-response"];//Getting Response String Append to Post Method
+        bool Valid = false;
+        //Request to Google Server
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create
+        (" https://www.google.com/recaptcha/api/siteverify?secret=6LdCW4UUAAAAAByr9jibv0nrQGEMAGoWUleLC89c &response=" + Response);
+        try
+        {
+            //Google recaptcha Response
+            using (WebResponse wResponse = req.GetResponse())
+            {
+
+                using (StreamReader readStream = new StreamReader(wResponse.GetResponseStream()))
+                {
+                    string jsonResponse = readStream.ReadToEnd();
+
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    MyObject data = js.Deserialize<MyObject>(jsonResponse);// Deserialize Json
+
+                    Valid = Convert.ToBoolean(data.success);
+                }
+            }
+            return Valid;
+        }
+        catch (WebException ex)
+        {
+            throw ex;
+        }
+    }
+
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        if (CheckReCaptcha() == true)
+        {
+            Debug.Write("Valid Recaptcha");
+           
+        }
+
+        else
+        {
+            Debug.Write("Invalid Captcha");
+        }
+
+
+
+    }
+
+     
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
