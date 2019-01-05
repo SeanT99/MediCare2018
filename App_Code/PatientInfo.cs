@@ -15,7 +15,7 @@ using System.Diagnostics;
 public class PatientInfo
 {
     //database connection string
-    string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
+    readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
     //variables for the patient (for the registration)
     private string id;

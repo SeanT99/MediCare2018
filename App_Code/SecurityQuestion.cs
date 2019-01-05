@@ -15,7 +15,7 @@ using System.Diagnostics;
 public class SecurityQuestion
 {
     //database connection string
-    string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
+    readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
     string sec_qn1 = "";
     string sec_ans1 = "";
