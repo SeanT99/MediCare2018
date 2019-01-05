@@ -1,0 +1,25 @@
+﻿body {
+    margin: 0px;
+    padding: 0px;
+  
+ 
+   
+}
+
+
+
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('../Words/Oswald-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'CODEBold';
+    src: url('../Words/CODEBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'CODE';
+    src: url('../Words/CODE.otf') format('opentype');
+}

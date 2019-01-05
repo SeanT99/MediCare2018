@@ -1,0 +1,149 @@
+﻿html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.color1 {
+    background: #00ad5f;
+    color: white;
+    border-color: #00ad5f;
+   
+}
+.color1:hover {
+    background: black;
+    color: white;
+    border-color: black
+}
+.color2 {  
+    background: transparent;
+    border-color: transparent;
+    color: #00ad5f;
+    margin-left:50px;
+}
+.color2:hover {
+    background: transparent;
+    color: black;
+    border-color: transparent;
+    text-decoration: underline;
+}
+.color2:focus {
+
+    box-shadow:0 0 0 0 transparent;
+}
+
+
+.color3 {
+    background: #00ad5f;
+    color: white;
+    border-color: #00ad5f;
+
+}
+    .color3:hover {
+        background: #005E34;
+        color: white;
+        border-color: #005E34;
+    }
+
+
+
+.form-control:focus {
+    
+    box-shadow: 0 0 0 0.2rem #00ad5f;
+}
+
+
+@media (min-width: 992px) {
+    .container-small {
+        width: 500px;
+        padding: 30px 30px
+    }
+
+    .container-large {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-small {
+        width: 500px;
+        padding: 30px 30px
+    }
+
+    .container-large {
+        width: 1500px;
+    }
+}
+.container-small, .container-large {
+    max-width: 100%;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+.show1 {
+    background: rgba(0,0,0,.85);
+    border-radius: 10px;
+
+}
+.label1 {
+    color: white;
+}
+
+.registerbody {
+   
+    background-image: url('../Img/registerpic.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: grayscale(20%);
+}
+.color5 {
+    background: transparent;
+    color: gray;
+    border-color: transparent;
+}
+
+.color5:hover {
+    background: transparent;
+    color: black;
+    border-color: transparent;
+    text-decoration: underline;
+}
+
+
+.forgotPassword {
+    background: transparent;
+    border-color: transparent;
+    color: #00ad5f;
+    margin-left: 640px;
+    margin-top: 5px;
+    border-color: transparent;
+}
+
+.ShiftMedicareTitle{
+    margin-left:-200px;
+}
+
+.ChangePasswordButton {
+    background: transparent;
+    border-color: transparent;
+    color: #00ad5f;
+    border-color: transparent;
+    margin-left:40px;
+}
+
+
+.ShiftSecurityOptionAndTextField{
+    margin-right:250px;
+}
+
+.g-recaptcha{
+    margin-left:230px;
+    margin-top:30px;
+    margin-bottom:30px;
+}
