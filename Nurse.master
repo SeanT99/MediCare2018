@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Nurse.master.cs" Inherits="Admin2" %>
+
+<!DOCTYPE html>
+
+
+<html>
+<head runat="server">
+    <link href="Content/bootstrap-grid.css" rel="stylesheet" />
+    <link href="Content/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <title>Admin</title>
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav class ="navbar navbar-expand-sm bg-dark navbar-dark sticky-top ">
+            
+                <a class="navbar-brand" href="AdminUser.aspx">Nurse</a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class ="nav-link" href="/Nurse/PatientRegistration.aspx">Patient Registration</a></li>
+                    <li class="nav-item">
+                        <a class ="nav-link" href="/Nurse/PatientManagement_List.aspx">Patient Management</a>
+                    </li>
+                  
+                </ul>
+                
+              
+
+            </nav>
+                
+
+        
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <div class="mt-sm-3">
+            
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+            </asp:ContentPlaceHolder>
+
+        </div>
+    </form>
+</body>
+</html>

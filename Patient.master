@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Patient.master.cs" Inherits="Patient" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Menu</title>
+    <link href="CSS/home.css" rel="stylesheet" />
+    <link href="icon/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="Content/bootstrap-grid.css" rel="stylesheet" />
+    <link href="Content/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+</head>
+<body>
+    
+<form id="form1" runat="server">
+        
+
+       <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+           <a class="navbar-brand mr-sm-4" href="Homepage.aspx">MediCare</a>
+           <ul class="nav navbar-nav mr-auto">
+               <li class="nav-item">
+                   <a class ="nav-link" href="Homepage.aspx">Appointment</a>
+               </li>
+               <li class="nav-item">
+                   <a class ="nav-link" href="/Patient/EditProfile_Auth.aspx">Manage Profile</a>
+               </li>
+              </ul>
+        
+           <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" >
+                
+           </asp:ContentPlaceHolder>
+        </nav>
+           
+      
+               
+           
+           
+           
+           <div>
+                
+               <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                 
+               </asp:ContentPlaceHolder>
+
+           </div>
+
+
+
+        <%--<div class="container">
+
+            <div class ="main navbar-" >
+            <div id="navbar">
+            
+            <h2><a class="brandname" href="Homepage.aspx">MediCare</a></h2>
+            <ul class ="mainmenu">
+                <li><a href="Homepage.aspx"><i class="fa fa-home"></i>HOME</a></li>
+                <li><a href="Dashboard.aspx"><i class="fa fa-tachometer"></i>DASHBOARD</a></li>
+                <li><a href="OnlineAppt1.aspx"><i class="fa fa-calendar"></i>APPOINTMENT</a></li>
+                <li><a href="WebForm3.aspx"><i class="fa fa-medkit"></i>MEDICATION</a></li>
+                <li><a href="#"><i class="fa fa-video-camera" ></i>SOCIAL</a></li>
+                <li><a href="BMIcalculation.aspx"><i class="fa fa-heartbeat"></i>PERSONAL HEALTH</a>
+                    <ul class="submenu">
+                        <li><a href="xxCalories.aspx">DIET</a></li>
+                    </ul>
+                </li>
+                <li><a href="DiscussionForumBrandon.aspx"><i class="fa fa-commenting"></i>DISCUSSION FORUM</a></li>
+                <li><a href="FAQbrandon.aspx"><i class="fa fa-question"></i>FAQ</a></li>
+                <li><a href="Email.aspx"><i class ="fa fa-envelope"></i>EMAIL</a>
+                    <ul class ="submenu">
+                        <li><a href="DisplayEmail1.aspx">INBOX</a></li>
+                    </ul>
+                </li>
+             
+                <li><a href="profile.aspx"><i class ="fa fa-user"></i>Profile</a></li>
+            </ul>
+        </div>--%>
+        <%-- </div>--%>
+        
+          
+
+  
+
+
+    
+    </form>
+</body>
+</html>
