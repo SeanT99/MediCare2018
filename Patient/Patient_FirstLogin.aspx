@@ -51,13 +51,13 @@
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">New Password</td>
                     <td>
-                        <asp:TextBox ID="TextBox1" runat="server" Width="280px"></asp:TextBox>
+                        <asp:TextBox ID="newPWTB" runat="server" Width="280px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">Confirm Password</td>
                     <td>
-                        <asp:TextBox ID="TextBox3" runat="server" Width="280px"></asp:TextBox>
+                        <asp:TextBox ID="conPWTB" runat="server" Width="280px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -131,7 +131,7 @@
         </tr>
             </table>
         </div>
-        <asp:Button ID="SubmitBtn" runat="server" Text="Submit" />
+        <asp:Button ID="SubmitBtn" runat="server" Text="Submit" OnClick="SubmitBtn_Click" />
     </form>
 </body>
 </html>
