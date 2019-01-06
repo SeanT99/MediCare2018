@@ -15,7 +15,6 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string status = "";
         //Call the patient retrieval method
         id = Request.QueryString["ID"].ToString();
         x = x.PatientInfoGet(id);
@@ -40,17 +39,6 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
         allergyLBL.Text = x.Medical_allergies;
         historyLBL.Text = x.Medical_history;
 
-        status = x.Status;
-
-        if(status == "TRUE      ")
-        {
-            status = "The user has not done his first login";
-        }
-        else
-        {
-            status = "The user has already logged in";
-        }
-        syncLbl.Text = status;
     }
 
     protected void PwResetBtn_Click(object sender, EventArgs e)
