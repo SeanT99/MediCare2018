@@ -38,8 +38,7 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
             pass = mail.sendDeletedMail(email, name);
             if (pass > 0)
             {
-                //Response.Write("<script>alert('Patient Removed successfully');location.href='PatientManagement_List.aspx';</script>");
-                //Response.Redirect("PatientManagement_List.aspx");
+                Response.Write("<script>alert('Patient Removed successfully');location.href='PatientManagement_List.aspx';</script>");
             }
             else
             {
