@@ -49,10 +49,8 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
         else
         {
             status = "The user has already logged in";
-            ReminderBtn.Visible = false;
-            ReminderBtn.Enabled = false;
         }
-        statusLbl.Text = status;
+        syncLbl.Text = status;
     }
 
     protected void PwResetBtn_Click(object sender, EventArgs e)
@@ -104,10 +102,5 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
     protected void DeleteBtn_Click(object sender, EventArgs e)
     {
         Response.Redirect("PatientManagement_List_DeleteAuth.aspx?id=" + id);
-    }
-
-    protected void ReminderBtn_Click(object sender, EventArgs e)
-    {
-
     }
 }
