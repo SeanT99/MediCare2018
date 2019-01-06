@@ -16,12 +16,7 @@ public class PasswordUtility
     //database connection string
     readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
-    public PasswordUtility()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
+    public PasswordUtility(){}
 
     public string[] generateHash(string username, string password)
     {

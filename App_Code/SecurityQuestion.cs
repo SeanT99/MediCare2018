@@ -93,4 +93,38 @@ public class SecurityQuestion
 
         return x;
     }
+
+    public int SecurityQuestionUpdate(string qid)
+    {
+        int result = 0;
+        //strings for the object creation
+        string sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3;
+
+        //query string
+        string queryStr = "UPDATE PatientInfo SET sec_qn1 = @q1, sec_ans1 = @a1, sec_qn2 = @q2, sec_ans2 = @a2, sec_qn3 = @q3, sec_ans3 = @a3 WHERE id = @id";
+
+        //open connections, insert param and execute query
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", qid);
+        cmd.Parameters.AddWithValue("@q1", Sec_qn1);
+        cmd.Parameters.AddWithValue("@a1", Sec_ans1);
+        cmd.Parameters.AddWithValue("@q2", Sec_qn2);
+        cmd.Parameters.AddWithValue("@a2", Sec_ans2);
+        cmd.Parameters.AddWithValue("@q3", Sec_qn3);
+        cmd.Parameters.AddWithValue("@a3", Sec_ans3);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
 }

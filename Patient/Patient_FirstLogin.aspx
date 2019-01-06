@@ -51,13 +51,13 @@
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">New Password</td>
                     <td>
-                        <asp:TextBox ID="newPWTB" runat="server" Width="280px"></asp:TextBox>
+                        <asp:TextBox ID="newPWTB" runat="server" Width="280px" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">Confirm Password</td>
                     <td>
-                        <asp:TextBox ID="conPWTB" runat="server" Width="280px"></asp:TextBox>
+                        <asp:TextBox ID="conPWTB" runat="server" Width="280px" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
