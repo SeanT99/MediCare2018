@@ -55,6 +55,7 @@
                 <asp:TextBox ID="IDTB" runat="server" Width="265px" autocomplete="off"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="IDTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                 <asp:CustomValidator runat="server" id="cusCustom" controltovalidate="IDTB" onservervalidate="cusCustom_ServerValidateNRIC" errormessage="The NRIC Number is Invalid!" Font-Bold="True" ForeColor="Red" />
+                <asp:CustomValidator ID="IDValidator" runat="server" ErrorMessage="This id has been registered!" Font-Bold="True" ForeColor="Red" OnServerValidate="IDValidator_ServerValidate"></asp:CustomValidator>
             </td>
         </tr>
         <tr>

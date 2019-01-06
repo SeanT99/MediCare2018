@@ -13,8 +13,9 @@ using System.Text.RegularExpressions;//for regex
 public partial class Nurse_Registration : System.Web.UI.Page
 {
     Boolean valid = true;
-    MailUtilities mail = new MailUtilities();
-    PasswordUtility passwordUtil = new PasswordUtility();
+    readonly MailUtilities mail = new MailUtilities();
+    readonly PasswordUtility passwordUtil = new PasswordUtility();
+    readonly PatientInfo pat = new PatientInfo();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -119,7 +120,18 @@ public partial class Nurse_Registration : System.Web.UI.Page
     //-------------------------------------------------------------------------------------------------------------------------
     //---------------------------------------------------VALIDATORS------------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------------
+    protected void IDValidator_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        string enteredID = IDTB.Text.ToUpper();
+        PatientInfo x = pat.GetLoginDetails(enteredID);
+        if (x != null)
+        {
+            args.IsValid = false;
+            valid = false;
 
+        }
+    }
+    
     //Validate the dob make sure dob is before todays date
     protected void dobValid_ServerValidate(object source, ServerValidateEventArgs args)
     {
