@@ -149,7 +149,8 @@
         <tr>
             <td style="width: 318px; height: 4px;">Password status</td>
             <td>
-                <asp:Label ID="syncLbl" runat="server" Text=" "></asp:Label>
+                <asp:Label ID="statusLbl" runat="server" Text=" "></asp:Label>
+                <asp:Button ID="ReminderBtn" runat="server" Text="Send Reminder" Width="131px" />
             </td>
         </tr>
         <tr>
