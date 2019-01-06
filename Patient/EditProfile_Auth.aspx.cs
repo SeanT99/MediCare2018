@@ -23,27 +23,33 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
         if (ran[0] == "1")
         {
             question1 = q.Sec_qn1;
+            ans1 = q.Sec_ans1;
         }
         else if (ran[0] == "2")
         {
             question1 = q.Sec_qn2;
+            ans1 = q.Sec_ans2;
         }
         else if (ran[0] == "3")
         {
             question1 = q.Sec_qn3;
+            ans1 = q.Sec_ans3;
         }
 
         if (ran[1] == "1")
         {
             question2 = q.Sec_qn1;
+            ans2 = q.Sec_ans1;
         }
         else if (ran[1] == "2")
         {
             question2 = q.Sec_qn2;
+            ans2 = q.Sec_ans2;
         }
         else if (ran[1] == "3")
         {
             question2 = q.Sec_qn3;
+            ans2 = q.Sec_ans3;
         }
 
         
@@ -56,32 +62,6 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
     {
         //bool pass = false;
 
-        //set the security answers to the strings
-        if (ran[0] == "1")
-        {
-            ans1 = q.Sec_ans1;
-        }
-        else if (ran[0] == "2")
-        {
-            ans1 = q.Sec_ans2;
-        }
-        else if (ran[0] == "3")
-        {
-            ans1 = q.Sec_ans3;
-        }
-
-        if (ran[1] == "1")
-        {
-            ans2 = q.Sec_ans1;
-        }
-        else if (ran[1] == "2")
-        {
-            ans2 = q.Sec_ans2;
-        }
-        else if (ran[1] == "3")
-        {
-            ans2 = q.Sec_ans3;
-        }
 
         //check the ans
         if (Ans1TB.Text == ans1 && Ans2TB.Text == ans2)
