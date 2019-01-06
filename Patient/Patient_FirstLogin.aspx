@@ -52,12 +52,14 @@
                     <td class="auto-style3" style="font-weight: bold;">New Password</td>
                     <td>
                         <asp:TextBox ID="newPWTB" runat="server" Width="280px" TextMode="Password"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="newPWTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">Confirm Password</td>
                     <td>
                         <asp:TextBox ID="conPWTB" runat="server" Width="280px" TextMode="Password"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="conPWTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                     </td>
                 </tr>
                 <tr>
