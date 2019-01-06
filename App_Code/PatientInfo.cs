@@ -338,8 +338,6 @@ public class PatientInfo
     {
         PatientInfo x = null;
 
-        //strings for the object creation
-
         //query string
         string queryStr = "SELECT id,login_password,salt,acctype FROM PatientInfo WHERE id = @LoginNRIC";
 
