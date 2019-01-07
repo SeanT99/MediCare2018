@@ -66,11 +66,12 @@
             <td colspan="2" style="font-weight: bold; height: 26px;">Contact Details</td>
         </tr>
         <tr>
-            <td style="width: 318px">Email</td>
-            <td>
+            <td style="width: 318px; height: 33px;">Email</td>
+            <td style="height: 33px">
                 <asp:TextBox ID="emailTB" runat="server" autocomplete="off"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="emailTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="emailTB" ErrorMessage="This is an invalid email" Font-Bold="True" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="This email has been registered before." Font-Bold="True" ForeColor="Red" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>
             </td>
         </tr>
         <tr>

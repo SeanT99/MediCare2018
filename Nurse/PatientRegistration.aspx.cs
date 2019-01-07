@@ -86,15 +86,15 @@ public partial class Nurse_Registration : System.Web.UI.Page
             PatientInfo patient = new PatientInfo(id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, hashing[0]);
 
             int result = patient.PatientInsert();
-            
+
             if (result > 0)
             {
                 //Sending out welcome email
                 result = mail.sendWelcomeMail(email, given_Name, rawPassword);
-                if(result > 0)
+                if (result > 0)
                 {
                     //success message
-                    Response.Write("<script>alert('New patient added successfully');location.href='PatientManagement_Details.aspx?id="+id+"';</script>");
+                    Response.Write("<script>alert('New patient added successfully');location.href='PatientManagement_Details.aspx?id=" + id + "';</script>");
                 }
                 else
                 {
@@ -108,35 +108,24 @@ public partial class Nurse_Registration : System.Web.UI.Page
                 Response.Write("<script>alert('New patient not added successfully');</script>");
             }
 
-            
+
 
         }
 
         else
-         { return; }
+        { return; }
     }
 
 
     //-------------------------------------------------------------------------------------------------------------------------
     //---------------------------------------------------VALIDATORS------------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------------
-    protected void IDValidator_ServerValidate(object source, ServerValidateEventArgs args)
-    {
-        string enteredID = IDTB.Text.ToUpper();
-        PatientInfo x = pat.GetLoginDetails(enteredID);
-        if (x != null)
-        {
-            args.IsValid = false;
-            valid = false;
 
-        }
-    }
-    
     //Validate the dob make sure dob is before todays date
     protected void dobValid_ServerValidate(object source, ServerValidateEventArgs args)
     {
         string enteredDob = dobTB.Text;
-      
+
         DateTime dob = DateTime.Parse(enteredDob);
         DateTime now = DateTime.Now;
 
@@ -150,12 +139,24 @@ public partial class Nurse_Registration : System.Web.UI.Page
         {
             args.IsValid = false;
             valid = false;
-            
+
         }
         else args.IsValid = true;
 
     }
 
+
+    protected void IDValidator_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        string enteredID = IDTB.Text.ToUpper();
+        PatientInfo x = pat.GetLoginDetails(enteredID);
+        if (x != null)
+        {
+            args.IsValid = false;
+            valid = false;
+
+        }
+    }
     //for NRIC validation
     protected void cusCustom_ServerValidateNRIC(object sender, ServerValidateEventArgs e)
     {
@@ -265,6 +266,19 @@ public partial class Nurse_Registration : System.Web.UI.Page
         }
     }
 
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        string enteredEmail = emailTB.Text.ToUpper();
+        string x = pat.GetPatientIDByEmail(enteredEmail);
+        if (x != "")
+        {
+            args.IsValid = false;
+            valid = false;
+
+        }
+    }
+
+
     //-------------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------password hashing---------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------------
@@ -280,6 +294,7 @@ public partial class Nurse_Registration : System.Web.UI.Page
         return res.ToString();
     }
 
-    
+
+
 
 }

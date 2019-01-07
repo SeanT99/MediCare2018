@@ -298,6 +298,36 @@ public class PatientInfo
         return x;
     }
 
+    //to get the user id of the patient using the email
+    public string GetPatientIDByEmail(string email)
+    {
+        string id = "";
+
+        string queryStr = "SELECT id FROM PatientInfo WHERE email = @email";
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@email", email);
+        try
+        {
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                id = dr["id"].ToString();
+            }
+
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+        return id;
+    }
+
     //the patientListRetrieve method
     public List<PatientInfo> PatientListGet()
     {
@@ -467,6 +497,7 @@ public class PatientInfo
         return x;
     }
 
+    //to update the patient's information
     public int updatePatientInfo()
     {
         int result = 0;
@@ -500,8 +531,6 @@ public class PatientInfo
             conn.Open();
             result += cmd.ExecuteNonQuery();
             conn.Close();
-            Debug.Write("SDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDSSSSSSSSSSSSSSSSS");
-            Debug.Write(this.id+this.email+this.email+ this.mobileNumber);
         }
         catch (Exception e)
         {
