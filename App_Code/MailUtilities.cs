@@ -241,7 +241,7 @@ public class MailUtilities
         return x;
     }
 
-    
+    /*
     //for sending reminder to patient to login to portal
     public int sendLoginReminder(string email, string name, string password)
     {
@@ -282,5 +282,5 @@ public class MailUtilities
         return result;
 
     }
-    
+    */
 }
