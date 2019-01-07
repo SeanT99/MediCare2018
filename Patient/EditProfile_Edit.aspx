@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Patient.master" AutoEventWireup="true" CodeFile="EditProfile_Main.aspx.cs" Inherits="Nurse_Registration" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Patient.master" AutoEventWireup="true" CodeFile="EditProfile_Edit.aspx.cs" Inherits="Nurse_Registration" %>
 
 
 
