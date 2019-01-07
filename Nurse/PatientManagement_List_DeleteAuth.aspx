@@ -1,7 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Nurse.master" AutoEventWireup="true" CodeFile="PatientManagement_List_DeleteAuth.aspx.cs" Inherits="Nurse_PatientManagement_List_DeleteAuth" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    the warnings - TO ENTER WARNINGS HERE
+   <h3 style="color:red; font-weight:bold;">Warning:</h3>
+    You are about to 
+    <span style="color:red; font-weight:bold;">PERMANENTLY DELETE </span>
+    this patient's account. 
+    Permanently deleting this patient will 
+    <span style="color:red; font-weight:bold;">REMOVE ALL DATA </span>
+    associated with this patient. <br />Including his appointment records and credit card information.
 
     <table style="width:100%;">
         <tr>
