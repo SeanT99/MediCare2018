@@ -16,12 +16,15 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
         id = Request.QueryString["ID"].ToString();
         x = x.PatientInfoGet(id);
 
+        //non-editable
         given_NameLBL.Text = x.Given_Name.TrimEnd();
         family_NameLBL.Text = x.Family_Name.TrimEnd();
         dobLBL.Text = x.Dob.TrimEnd();
         genderLBL.Text = x.Gender.TrimEnd();
         idTypeLBL.Text = x.Id_Type.TrimEnd();
         idLBL.Text = x.Id.TrimEnd();
+
+        //editable
         emailTB.Text = x.Email.TrimEnd();
         mobileTB.Text = x.MobileNumber.TrimEnd();
         homeTB.Text = x.HomeNumber.TrimEnd();
