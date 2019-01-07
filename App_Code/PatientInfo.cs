@@ -211,7 +211,7 @@ public class PatientInfo
         cmd.Parameters.AddWithValue("@address_blk", this.address_blk);
         cmd.Parameters.AddWithValue("@address_street", this.address_street);
         cmd.Parameters.AddWithValue("@address_unit", this.address_unit);
-        cmd.Parameters.AddWithValue("@address_building", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_building", this.address_building);
         cmd.Parameters.AddWithValue("@address_postal", this.address_postal);
         cmd.Parameters.AddWithValue("@kin_name", this.kin_name);
         cmd.Parameters.AddWithValue("@kin_contact", this.kin_contact);
@@ -474,9 +474,7 @@ public class PatientInfo
 
         //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
 
-        string queryStr = "UPDATE PatientInfo " +
-            "SET id = @id , email = @email, mobileNumber = @mobileNumber, homeNumber = @homeNumber, address_blk = @address_blk, address_street = @address_street, address_unit = @address_unit, address_building = @address_building, address_postal = @address_postal, kin_name = @kin_name, kin_contact = @kin_contact, kin_relationship = @kin_relationship, medical_allergies = @medical_allergies, medical_history = @medical_history" +
-            "WHERE id=@id";
+        string queryStr = "UPDATE PatientInfo SET email = @email, mobileNumber = @mobileNumber, homeNumber = @homeNumber, address_blk = @address_blk, address_street = @address_street, address_unit = @address_unit, address_building = @address_building, address_postal = @address_postal, kin_name = @kin_name, kin_contact = @kin_contact, kin_relationship = @kin_relationship, medical_allergies = @medical_allergies, medical_history = @medical_history WHERE id=@id";
 
         //open connections
         SqlConnection conn = new SqlConnection(_connStr);
@@ -495,14 +493,17 @@ public class PatientInfo
         cmd.Parameters.AddWithValue("@kin_relationship", this.kin_relationship);
         cmd.Parameters.AddWithValue("@medical_allergies", this.medical_allergies);
         cmd.Parameters.AddWithValue("@medical_history", this.medical_history);
-
+        
+        
         try
         {
             conn.Open();
             result += cmd.ExecuteNonQuery();
             conn.Close();
+            Debug.Write("SDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDSSSSSSSSSSSSSSSSS");
+            Debug.Write(this.id+this.email+this.email+ this.mobileNumber);
         }
-        catch (SqlException e)
+        catch (Exception e)
         {
             Debug.Write(e);
         }
@@ -510,4 +511,5 @@ public class PatientInfo
         return result;
     }
 
+   
 } 
