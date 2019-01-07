@@ -44,6 +44,11 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
 
     protected void SaveBtn_Click(object sender, EventArgs e)
     {
+        //create the patient object
+
+
+        //UPDATE DB
+        int result = x.updatePatientInfo();
 
     }
 }

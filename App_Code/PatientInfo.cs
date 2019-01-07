@@ -79,6 +79,10 @@ public class PatientInfo
     public string Acctype { get => acctype; set => acctype = value; }
     public string Salt { get => salt; set => salt = value; }
 
+    //----------------------------------------------------------------------------------------------
+    //------------------------------------------CONSTRUCTORS----------------------------------------
+    //----------------------------------------------------------------------------------------------
+
     public PatientInfo() {}
 
     public PatientInfo(string id, string id_Type, string family_Name, string given_Name, string gender, string dob, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history, string login_password, string sec_qn1, string sec_ans1, string sec_qn2, string sec_ans2, string sec_qn3, string sec_ans3, string salt)
@@ -155,7 +159,145 @@ public class PatientInfo
         this.salt = salt;
         this.acctype = acctype;
     }
-    
+
+    //update details constructor
+
+    public PatientInfo(string id, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history)
+    {
+        this.id = id;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.homeNumber = homeNumber;
+        this.address_blk = address_blk;
+        this.address_street = address_street;
+        this.address_unit = address_unit;
+        this.address_building = address_building;
+        this.address_postal = address_postal;
+        this.kin_name = kin_name;
+        this.kin_contact = kin_contact;
+        this.kin_relationship = kin_relationship;
+        this.medical_allergies = medical_allergies;
+        this.medical_history = medical_history;
+    }
+
+
+    //----------------------------------------------------------------------------------------------
+    //---------------------------------DATABASE ACCESS METHODS--------------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    //method to add new patient to database
+    public int PatientInsert()
+    {
+        int result = 0;
+
+        //create the query "template" string
+        string queryStr = "INSERT INTO PatientInfo(id, id_Type, acctype, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, salt, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, registerDate, toChangePw)" +
+            " VALUES (@id, @id_Type, @acctype, @family_Name, @given_Name, @gender, @dob, @email, @mobileNumber, @homeNumber, @address_blk, @address_street, @address_unit, @address_building, @address_postal, @kin_name, @kin_contact, @kin_relationship, @medical_allergies, @medical_history, @salt, @login_password, @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3, @registerDate, @toChangePw)";
+
+        // @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", this.id);
+        cmd.Parameters.AddWithValue("@id_Type", this.id_Type);
+        cmd.Parameters.AddWithValue("@family_Name", this.family_Name);
+        cmd.Parameters.AddWithValue("@given_Name", this.given_Name);
+        cmd.Parameters.AddWithValue("@gender", this.gender);
+        cmd.Parameters.AddWithValue("@dob", this.dob);
+        cmd.Parameters.AddWithValue("@email", this.email);
+        cmd.Parameters.AddWithValue("@mobileNumber", this.mobileNumber);
+        cmd.Parameters.AddWithValue("@homeNumber", this.homeNumber);
+        cmd.Parameters.AddWithValue("@address_blk", this.address_blk);
+        cmd.Parameters.AddWithValue("@address_street", this.address_street);
+        cmd.Parameters.AddWithValue("@address_unit", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_building", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_postal", this.address_postal);
+        cmd.Parameters.AddWithValue("@kin_name", this.kin_name);
+        cmd.Parameters.AddWithValue("@kin_contact", this.kin_contact);
+        cmd.Parameters.AddWithValue("@kin_relationship", this.kin_relationship);
+        cmd.Parameters.AddWithValue("@medical_allergies", this.medical_allergies);
+        cmd.Parameters.AddWithValue("@medical_history", this.medical_history);
+        cmd.Parameters.AddWithValue("@login_password", this.login_password);
+        cmd.Parameters.AddWithValue("@sec_qn1", this.sec_qn1);
+        cmd.Parameters.AddWithValue("@sec_ans1", this.sec_ans1);
+        cmd.Parameters.AddWithValue("@sec_qn2", this.sec_qn2);
+        cmd.Parameters.AddWithValue("@sec_ans2", this.sec_ans2);
+        cmd.Parameters.AddWithValue("@sec_qn3", this.sec_qn3);
+        cmd.Parameters.AddWithValue("@sec_ans3", this.sec_ans3);
+        cmd.Parameters.AddWithValue("@accType", "PATIENT");
+        cmd.Parameters.AddWithValue("@salt", this.salt);
+        cmd.Parameters.AddWithValue("@toChangePw", "TRUE");
+        cmd.Parameters.AddWithValue("@registerDate", DateTime.Now.ToString("d/M/yyyy"));
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
+    // patient deletion method
+    public int PatientDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM PatientInfo WHERE id = @id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        conn.Open();
+        result += cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }
+
+    //JJ get login account
+    public PatientInfo GetLoginDetails(string LoginNRIC)
+    {
+        PatientInfo x = null;
+
+        //query string
+        string queryStr = "SELECT id,login_password,salt,acctype FROM PatientInfo WHERE id = @LoginNRIC";
+
+        //open connections, insert param and execute query
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        conn.Open();
+        SqlDataReader dr = cmd.ExecuteReader();
+
+        if (dr.Read())
+        {
+            //store the data into object
+            id = dr["id"].ToString();
+            login_password = dr["login_password"].ToString();
+            salt = dr["salt"].ToString();
+            acctype = dr["acctype"].ToString();
+
+            x = new PatientInfo(id, login_password, salt, acctype);
+        }
+
+        //close connecetions
+        conn.Close();
+        dr.Close();
+        dr.Dispose();
+
+
+        return x;
+    }
+
     //the patientListRetrieve method
     public List<PatientInfo> PatientListGet()
     {
@@ -255,119 +397,8 @@ public class PatientInfo
 
         return x;
     }
-
-    //method to add new patient to database
-    public int PatientInsert()
-    {
-        int result = 0;
-
-        //create the query "template" string
-        string queryStr = "INSERT INTO PatientInfo(id, id_Type, acctype, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, salt, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, registerDate, toChangePw)"+
-            " VALUES (@id, @id_Type, @acctype, @family_Name, @given_Name, @gender, @dob, @email, @mobileNumber, @homeNumber, @address_blk, @address_street, @address_unit, @address_building, @address_postal, @kin_name, @kin_contact, @kin_relationship, @medical_allergies, @medical_history, @salt, @login_password, @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3, @registerDate, @toChangePw)";
-
-        // @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3
-
-        //open connections
-        SqlConnection conn =  new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@id", this.id);
-        cmd.Parameters.AddWithValue("@id_Type",this.id_Type);
-        cmd.Parameters.AddWithValue("@family_Name",this.family_Name);
-        cmd.Parameters.AddWithValue("@given_Name",this.given_Name);
-        cmd.Parameters.AddWithValue("@gender",this.gender);
-        cmd.Parameters.AddWithValue("@dob",this.dob);
-        cmd.Parameters.AddWithValue("@email", this.email);
-        cmd.Parameters.AddWithValue("@mobileNumber",this.mobileNumber);
-        cmd.Parameters.AddWithValue("@homeNumber",this.homeNumber);
-        cmd.Parameters.AddWithValue("@address_blk",this.address_blk);
-        cmd.Parameters.AddWithValue("@address_street",this.address_street);
-        cmd.Parameters.AddWithValue("@address_unit",this.address_unit);
-        cmd.Parameters.AddWithValue("@address_building", this.address_unit);
-        cmd.Parameters.AddWithValue("@address_postal",this.address_postal);
-        cmd.Parameters.AddWithValue("@kin_name",this.kin_name);
-        cmd.Parameters.AddWithValue("@kin_contact",this.kin_contact);
-        cmd.Parameters.AddWithValue("@kin_relationship",this.kin_relationship);
-        cmd.Parameters.AddWithValue("@medical_allergies",this.medical_allergies);
-        cmd.Parameters.AddWithValue("@medical_history",this.medical_history);
-        cmd.Parameters.AddWithValue("@login_password",this.login_password);
-        cmd.Parameters.AddWithValue("@sec_qn1",this.sec_qn1);
-        cmd.Parameters.AddWithValue("@sec_ans1",this.sec_ans1);
-        cmd.Parameters.AddWithValue("@sec_qn2", this.sec_qn2);
-        cmd.Parameters.AddWithValue("@sec_ans2", this.sec_ans2);
-        cmd.Parameters.AddWithValue("@sec_qn3", this.sec_qn3);
-        cmd.Parameters.AddWithValue("@sec_ans3", this.sec_ans3);
-        cmd.Parameters.AddWithValue("@accType", "PATIENT");
-        cmd.Parameters.AddWithValue("@salt", this.salt);
-        cmd.Parameters.AddWithValue("@toChangePw", "TRUE");
-        cmd.Parameters.AddWithValue("@registerDate", DateTime.Now.ToString("d/M/yyyy"));
-
-        try { 
-        conn.Open();
-        result += cmd.ExecuteNonQuery();
-        conn.Close();
-        }
-        catch (SqlException e)
-        {
-            Debug.Write(e);
-        }
-
-        return result;
-    }
-
-    // patient deletion method
-    public int PatientDelete(String id)
-    {
-        int result = 0;
-
-        string queryStr = "DELETE FROM PatientInfo WHERE id = @id";
-
-        //open connections
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@id", id);
-
-        conn.Open();
-        result += cmd.ExecuteNonQuery();
-        conn.Close();
-
-        return result;
-    }
-
-    //JJ get login account
-    public PatientInfo GetLoginDetails(string LoginNRIC)
-    {
-        PatientInfo x = null;
-
-        //query string
-        string queryStr = "SELECT id,login_password,salt,acctype FROM PatientInfo WHERE id = @LoginNRIC";
-
-        //open connections, insert param and execute query
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
-        conn.Open();
-        SqlDataReader dr = cmd.ExecuteReader();
-
-        if (dr.Read())
-        {
-            //store the data into object
-            id = dr["id"].ToString();
-            login_password = dr["login_password"].ToString();
-            salt = dr["salt"].ToString();
-            acctype = dr["acctype"].ToString();
-
-            x = new PatientInfo(id, login_password, salt, acctype);
-        }
-
-        //close connecetions
-        conn.Close();
-        dr.Close();
-        dr.Dispose();
-
-
-        return x;
-    }
     
+    //to get all of the user's data for deletion rollback
     public PatientInfo PatientInfoGetAll(string qid)
     {
         PatientInfo x = null;
@@ -434,6 +465,49 @@ public class PatientInfo
         }
 
         return x;
+    }
+
+    public int updatePatientInfo()
+    {
+        int result = 0;
+
+
+        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
+
+        string queryStr = "UPDATE PatientInfo " +
+            "SET id = @id , email = @email, mobileNumber = @mobileNumber, homeNumber = @homeNumber, address_blk = @address_blk, address_street = @address_street, address_unit = @address_unit, address_building = @address_building, address_postal = @address_postal, kin_name = @kin_name, kin_contact = @kin_contact, kin_relationship = @kin_relationship, medical_allergies = @medical_allergies, medical_history = @medical_history" +
+            "WHERE id=@id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", this.id);
+        cmd.Parameters.AddWithValue("@email", this.email);
+        cmd.Parameters.AddWithValue("@mobileNumber", this.mobileNumber);
+        cmd.Parameters.AddWithValue("@homeNumber", this.homeNumber);
+        cmd.Parameters.AddWithValue("@address_blk", this.address_blk);
+        cmd.Parameters.AddWithValue("@address_street", this.address_street);
+        cmd.Parameters.AddWithValue("@address_unit", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_building", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_postal", this.address_postal);
+        cmd.Parameters.AddWithValue("@kin_name", this.kin_name);
+        cmd.Parameters.AddWithValue("@kin_contact", this.kin_contact);
+        cmd.Parameters.AddWithValue("@kin_relationship", this.kin_relationship);
+        cmd.Parameters.AddWithValue("@medical_allergies", this.medical_allergies);
+        cmd.Parameters.AddWithValue("@medical_history", this.medical_history);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
     }
 
 } 
