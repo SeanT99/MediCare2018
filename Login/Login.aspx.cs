@@ -93,10 +93,31 @@ public partial class Login_Login : System.Web.UI.Page
             {
                 if (UserLoginDetails.Acctype == "PATIENT   ")
                 {
+                    //session ANSELM TEOH
+                    Session["LoggedIn"] = UsernameField.Text.Trim();
+
+                    //create a new GUID and save into session
+                    string guid = Guid.NewGuid().ToString();
+                    Session["AuthToken"] = guid;
+
+                    // Create cookie with this guid value
+                    Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+                    
                     Response.Redirect("../Appointment/OnlineAppt.aspx",false);
                 }
                 else if (UserLoginDetails.Acctype != "PATIENT   ")
                 {
+                    //session ANSELM TEOH
+                    Session["LoggedIn"] = UsernameField.Text.Trim();
+
+                    //create a new GUID and save into session
+                    string guid = Guid.NewGuid().ToString();
+                    Session["AuthToken"] = guid;
+
+                    // Create cookie with this guid value
+                    Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+                    
+
                     Response.Redirect("../Nurse/PatientRegistration.aspx",false);
                 }
             }

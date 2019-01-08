@@ -27,6 +27,13 @@
                     </li>
                   
                 </ul>
+
+                 <ul class="navbar-nav float-sm-right">
+                    <li class="nav-item">
+                        <a class ="nav-link" runat="server" OnServerClick="Logout" CausesValidation="false">Log Out</a>
+
+                    </li>
+                </ul>
                 
               
 
