@@ -102,7 +102,7 @@ public partial class Login_Login : System.Web.UI.Page
                         if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
                         {
                             //session ANSELM TEOH
-                            Session["LoggedIn"] = UsernameField.Text.Trim();
+                            Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
@@ -117,7 +117,7 @@ public partial class Login_Login : System.Web.UI.Page
                         else if (UserLoginDetails.Acctype != "PATIENT   ")
                         {
                             //session ANSELM TEOH
-                            Session["LoggedIn"] = UsernameField.Text.Trim();
+                            Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
@@ -132,7 +132,7 @@ public partial class Login_Login : System.Web.UI.Page
                         else
                         {
                             //session ANSELM TEOH
-                            Session["LoggedIn"] = UsernameField.Text.Trim();
+                            Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
@@ -175,7 +175,7 @@ public partial class Login_Login : System.Web.UI.Page
                     if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
                     {
                         //session ANSELM TEOH
-                        Session["LoggedIn"] = UsernameField.Text.Trim();
+                        Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();
@@ -189,7 +189,7 @@ public partial class Login_Login : System.Web.UI.Page
                     else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
                     {
                         //session ANSELM TEOH
-                        Session["LoggedIn"] = UsernameField.Text.Trim();
+                        Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();
@@ -204,7 +204,7 @@ public partial class Login_Login : System.Web.UI.Page
                     else if (UserLoginDetails.Acctype != "PATIENT   ")
                     {
                         //session ANSELM TEOH
-                        Session["LoggedIn"] = UsernameField.Text.Trim();
+                        Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();

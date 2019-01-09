@@ -14,7 +14,7 @@ public partial class Appointment_OnlineAppt : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        tbPatientID.Text = Session["LoggedIn"].ToString();
     }
 
 
