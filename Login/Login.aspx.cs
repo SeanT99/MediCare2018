@@ -101,7 +101,7 @@ public partial class Login_Login : System.Web.UI.Page
                     {
                         if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
                         {
-                            Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                            Response.Redirect("../Patient/NewPatientFirstLogin.aspx", false);
                         }
                       
                         else if (UserLoginDetails.Acctype != "PATIENT   ")

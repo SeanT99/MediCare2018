@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,7 +18,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
     protected void details_Click(object sender, EventArgs e)
     {
-        string id = "ADMIN";//TODO add the id details
+        string id = Session["LoggedIn"].ToString();//TODO add the id details
         string q1, q2, q3;
         q1 = sq1DDL.SelectedItem.Text.ToUpper();
         q2 = sq2DDL.SelectedItem.Text.ToUpper();
