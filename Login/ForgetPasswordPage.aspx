@@ -35,11 +35,13 @@
 
     <asp:Label ID="EmailAddress" runat="server" Text="Email Address:" CssClass="col-form-label"></asp:Label>
             
-    <asp:TextBox ID="EmailAddressField" runat="server" CssClass="form-control col-sm-9 mt-sm-2" ></asp:TextBox>
+    <asp:TextBox ID="EmailAddressField" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px" ></asp:TextBox>
         </div>
     
     <p class="form-group ml-sm-5">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="EmailValidatorMessage" ControlToValidate="EmailAddressField" ErrorMessage="RequiredFieldValidator" ForeColor="Red">Please Enter A Valid Email.</asp:RequiredFieldValidator>
+        <br />
+        <asp:Label ID="EmailAddressDoNotExistLabel" runat="server" Text="Email Address Do Not Exist" ForeColor="Red"></asp:Label>
         <br />
         <asp:Button ID="SubmitButton" runat="server" Text="SUBMIT" CssClass="btn btn-primary col-sm-9 color1" OnClick="SubmitButton_Click"  />
 

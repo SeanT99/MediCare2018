@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;    
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -24,17 +24,10 @@ public partial class Login_Login : System.Web.UI.Page
     {
         IncorrectUsernameAndPasswordLabel.Visible = false;
         CaptchaClass.Visible = false;
+        CaptchaNotCompletedLabel.Visible = true;
 
 
 
-    }
-
-    public class CaptchaResponse
-    {
-        public bool success { get; set; }
-        public string challenge_ts { get; set; }
-        public string hostname { get; set; }
-        public string errorCodes { get; set; }
     }
 
     public class MyObject
@@ -59,13 +52,12 @@ public partial class Login_Login : System.Web.UI.Page
         LoginNRIC = UsernameField.Text.ToUpper();
         Password = PasswordField.Text;
         string hashStr = "";
-        string reCaptchaSecret = "[6LdCW4UUAAAAADK9eQFh6LdFvhWaxgji0dv9iyc6]";
-        string reCaptchaRequest = "";
 
         //add the username to the password then hash the summed string
         string ToHashUserLoginInput = LoginNRIC + Password;
         PatientInfo LoginInfo = new PatientInfo();
         PatientInfo UserLoginDetails = LoginInfo.GetLoginDetails(LoginNRIC);
+       
         if (UserLoginDetails != null)
         {
 
@@ -89,69 +81,83 @@ public partial class Login_Login : System.Web.UI.Page
 
             ////4. convert the byte array to a string
             hashStr = Convert.ToBase64String(hashBytes);
-            if (hashStr == UserLoginDetails.Login_password && LoginNRIC == UserLoginDetails.Id)
-            {
-                if (UserLoginDetails.Acctype == "PATIENT   ")
-                {
-                    //session ANSELM TEOH
-                    Session["LoggedIn"] = UsernameField.Text.Trim();
 
-                    //create a new GUID and save into session
-                    string guid = Guid.NewGuid().ToString();
-                    Session["AuthToken"] = guid;
 
-                    // Create cookie with this guid value
-                    Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-                    
-                    Response.Redirect("../Appointment/OnlineAppt.aspx",false);
-                }
-                else if (UserLoginDetails.Acctype != "PATIENT   ")
-                {
-                    //session ANSELM TEOH
-                    Session["LoggedIn"] = UsernameField.Text.Trim();
-
-                    //create a new GUID and save into session
-                    string guid = Guid.NewGuid().ToString();
-                    Session["AuthToken"] = guid;
-
-                    // Create cookie with this guid value
-                    Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-                    
-
-                    Response.Redirect("../Nurse/PatientRegistration.aspx",false);
-                }
-            }
-            else
-            {
-                IncorrectUsernameAndPasswordLabel.Visible = true;
-                UserLoginAttempts++;
-            }
-            //End of Login
-
-            //Regarding Captcha
-            // if UserLoginAttempts more than 3, Make sure the login take into account the response of the captcha, so that it does not login the user when the captcha is not completed
-            // thats why have to seperate another login validation method
 
             if (UserLoginAttempts > 3)
             {
-                CaptchaClass.Visible = true;
-
-                if (Request.Form["g-recaptcha-response"] != null) // To Check If The Captcha Box Is Clicked
-                {                    
-                    if (CheckReCaptcha() == true)
+                CaptchaClass.Visible = true; // Set the captcha visible first
+                if (Request.Form["g-recaptcha-response"] != "") // To Check If The Captcha Box Is Clicked
+                {
+                    CheckReCaptcha(); //Check if the Captcha Procedure is completed.                   
+                
+                    if (hashStr != UserLoginDetails.Login_password ) // If User Or Password Wrong And Have Captcha, show only IncorrectUserAndPassLabel
                     {
-                        Debug.Write("Captcha returned true");
-
-                    }
-
+                        CaptchaNotCompletedLabel.Visible = false;
+                        IncorrectUsernameAndPasswordLabel.Visible = true;
                     
+                    }
+                    else if ((hashStr == UserLoginDetails.Login_password)) // After captcha returned True if is completed, check If Username, Password and Captcha is all completed then allow login for user
+                    {
+                        if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
+                        {
+                            Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                        }
+                      
+                        else if (UserLoginDetails.Acctype != "PATIENT   ")
+                        {
+                            Response.Redirect("../Nurse/PatientRegistration.aspx", false);
 
+                        }
+                        else
+                        {
+                            Response.Redirect("../Appointment/OnlineAppt.aspx", false);
+                        }
+                       
+                    }
                 }
-               
+                else
+                {
+                    if (hashStr != UserLoginDetails.Login_password) // If User Or Password Wrong and with no Captcha, Show Both Label
+                    {
+                        CaptchaNotCompletedLabel.Visible = true;
+                        IncorrectUsernameAndPasswordLabel.Visible = true;
+                       
+                    }
+                    else if (hashStr == UserLoginDetails.Login_password) //IF user and Password correct but no captcha, Show IncompleteCaptchaLabel
+                    {
+                        CaptchaNotCompletedLabel.Visible = true;
+                        IncorrectUsernameAndPasswordLabel.Visible = false;
+                       
+                    }
+                }
+            } // end of UserLoginAttempt IF Loop
+            else if (UserLoginAttempts <= 3)
+            {
+                if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
+                {
+                    Response.Redirect("../Patient/NewPatientFirstLogin.aspx", false);
+                }
+                else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
+                {
+                    Response.Redirect("../Appointment/OnlineAppt.aspx", false);
+                }
 
-            }                    
-            // End Of Regarding Captcha
+                else if (UserLoginDetails.Acctype != "PATIENT   ")
+                {
+                    Response.Redirect("../Nurse/PatientRegistration.aspx", false);
 
+                }                         
+                else
+                {
+                    IncorrectUsernameAndPasswordLabel.Visible = true;
+                    UserLoginAttempts++;
+                }
+            }          
+        }
+        else
+        {
+            IncorrectUsernameAndPasswordLabel.Visible = true;
         }
     }
 
@@ -160,6 +166,7 @@ public partial class Login_Login : System.Web.UI.Page
     public bool CheckReCaptcha()
     {
         string Response = Request["g-recaptcha-response"];//Getting Response String Append to Post Method
+        Debug.Write(Response);
         bool Valid = false;
         //Request to Google Server
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create
@@ -186,29 +193,8 @@ public partial class Login_Login : System.Web.UI.Page
         {
             throw ex;
         }
-    }
-
-
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        if (CheckReCaptcha() == true)
-        {
-            Debug.Write("Valid Recaptcha");
-           
-        }
-
-        else
-        {
-            Debug.Write("Invalid Captcha");
-        }
-
-
-
-    }
-
-     
-    }
+    }   
+}
 
 
 

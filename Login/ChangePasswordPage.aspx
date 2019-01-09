@@ -28,35 +28,53 @@
             <div class="container col-sm-6 align-self-center ShiftMedicareSection ">
                 <h3 class="text-center mr-sm-5 pb-sm-5 ShiftMedicareTitle">Change Password</h3>
 
+
                 <div class="form-group ml-sm-5">
-
-                    <asp:Label ID="ChangeUsernameLabel" runat="server" Text="Username:" CssClass="col-form-label"></asp:Label>
-
-                    <asp:TextBox ID="ChangeUsernameField" runat="server" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
-
+                    <asp:Label ID="ChangePassUsernameLabel" runat="server" Text="Username"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="ChangePassUsernameField" runat="server" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="ValidateChangePassUsernameField" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="ChangePassUsernameField" ForeColor="Red">Username Cannot Be Empty</asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label ID="ChangePassUserErrorLabel" runat="server" Text="Username Does Not Exist" ForeColor="Red"></asp:Label>
                 </div>
 
                 <div class="form-group ml-sm-5">
+
+
+
+
 
 
 
                     <asp:Label ID="ChangePasswordLabel" runat="server" Text="New Password:" CssClass="col-form-label"></asp:Label>
 
-                    <asp:TextBox ID="ChangePasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
+
+
+                    <asp:TextBox ID="ChangePasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label ID="PasswordUsedPreviouslyLabel" runat="server" ForeColor="Red" Text="Password Used Previously, Please Choose Another Password"></asp:Label>
                 </div>
 
                 <div class="form-group ml-sm-5">
+                    <asp:Label ID="VerifyPasswordLabel" runat="server" Text="Verify New Password"></asp:Label>
+
                 </div>
 
                 <p class="form-group ml-sm-5">
 
-                    <asp:Button ID="details" runat="server" Text="Submit" CssClass="btn btn-primary col-sm-9 color1" OnClick="details_Click" />
+                    <asp:TextBox ID="VerifyPasswordTextBox" runat="server" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
+                   
+                    <asp:RequiredFieldValidator ID="VerifyNewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="VerifyPasswordTextBox" ForeColor="Red">Verify Password Field Cannot Be Empty</asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label ID="NewPasswordDoesNotMatchLabel" runat="server" ForeColor="Red" Text="New Password Does Not Match"></asp:Label>
+
+                    <asp:Button ID="details" runat="server" Text="Submit" CssClass="btn btn-primary col-sm-9 color1" OnClick="details_Click" Style="left: 0px; top: 0px" />
 
 
                 </p>
 
                 <div>
-
                 </div>
                 <div class="align-text-bottom text-sm-center mr-sm-5">
                 </div>

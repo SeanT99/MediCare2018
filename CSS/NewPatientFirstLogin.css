@@ -1,0 +1,45 @@
+﻿body {
+
+
+}
+
+#TextBox1{
+    margin-left:-150px;
+}
+
+#TextBox3 {
+    margin-left: -150px;
+}
+
+#sq1DDL{
+    margin-left:-150px;
+}
+#sqAns1TB {
+    margin-left: -150px;
+}
+
+#sq2DDL {
+    margin-left: -150px;
+}
+
+#sqAns2TB {
+    margin-left: -150px;
+}
+
+#sq3DDL {
+    margin-left: -150px;
+}
+
+#sqAns3TB {
+    margin-left: -150px;
+}
+
+#FirstChangePasswordLoginTable{
+    margin-left:100px;
+}
+#NewPasswordTB{
+    margin-left:-150px;
+}
+#ConfirmPasswordTB {
+    margin-left: -150px;
+}

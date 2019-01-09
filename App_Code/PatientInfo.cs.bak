@@ -163,7 +163,7 @@ public class PatientInfo
 		this.tochangepw = tochangepw;
     }
     
-    //Check if it exist or not, Not very sure if is new
+        //Check if it exist or not, Not very sure if is new
     public PatientInfo(string email)
     {
         this.email = email;
@@ -285,10 +285,8 @@ public class PatientInfo
     {
         PatientInfo x = null;
 
-        //strings for the object creation
-
         //query string
-        string queryStr = "SELECT id,login_password,salt,acctype,toChangePw FROM PatientInfo WHERE id = @LoginNRIC";
+        string queryStr = "SELECT id,login_password,salt,acctype FROM PatientInfo WHERE id = @LoginNRIC";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -304,9 +302,8 @@ public class PatientInfo
             login_password = dr["login_password"].ToString();
             salt = dr["salt"].ToString();
             acctype = dr["acctype"].ToString();
-            tochangepw = dr["toChangePw"].ToString();
 
-            x = new PatientInfo(id, login_password, salt, acctype, tochangepw);
+            x = new PatientInfo(id, login_password, salt, acctype);
         }
 
         //close connecetions
@@ -560,105 +557,5 @@ public class PatientInfo
         return result;
     }
 
-    //JJ get all Email Method //new
-    public List<PatientInfo> GetPatientsEmail()
-    {
-        List<PatientInfo> patients = new List<PatientInfo>();
-
-
-        string queryStr = "SELECT email from PatientInfo";
-
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        try
-        {
-            conn.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                string email = dr["email"].ToString();
-                PatientInfo a = new PatientInfo(email);
-                patients.Add(a);
-            }
-
-            conn.Close();
-            dr.Close();
-            dr.Dispose();
-        }
-        catch (SqlException e)
-        {
-            Debug.Write(e);
-        }
-        return patients;
-    }
-
-    //get the patient's details using email
-    public PatientInfo GetSpecificPatientByEmail(string enteredEmail)
-    {
-        PatientInfo x = null;
-
-        //strings for the object creation
-
-        //query string
-        string queryStr = "SELECT email,given_Name,family_Name from PatientInfo Where email=@Email"; //changed by sean 9jan
-
-        //open connections, insert param and execute query
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@Email", enteredEmail);
-        conn.Open();
-        SqlDataReader dr = cmd.ExecuteReader();
-
-        if (dr.Read())
-        {
-            //store the data into object
-            string email = dr["email"].ToString(); //changed by sean 9jan
-            string given_Name = dr["given_Name"].ToString();
-            string family_Name = dr["family_Name"].ToString();
-
-            x = new PatientInfo(email, given_Name, family_Name);
-        }
-
-        //close connecetions
-        conn.Close();
-        dr.Close();
-        dr.Dispose();
-
-
-        return x;
-    }
-    
-
-    public PatientInfo GetSpecificPatient(string enteredEmail)
-    {
-        PatientInfo x = null;
-
-        //strings for the object creation
-
-        //query string
-        string queryStr = "SELECT email from PatientInfo Where email=@Email";
-
-        //open connections, insert param and execute query
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@Email", enteredEmail);
-        conn.Open();
-        SqlDataReader dr = cmd.ExecuteReader();
-
-        if (dr.Read())
-        {
-            //store the data into object
-            string email = dr["email"].ToString();
-            x = new PatientInfo(email);
-        }
-
-        //close connecetions
-        conn.Close();
-        dr.Close();
-        dr.Dispose();
-
-
-        return x;
-    }
+   
 } 

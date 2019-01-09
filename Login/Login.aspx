@@ -14,6 +14,7 @@
 
     <title>Login</title>
 
+
     <script src='https://www.google.com/recaptcha/api.js'></script>
     
 </head>
@@ -47,12 +48,14 @@
 
                 <div class="form-group ml-sm-5">
                     <asp:Label ID="IncorrectUsernameAndPasswordLabel" runat="server" ForeColor="Red" Text="Incorrect Password or Username"></asp:Label>
+                    
                 </div>
 
                
                    <%--Try v2Captcha--%>
                 <div id="CaptchaClass" runat="server">
                     <div class="g-recaptcha" data-sitekey="6LdCW4UUAAAAADK9eQFh6LdFvhWaxgji0dv9iyc6"></div>
+                    <asp:Label ID="CaptchaNotCompletedLabel" runat="server" Text="Please Complete The Captcha. To Ensure You Are A Human. " ForeColor="Red"></asp:Label>
                 </div>
 
 
@@ -65,8 +68,6 @@
                 </p>
 
                 <div>
-
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
 
                     <asp:Button ID="forgotPassword" runat="server" Text="Forgot Password?" CssClass="btn forgotPassword" Width="170px" OnClick="forgotPassword_Click" CausesValidation="false" />
 
