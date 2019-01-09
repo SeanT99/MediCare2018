@@ -97,8 +97,6 @@ public class SecurityQuestion
     public int SecurityQuestionUpdate(string qid)
     {
         int result = 0;
-        //strings for the object creation
-        string sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3;
 
         //query string
         string queryStr = "UPDATE PatientInfo SET sec_qn1 = @q1, sec_ans1 = @a1, sec_qn2 = @q2, sec_ans2 = @a2, sec_qn3 = @q3, sec_ans3 = @a3, toChangePw = 'FALSE' WHERE id = @id";

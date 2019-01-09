@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="NewPatientFirstLogin.aspx.cs" Inherits="Login_ChangePasswordPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Patient_FirstLogin.aspx.cs" Inherits="Login_ChangePasswordPage" %>
 
 <!DOCTYPE html>
 

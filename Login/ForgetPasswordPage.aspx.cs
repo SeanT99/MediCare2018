@@ -38,10 +38,5 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
 
         }
 
-
-
-
-
-
     }
 }
