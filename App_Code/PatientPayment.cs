@@ -94,8 +94,8 @@ public class PatientPayment
     {
         string msg = null;
         int result = 0;
-        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv)"
-            + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, @key, @iv)";
+        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
+            + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, @key, @iv, @paymentDate)";
         try
         {
             SqlConnection conn = new SqlConnection(_connStr);
@@ -107,6 +107,7 @@ public class PatientPayment
             cmd.Parameters.AddWithValue("@expiryDate", this.expiryDate);
             cmd.Parameters.AddWithValue("@key", this.key);
             cmd.Parameters.AddWithValue("@iv", this.iv);
+            cmd.Parameters.AddWithValue("@paymentDate", DateTime.Now.ToString("d/M/yyyy"));
 
             conn.Open();
             result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
