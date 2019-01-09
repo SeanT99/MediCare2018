@@ -134,25 +134,29 @@ public partial class Login_Login : System.Web.UI.Page
             } // end of UserLoginAttempt IF Loop
             else if (UserLoginAttempts <= 3)
             {
-                if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
-                {
-                    Response.Redirect("../Patient/NewPatientFirstLogin.aspx", false);
-                }
-                else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
-                {
-                    Response.Redirect("../Appointment/OnlineAppt.aspx", false);
-                }
-
-                else if (UserLoginDetails.Acctype != "PATIENT   ")
-                {
-                    Response.Redirect("../Nurse/PatientRegistration.aspx", false);
-
-                }                         
-                else
+                if (hashStr != UserLoginDetails.Login_password || LoginNRIC != UserLoginDetails.Id ) // If User Or Password Wrong And Have Captcha, show only IncorrectUserAndPassLabel
                 {
                     IncorrectUsernameAndPasswordLabel.Visible = true;
                     UserLoginAttempts++;
+
                 }
+                else if ((hashStr == UserLoginDetails.Login_password) && LoginNRIC == UserLoginDetails.Id) // After captcha returned True if is completed, check If Username, Password and Captcha is all completed then allow login for user
+                {
+                    if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
+                    {
+                        Response.Redirect("../Patient/NewPatientFirstLogin.aspx", false);
+                    }
+                    else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
+                    {
+                        Response.Redirect("../Appointment/OnlineAppt.aspx", false);
+                    }
+
+                    else if (UserLoginDetails.Acctype != "PATIENT   ")
+                    {
+                        Response.Redirect("../Nurse/PatientRegistration.aspx", false);
+
+                    }
+                }             
             }          
         }
         else
