@@ -81,6 +81,7 @@ public class MailUtilities
         }
         catch (SmtpException ex)
         {
+            Debug.Write(ex);
             result = 0;
         }
 
@@ -122,6 +123,7 @@ public class MailUtilities
         }
         catch (SmtpException ex)
         {
+            Debug.Write(ex);
             result = 0;
         }
 
@@ -162,6 +164,7 @@ public class MailUtilities
         }
         catch (SmtpException ex)
         {
+            Debug.Write(ex);
             result = 0;
         }
 
@@ -203,6 +206,7 @@ public class MailUtilities
         }
         catch (SmtpException ex)
         {
+            Debug.Write(ex);
             result = 0;
         }
 
@@ -239,6 +243,48 @@ public class MailUtilities
 
 
         return x;
+    }
+
+    //JJ
+    public int sendChangePasswordMail(string email, string name)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+        int result = 1;
+
+        string body = "Hi " + name + ",<br/>You Requested To Change Your Password.<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
+
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        MailMessage mail = new MailMessage();
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress(email));
+
+
+        //to set the contents of the email
+        mail.Subject = "MediCare Portal Change Password Request";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
+
     }
 
     /*
