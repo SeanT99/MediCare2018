@@ -3,11 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
+
     <style>
         .expiryDate_lbl {
                margin-right: 4%;
         }
     </style>
+
 
     <div class="container mt-sm-3" style="height: 642px; margin-bottom: 0px">
   
@@ -20,23 +22,10 @@
                 <tr>
                     <td style="width: 521px; height: 111px;">
                         Available appointment timings:&nbsp;
-                        <asp:DropDownList ID="ddlApptTime" runat="server" CssClass="form-control" Enabled="False">
-                            <asp:ListItem>12:00 PM</asp:ListItem>
-                            <asp:ListItem>1:00 PM</asp:ListItem>
-                            <asp:ListItem>2:00 PM</asp:ListItem>
-                            <asp:ListItem>3:00 PM</asp:ListItem>
-                            <asp:ListItem>4:00 PM</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:TextBox ID="confirmationTiming" runat="server" Enabled="False"></asp:TextBox>
                         <br />
-                        Available appointment dates:&nbsp; <asp:DropDownList CssClass="form-control"
-    id="ddlApptDate"
-    runat="server"
-    dataTextFormatString="{0:dd/MM/yyyy} " Enabled="False">
-                            <asp:ListItem>05/05/1995</asp:ListItem>
-                            <asp:ListItem>06/05/1995</asp:ListItem>
-                            <asp:ListItem>07/05/1995</asp:ListItem>
-                            <asp:ListItem>08/05/1995</asp:ListItem>
-                        </asp:DropDownList>
+                        Available appointment dates:&nbsp; 
+                        <asp:TextBox ID="confirmationDate" runat="server" Enabled="False"></asp:TextBox>
                         <br />
                         Bookings Fee:
                         <asp:Label ID="fee_lbl" runat="server" Text="$15.00"></asp:Label>
@@ -56,16 +45,21 @@
                         <br />
                         <asp:Label ID="creditNo_lbl" runat="server" Text="Credit Card Number"></asp:Label>
                         <br />
-                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfv_creditcardno" runat="server" ControlToValidate="creditNo_tb" ErrorMessage="Please enter your credit card number." ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" MaxLength="16"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfv_creditcardno" runat="server" ControlToValidate="creditNo_tb" ErrorMessage="Please enter your credit card number." ForeColor="Red" ></asp:RequiredFieldValidator>
                         <br />       
                         <span class="expiryDate_lbl">Expiry Date</span>
                         <asp:Label ID="cvv_lbl" runat="server" Text="CCV/CVV"></asp:Label>
                         <br />
-                        <asp:TextBox ID="expiryDateMM_tb" runat="server" Width="60px" placeholder="MM" MaxLength="2"></asp:TextBox>/
-                        <asp:TextBox ID="expiryDateYY_tb" runat="server" Width="60px" placeholder="YY" ></asp:TextBox>
-                        <asp:TextBox ID="cvv_tb" runat="server" Width="125px" placeholder="XXX"></asp:TextBox>
+                        <asp:TextBox ID="expiryDateMM_tb" runat="server" Width="60px" placeholder="MM" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);"></asp:TextBox>/
+                        <asp:TextBox ID="expiryDateYY_tb" runat="server" Width="60px" placeholder="YY" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" ></asp:TextBox>
+                        <asp:TextBox ID="cvv_tb" runat="server" Width="125px" placeholder="XXX" MaxLength="3" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);"></asp:TextBox>
 
+                        <asp:RequiredFieldValidator ID="rfv_expiryDate" runat="server" ControlToValidate="expiryDateMM_tb" ErrorMessage="Please enter the expiry date." ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rvf_ccv" runat="server" ControlToValidate="cvv_tb" ErrorMessage="Please enter the CCV." ForeColor="Red"></asp:RequiredFieldValidator>
+                       <asp:Label ID="lblResult" runat="server"></asp:Label> <br />
+                        
+                       
                         <br />
 
                     </td>

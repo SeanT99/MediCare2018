@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                     <td style="width: 521px; height: 67px;">
-                        Patient Name: &nbsp;<asp:TextBox ID="tbPatientName" runat="server" ReadOnly="True"  CssClass="form-control"></asp:TextBox>
+                        Patient ID: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control"></asp:TextBox>
                         &nbsp;
                     </td>
                 </tr>
@@ -50,7 +50,7 @@
            <div class="d-inline-block form-group">
                 <asp:Button ID="buttonApptCancel" runat="server" Text="Cancel" style="margin-right: 5px" />
                 <asp:Button ID="buttonApptConfirm" runat="server" Text="Confirm" OnClick="buttonApptConfirm_Click"  />
-          <asp:Button ID="buttonCheckAppts" runat="server"  Text="Check appointment bookings" Width="315px" />
+          
                 
                 
             </div>
