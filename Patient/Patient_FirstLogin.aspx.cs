@@ -10,6 +10,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 {
     readonly MailUtilities mail = new MailUtilities();
     readonly PasswordUtility pwUtility = new PasswordUtility();
+    readonly ChangePasswordUtility cpu = new ChangePasswordUtility();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -45,9 +46,12 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 //submit the security questions to database
                 SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text, q3, sqAns3TB.Text);
                 x.SecurityQuestionUpdate(id);
-
+                
+                cpu.PatientInsertOldPassword(id, login_password);
+                
                 //TODO retrieve user email /name
                 string[] email = mail.getPatientMailDetails(id);
+
                 //TODO send email to the user 
                 mail.sendPasswordChanged(email[0], email[1]);
 
