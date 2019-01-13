@@ -69,7 +69,7 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
         int result = y.updatePatientInfo();
         if (result > 0)
         {
-            Response.Redirect("../Login/Login.aspx",false);//TODO change to the patient display pg
+            Response.Redirect("../Patient/EditProfile_View.aspx", false);//TODO change to the patient display pg
         }
 
     }

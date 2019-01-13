@@ -537,7 +537,7 @@ public class PatientInfo
         cmd.Parameters.AddWithValue("@address_blk", this.address_blk);
         cmd.Parameters.AddWithValue("@address_street", this.address_street);
         cmd.Parameters.AddWithValue("@address_unit", this.address_unit);
-        cmd.Parameters.AddWithValue("@address_building", this.address_unit);
+        cmd.Parameters.AddWithValue("@address_building", this.address_building);
         cmd.Parameters.AddWithValue("@address_postal", this.address_postal);
         cmd.Parameters.AddWithValue("@kin_name", this.kin_name);
         cmd.Parameters.AddWithValue("@kin_contact", this.kin_contact);
