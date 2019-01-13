@@ -552,7 +552,7 @@ public class PatientInfo
             result += cmd.ExecuteNonQuery();
             conn.Close();
         }
-        catch (Exception e)
+        catch (SqlException e)
         {
             Debug.Write(e);
         }
