@@ -172,7 +172,7 @@ public class MailUtilities
 
     }
 
-    //for notice of account deletion
+    //for notice of password changed
     public int sendPasswordChanged(string email, string name)
     {
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
@@ -285,6 +285,88 @@ public class MailUtilities
 
         return result;
 
+    }
+
+    //for notice of security qn change
+    public int sendSecQnChanged(string email, string name)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+        int result = 1;
+
+        string body = "Hi " + name + ",<br/><br/><b>Your MediCare account security questions has been changed.</b><br/><br/>" + "Please contact the clinic at 6458 9900 if your account has not been changed by you.<br/>";
+
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        MailMessage mail = new MailMessage();
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress(email));
+
+
+        //to set the contents of the email
+        mail.Subject = "MediCare Account Security Alert";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
+    }
+
+    //for notice of security qn/password firstlogin change
+    public int sendFirstLoginChanged(string email, string name)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+        int result = 1;
+
+        string body = "Hi " + name + ",<br/><br/><b>Your MediCare account password and security questions has been changed.</b><br/><br/>" + "Please contact the clinic at 6458 9900 if your account has not been changed by you.<br/>";
+
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        MailMessage mail = new MailMessage();
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress(email));
+
+
+        //to set the contents of the email
+        mail.Subject = "MediCare Account Security Alert";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
     }
 
     /*
