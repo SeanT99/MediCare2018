@@ -53,7 +53,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 string[] email = mail.getPatientMailDetails(id);
 
                 //TODO send email to the user 
-                mail.sendPasswordChanged(email[0], email[1]);
+                mail.sendFirstLoginChanged(email[0], email[1]);
 
                 //success message
                 Response.Write("<script>alert('Password and security questions updated successfully');location.href='../Appointment/OnlineAppt.aspx';</script>");
