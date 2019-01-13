@@ -147,11 +147,10 @@
         </tr>
        
         <tr>
-            <td style="width: 318px">
+            <td colspan="2">
                 <asp:Button ID="EditBtn" runat="server" OnClick="EditBtn_Click" Text="Edit Profile" />
+                <asp:Button ID="ChangeQnBtn" runat="server" Text="Change Security Questions" OnClick="ChangeQnBtn_Click" Width="230px" />
             </td>
-            <td>
-                &nbsp;</td>
         </tr>
        
         <tr>

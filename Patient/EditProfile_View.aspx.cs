@@ -40,6 +40,11 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
 
     protected void EditBtn_Click(object sender, EventArgs e)
     {
-        //TODO redirect to editprofile_auth
+        Response.Redirect("/Patient/EditProfile_Auth.aspx");
+    }
+
+    protected void ChangeQnBtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx");
     }
 }
