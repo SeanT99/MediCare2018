@@ -48,13 +48,13 @@
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">New Password</td>
                     <td>
-                        <asp:TextBox ID="NewPasswordTB" runat="server" Width="280px" CssClass="NewPasswordTB"></asp:TextBox>
+                        <asp:TextBox ID="NewPasswordTB" runat="server" Width="280px" CssClass="NewPasswordTB" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">Confirm Password</td>
                     <td>
-                        <asp:TextBox ID="ConfirmPasswordTB" runat="server" Width="280px" CssClass="ConfirmPasswordTB"></asp:TextBox>
+                        <asp:TextBox ID="ConfirmPasswordTB" runat="server" Width="280px" CssClass="ConfirmPasswordTB" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
         <tr>
             <td style="width: 318px; font-weight: bold; ">Answer </td>
             <td style="height: 26px">
-                <asp:TextBox ID="sqAns1TB" runat="server" Width="623px"></asp:TextBox>
+                <asp:TextBox ID="sqAns1TB" runat="server" Width="623px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="sqAns1TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
             </td>
         </tr>
@@ -100,7 +100,7 @@
         <tr>
             <td style="width: 318px; font-weight: bold; ">Answer</td>
             <td style="height: 26px">
-                <asp:TextBox ID="sqAns2TB" runat="server" Width="623px"></asp:TextBox>
+                <asp:TextBox ID="sqAns2TB" runat="server" Width="623px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="sqAns2TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
             </td>
         </tr>
@@ -122,7 +122,7 @@
         <tr>
             <td style="width: 318px; font-weight: bold; ">Answer</td>
             <td style="height: 26px">
-                <asp:TextBox ID="sqAns3TB" runat="server" Width="623px"></asp:TextBox>
+                <asp:TextBox ID="sqAns3TB" runat="server" Width="623px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="sqAns3TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
             </td>
         </tr>
