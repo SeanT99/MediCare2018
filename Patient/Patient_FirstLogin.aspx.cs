@@ -47,7 +47,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text, q3, sqAns3TB.Text);
                 x.SecurityQuestionUpdate(id);
                 
-                cpu.PatientInsertOldPassword(id, login_password);
+                cpu.PatientInsertOldPassword(id, passHash[1]);
                 
                 //TODO retrieve user email /name
                 string[] email = mail.getPatientMailDetails(id);
