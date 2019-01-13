@@ -13,7 +13,7 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //Call the patient retrieval method
-        id = Request.QueryString["ID"].ToString();
+        id = HttpContext.Current.Session["LoggedIn"].ToString();
         x = x.PatientInfoGet(id);
 
         given_NameLBL.Text = x.Given_Name;
