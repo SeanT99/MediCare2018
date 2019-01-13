@@ -64,7 +64,7 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         {
             //check password
             //bool pass = authDelete(id, PasswordTB.Text);
-            bool pass = authDelete("ADMIN", PasswordTB.Text); //TODO change to the current user
+            bool pass = authDelete(HttpContext.Current.Session["LoggedIn"].ToString(), PasswordTB.Text); 
 
             if (pass == true)
             {

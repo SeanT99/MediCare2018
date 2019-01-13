@@ -15,7 +15,7 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
         if (!IsPostBack)
         {
             //Call the patient retrieval method
-            id = Request.QueryString["ID"].ToString();
+            id = HttpContext.Current.Session["LoggedIn"].ToString();
             x = x.PatientInfoGet(id);
 
             //non-editable
