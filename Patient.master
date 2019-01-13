@@ -25,7 +25,7 @@
                    <a class ="nav-link" href="../Appointment/OnlineAppt.aspx">Appointment</a>
                </li>
                <li class="nav-item">
-                   <a class ="nav-link" href="../Patient/EditProfile_Auth.aspx">Manage Profile</a>
+                   <a class ="nav-link" href="../Patient/EditProfile_View.aspx">Manage Profile</a>
                </li>
               </ul>
            <ul class="navbar-nav float-sm-right">
