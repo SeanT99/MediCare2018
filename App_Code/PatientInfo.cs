@@ -522,7 +522,6 @@ public class PatientInfo
     {
         int result = 0;
 
-
         //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
 
         string queryStr = "UPDATE PatientInfo SET email = @email, mobileNumber = @mobileNumber, homeNumber = @homeNumber, address_blk = @address_blk, address_street = @address_street, address_unit = @address_unit, address_building = @address_building, address_postal = @address_postal, kin_name = @kin_name, kin_contact = @kin_contact, kin_relationship = @kin_relationship, medical_allergies = @medical_allergies, medical_history = @medical_history WHERE id=@id";
@@ -560,6 +559,7 @@ public class PatientInfo
         return result;
     }
 
+    
     //JJ get all Email Method //new
     public List<PatientInfo> GetPatientsEmail()
     {
