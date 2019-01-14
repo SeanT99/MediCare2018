@@ -54,10 +54,7 @@
         <tr>
             <td style="width: 318px">Email</td>
             <td>
-                <asp:TextBox ID="emailTB" runat="server" autocomplete="off" Autopostback="false"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="emailTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="emailTB" ErrorMessage="This is an invalid email" Font-Bold="True" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-                <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="This email has been registered before." Font-Bold="True" ForeColor="Red" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>
+                <asp:Label ID="emailLBL" runat="server" Text=" "></asp:Label>
                 </td>
         </tr>
         <tr>

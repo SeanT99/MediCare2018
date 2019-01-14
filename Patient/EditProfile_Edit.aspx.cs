@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 public partial class Patient_EditProfile_Edit : System.Web.UI.Page
 {
     PatientInfo x = new PatientInfo();
+    readonly MailUtilities mail = new MailUtilities();
     string id = "";
     bool valid = true;
     protected void Page_Load(object sender, EventArgs e)
@@ -35,9 +36,9 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
                     genderLBL.Text = x.Gender.TrimEnd();
                     idTypeLBL.Text = x.Id_Type.TrimEnd();
                     idLBL.Text = x.Id.TrimEnd();
+                    emailLBL.Text = x.Email.TrimEnd();
 
                     //editable
-                    emailTB.Text = x.Email.TrimEnd();
                     mobileTB.Text = x.MobileNumber.TrimEnd();
                     homeTB.Text = x.HomeNumber.TrimEnd();
                     blkTB.Text = x.Address_blk.TrimEnd();
@@ -66,7 +67,7 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
         if (valid)//to check if there are any errors in the registration form
         {
             //create the patient object
-            string email = emailTB.Text;
+            string email = emailLBL.Text;
             string mobileNumber = mobileTB.Text;
             string homeNumber = homeTB.Text;
 
@@ -87,22 +88,18 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
 
             //UPDATE DB
             int result = y.updatePatientInfo();
+
+            //send email
+            // retrieve user email /name
+            string[] emaildet = mail.getPatientMailDetails(id);
+
+            // send email to the user 
+            mail.sendSecQnChanged(emaildet[0], emaildet[1]);
+
             if (result > 0)
             {
-                Response.Write("<script>alert('Account updated');location.href='/Patient/EditProfile_View';</script>");
+                Response.Write("<script>alert('Account updated');location.href='/Patient/EditProfile_View.aspx';</script>");
             }
-        }
-    }
-
-    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
-    {
-        string enteredEmail = emailTB.Text.ToUpper();
-        string x = pat.GetPatientIDByEmail(enteredEmail);
-        if (x != "")
-        {
-            args.IsValid = false;
-            valid = false;
-
         }
     }
 
