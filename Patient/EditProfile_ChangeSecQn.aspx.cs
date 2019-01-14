@@ -12,7 +12,22 @@ public partial class Patient_EditProfile_ChangeSecQn : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        id = HttpContext.Current.Session["LoggedIn"].ToString();
+        if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
+        {
+            if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
+            {
+                Response.Redirect("../Login/Login.aspx", false);
+            }
+            else
+            {
+                id = HttpContext.Current.Session["LoggedIn"].ToString();
+            }
+        }
+        else
+        {
+            Response.Redirect("../Login/Login.aspx", false);
+        }
+
     }
 
     protected void SubmitBtn_Click(object sender, EventArgs e)
@@ -28,10 +43,10 @@ public partial class Patient_EditProfile_ChangeSecQn : System.Web.UI.Page
 
         if (result > 0)
         {
-            //TODO retrieve user email /name
+            // retrieve user email /name
             string[] email = mail.getPatientMailDetails(id);
 
-            //TODO send email to the user 
+            // send email to the user 
             mail.sendSecQnChanged(email[0], email[1]);
 
             //success message
