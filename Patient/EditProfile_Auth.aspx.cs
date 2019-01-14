@@ -78,7 +78,7 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
 
 
         //check the ans
-        if (Ans1TB.Text == ans1 && Ans2TB.Text == ans2)
+        if (Ans1TB.Text.ToUpper() == ans1 && Ans2TB.Text.ToUpper() == ans2)
             //pass = true;
             //link to edit page
             Response.Redirect("/Patient/EditProfile_Edit.aspx");

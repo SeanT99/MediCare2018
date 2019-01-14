@@ -43,7 +43,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
 
                 //submit the security questions to database
-                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text, q3, sqAns3TB.Text);
+                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text.ToUpper(), q2, sqAns2TB.Text.ToUpper(), q3, sqAns3TB.Text.ToUpper());
                 x.SecurityQuestionUpdate(id);
                 
                 cpu.PatientInsertOldPassword(id, passHash[1]);
