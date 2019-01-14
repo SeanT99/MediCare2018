@@ -11,7 +11,7 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
     PatientInfo x = new PatientInfo();
     readonly MailUtilities mail = new MailUtilities();
     string id = "";
-    bool valid = true;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -64,43 +64,40 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
 
     protected void SaveBtn_Click(object sender, EventArgs e)
     {
-        if (valid)//to check if there are any errors in the registration form
+        //create the patient object
+        string email = emailLBL.Text;
+        string mobileNumber = mobileTB.Text;
+        string homeNumber = homeTB.Text;
+
+        string address_blk = blkTB.Text;
+        string address_street = streetTB.Text;
+        string address_unit = unitTB.Text;
+        string address_building = buildingTB.Text;
+        string address_postal = postalTB.Text;
+        string kin_name = ecNameTB.Text;
+        string kin_contact = ecNumberTB.Text;
+        string kin_relationship = ecRelationshipTB.Text;
+        string medical_allergies = allergyTB.Text;
+        string medical_history = medHistTB.Text;
+
+        id = HttpContext.Current.Session["LoggedIn"].ToString();
+
+        PatientInfo y = new PatientInfo(id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history);
+
+        //UPDATE DB
+        int result = y.updatePatientInfo();
+
+        //send email
+        // retrieve user email /name
+        string[] emaildet = mail.getPatientMailDetails(id);
+
+        // send email to the user 
+        mail.sendSecQnChanged(emaildet[0], emaildet[1]);
+
+        if (result > 0)
         {
-            //create the patient object
-            string email = emailLBL.Text;
-            string mobileNumber = mobileTB.Text;
-            string homeNumber = homeTB.Text;
-
-            string address_blk = blkTB.Text;
-            string address_street = streetTB.Text;
-            string address_unit = unitTB.Text;
-            string address_building = buildingTB.Text;
-            string address_postal = postalTB.Text;
-            string kin_name = ecNameTB.Text;
-            string kin_contact = ecNumberTB.Text;
-            string kin_relationship = ecRelationshipTB.Text;
-            string medical_allergies = allergyTB.Text;
-            string medical_history = medHistTB.Text;
-
-            id = HttpContext.Current.Session["LoggedIn"].ToString();
-
-            PatientInfo y = new PatientInfo(id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history);
-
-            //UPDATE DB
-            int result = y.updatePatientInfo();
-
-            //send email
-            // retrieve user email /name
-            string[] emaildet = mail.getPatientMailDetails(id);
-
-            // send email to the user 
-            mail.sendSecQnChanged(emaildet[0], emaildet[1]);
-
-            if (result > 0)
-            {
-                Response.Write("<script>alert('Account updated');location.href='/Patient/EditProfile_View.aspx';</script>");
-            }
+            Response.Write("<script>alert('Account updated');location.href='/Patient/EditProfile_View.aspx';</script>");
         }
     }
-
 }
+
