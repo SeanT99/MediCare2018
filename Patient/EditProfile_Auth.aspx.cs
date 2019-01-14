@@ -14,48 +14,62 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //retrieve the security qns and answer
-        q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString()); //TODO change to the current user
-        //generate 2 random numbers
-        ran = ranNum();
+        if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
+        {
+            if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
+            {
+                Response.Redirect("../Login/Login.aspx", false);
+            }
+            else
+            {
 
-        //set the security questions to the labels
-        if (ran[0] == "1")
-        {
-            question1 = q.Sec_qn1;
-            ans1 = q.Sec_ans1;
-        }
-        else if (ran[0] == "2")
-        {
-            question1 = q.Sec_qn2;
-            ans1 = q.Sec_ans2;
-        }
-        else if (ran[0] == "3")
-        {
-            question1 = q.Sec_qn3;
-            ans1 = q.Sec_ans3;
-        }
+                //retrieve the security qns and answer
+                q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString()); //TODO change to the current user
+                                                                                               //generate 2 random numbers
+                ran = ranNum();
 
-        if (ran[1] == "1")
-        {
-            question2 = q.Sec_qn1;
-            ans2 = q.Sec_ans1;
-        }
-        else if (ran[1] == "2")
-        {
-            question2 = q.Sec_qn2;
-            ans2 = q.Sec_ans2;
-        }
-        else if (ran[1] == "3")
-        {
-            question2 = q.Sec_qn3;
-            ans2 = q.Sec_ans3;
-        }
+                //set the security questions to the labels
+                if (ran[0] == "1")
+                {
+                    question1 = q.Sec_qn1;
+                    ans1 = q.Sec_ans1;
+                }
+                else if (ran[0] == "2")
+                {
+                    question1 = q.Sec_qn2;
+                    ans1 = q.Sec_ans2;
+                }
+                else if (ran[0] == "3")
+                {
+                    question1 = q.Sec_qn3;
+                    ans1 = q.Sec_ans3;
+                }
 
-        
-        Q1Lbl.Text = question1;
-        Q2Lbl.Text = question2;
+                if (ran[1] == "1")
+                {
+                    question2 = q.Sec_qn1;
+                    ans2 = q.Sec_ans1;
+                }
+                else if (ran[1] == "2")
+                {
+                    question2 = q.Sec_qn2;
+                    ans2 = q.Sec_ans2;
+                }
+                else if (ran[1] == "3")
+                {
+                    question2 = q.Sec_qn3;
+                    ans2 = q.Sec_ans3;
+                }
 
+
+                Q1Lbl.Text = question1;
+                Q2Lbl.Text = question2;
+            }
+        }
+        else
+        {
+            Response.Redirect("../Login/Login.aspx", false);
+        }
     }
 
     protected void SubmitBtn_Click(object sender, EventArgs e)
