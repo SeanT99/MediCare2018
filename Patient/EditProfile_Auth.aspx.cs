@@ -24,7 +24,7 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
             {
 
                 //retrieve the security qns and answer
-                q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString()); //TODO change to the current user
+                q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString()); 
                                                                                                //generate 2 random numbers
                 ran = ranNum();
 
@@ -81,9 +81,9 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
         if (Ans1TB.Text == ans1 && Ans2TB.Text == ans2)
             //pass = true;
             //link to edit page
-            Response.Redirect("/Patient/EditProfile_Edit.aspx"); //TODO change to the edit profile page
+            Response.Redirect("/Patient/EditProfile_Edit.aspx");
 
-        //TODO prompt ans wrong alert
+        //prompt ans wrong alert
         else
             Response.Write("<script>alert('One/more of the answer(s) is wrong');</script>");
     }
