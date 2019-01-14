@@ -58,6 +58,9 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
 
     protected void ChangeQnBtn_Click(object sender, EventArgs e)
     {
+        //TODO generate the otp
+        //TODO send otp to user
+        //TODO set to session the 
         Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx",false);
     }
 }
