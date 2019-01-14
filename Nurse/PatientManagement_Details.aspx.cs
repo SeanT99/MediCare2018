@@ -91,4 +91,9 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
     {
         Response.Redirect("PatientManagement_List_DeleteAuth.aspx?id=" + id);
     }
+
+    protected void EditBtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PatientManagement_List_EditPatient.aspx?id=" + id);
+    }
 }

@@ -147,11 +147,11 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 318px">
+            <td colspan="2">
                 <asp:Button ID="PwResetBtn" runat="server" OnClick="PwResetBtn_Click" Text="Reset Password" Width="128px" />
                 <asp:Button ID="DeleteBtn" runat="server" OnClick="DeleteBtn_Click" Text="Delete this patient" Width="147px" />
+                <asp:Button ID="EditBtn" runat="server" OnClick="EditBtn_Click" Text="Edit this profile" Width="127px" />
             </td>
-            <td>&nbsp;</td>
         </tr>
         </table>
 </asp:Content>
