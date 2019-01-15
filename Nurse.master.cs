@@ -15,11 +15,6 @@ public partial class Admin2 : System.Web.UI.MasterPage
             {
                 Response.Redirect("Login.aspx", false);
             }
-            else
-            {
-
-            }
-
         }
         else
         {
