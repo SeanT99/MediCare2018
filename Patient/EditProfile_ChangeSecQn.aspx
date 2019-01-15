@@ -7,6 +7,12 @@
         <tr>
         <td style="font-weight: bold; height: 23px;" colspan="2">Please select your new security questions and answers below</td>
         </tr>
+        <tr>
+        <td style="width: 318px; font-weight: bold; height: 23px;">OTP</td>
+            <td >
+                <asp:TextBox ID="otpTB" runat="server" AutoCompleteType="Disabled" MaxLength="6" TextMode="Password"></asp:TextBox>
+            </td>
+        </tr>
         <td style="width: 318px; font-weight: bold; height: 23px;">Question 1</td>
             <td >
                 <asp:DropDownList ID="sq1DDL" runat="server" >
@@ -69,6 +75,13 @@
                 <asp:TextBox ID="sqAns3TB" runat="server" Width="883px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="sqAns3TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
             </td>
+        </tr>
+        <tr>
+            <td style="width: 318px; font-weight: bold; ">
+                <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+            </td>
+            <td style="height: 26px">
+                &nbsp;</td>
         </tr>
         <tr>
             <td style="width: 318px; font-weight: bold; ">

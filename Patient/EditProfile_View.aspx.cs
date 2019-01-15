@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,7 +10,8 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
 {
     PatientInfo x = new PatientInfo();
     string id = "";
-
+    OTP o = new OTP();
+    readonly MailUtilities mail = new MailUtilities();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
@@ -59,8 +61,24 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
     protected void ChangeQnBtn_Click(object sender, EventArgs e)
     {
         //TODO generate the otp
-        //TODO send otp to user
-        //TODO set to session the 
-        Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx",false);
+        string otp = o.genOTP();
+        //TODO create the otp object
+        o = new OTP(id, otp);
+        //TODO send otp to table
+        int result = o.insertOTP();
+
+        if (result > 0)
+        {
+            
+            //retrieve user email /name
+            string[] email = mail.getPatientMailDetails(id);
+            // remove
+            Debug.Write(email[0]+"\n");
+            string l = email[0];
+            // send otp to user
+            mail.sendOTP(id,l,otp);
+            // redirect to change qn pg
+            Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx", false);
+        }
     }
 }
