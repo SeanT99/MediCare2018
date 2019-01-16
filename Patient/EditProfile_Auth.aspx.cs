@@ -22,48 +22,50 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
             }
             else
             {
+                if (ans1 != null || ans1 != "")
+                {
+                    //retrieve the security qns and answer
+                    q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString());
+                    //generate 2 random numbers
+                    ran = ranNum();
 
-                //retrieve the security qns and answer
-                q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString()); 
-                                                                                               //generate 2 random numbers
-                ran = ranNum();
+                    //set the security questions to the labels
+                    if (ran[0] == "1")
+                    {
+                        question1 = q.Sec_qn1;
+                        ans1 = q.Sec_ans1;
+                    }
+                    else if (ran[0] == "2")
+                    {
+                        question1 = q.Sec_qn2;
+                        ans1 = q.Sec_ans2;
+                    }
+                    else if (ran[0] == "3")
+                    {
+                        question1 = q.Sec_qn3;
+                        ans1 = q.Sec_ans3;
+                    }
 
-                //set the security questions to the labels
-                if (ran[0] == "1")
-                {
-                    question1 = q.Sec_qn1;
-                    ans1 = q.Sec_ans1;
-                }
-                else if (ran[0] == "2")
-                {
-                    question1 = q.Sec_qn2;
-                    ans1 = q.Sec_ans2;
-                }
-                else if (ran[0] == "3")
-                {
-                    question1 = q.Sec_qn3;
-                    ans1 = q.Sec_ans3;
-                }
-
-                if (ran[1] == "1")
-                {
-                    question2 = q.Sec_qn1;
-                    ans2 = q.Sec_ans1;
-                }
-                else if (ran[1] == "2")
-                {
-                    question2 = q.Sec_qn2;
-                    ans2 = q.Sec_ans2;
-                }
-                else if (ran[1] == "3")
-                {
-                    question2 = q.Sec_qn3;
-                    ans2 = q.Sec_ans3;
-                }
+                    if (ran[1] == "1")
+                    {
+                        question2 = q.Sec_qn1;
+                        ans2 = q.Sec_ans1;
+                    }
+                    else if (ran[1] == "2")
+                    {
+                        question2 = q.Sec_qn2;
+                        ans2 = q.Sec_ans2;
+                    }
+                    else if (ran[1] == "3")
+                    {
+                        question2 = q.Sec_qn3;
+                        ans2 = q.Sec_ans3;
+                    }
 
 
-                Q1Lbl.Text = question1;
-                Q2Lbl.Text = question2;
+                    Q1Lbl.Text = question1;
+                    Q2Lbl.Text = question2;
+                }
             }
         }
         else
