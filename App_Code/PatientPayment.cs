@@ -95,7 +95,7 @@ public class PatientPayment
     {
         string msg = null;
         int result = 0;
-        string queryStr = "INSERT INTO PatientPayment(patient, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
+        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
             + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, @key, @iv, @paymentDate)";
         try
         {
