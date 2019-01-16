@@ -57,7 +57,13 @@
 
                         <asp:RequiredFieldValidator ID="rfv_expiryDate" runat="server" ControlToValidate="expiryDateMM_tb" ErrorMessage="Please enter the expiry date." ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:RequiredFieldValidator ID="rvf_ccv" runat="server" ControlToValidate="cvv_tb" ErrorMessage="Please enter the CCV." ForeColor="Red"></asp:RequiredFieldValidator>
-                       <asp:Label ID="lblResult" runat="server"></asp:Label> <br />
+                      
+                        <br />
+                        
+                       
+                        <asp:RangeValidator ID="rv_expiryDateMM" runat="server" ErrorMessage="Please enter the valid month." MaximumValue="12" MinimumValue="0" ControlToValidate="expiryDateMM_tb" ForeColor="Red"></asp:RangeValidator>
+                        
+                        <asp:Label ID="lblResult" runat="server"></asp:Label> <br />
                         
                        
                         <br />

@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                     <td style="width: 521px; height: 67px;">
-                        Patient ID: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control"></asp:TextBox>
+                        Patient ID: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control" Enabled="False"></asp:TextBox>
                         &nbsp;
                     </td>
                 </tr>

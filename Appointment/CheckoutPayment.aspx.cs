@@ -42,7 +42,7 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
 
     protected void buttonPaymentConfirm_Click(object sender, EventArgs e)
     {
-        string patientID = "mfjenfed";
+        string patientID = HttpContext.Current.Session["LoggedIn"].ToString();
         string apptTiming = confirmationTiming.Text;
         string apptDate = confirmationDate.Text;
         string paymentPrice = fee_lbl.Text;
