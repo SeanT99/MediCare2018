@@ -22,11 +22,45 @@ public partial class Login_Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            //check session (remove code if cookie error)
+            if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
+            {
+               
+                //check for token
+                if (Session["AuthToken"].ToString() == (Request.Cookies["AuthToken"].Value.ToString()))
+                {
+                    //-----------redirect to correct homepage--------------------------
+                    //-----------patient to online apt,nurse to patient reg------------   
+
+                    //if account is patient
+                    //-----------retrieve and check for acc type-----------------------
+
+
+                    string Acctype = HttpContext.Current.Session["Acctype"].ToString();
+                    if (Acctype == "PATIENT")
+                    {
+                        Response.Redirect("../Patient/OnlineAppt.aspx", false);
+                    }
+                    //else nurse
+                    else
+                    {
+                        Response.Redirect("../Nurse/PatientRegistration.aspx", false);
+                    }
+                }
+
+                else
+                {
+                    Response.Redirect("../Login/Login.aspx", false);
+                }
+
+            }
+        }
+
         IncorrectUsernameAndPasswordLabel.Visible = false;
         CaptchaClass.Visible = false;
         CaptchaNotCompletedLabel.Visible = true;
-
-
 
     }
 
@@ -104,6 +138,8 @@ public partial class Login_Login : System.Web.UI.Page
                             //session ANSELM TEOH
                             Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
 
+                            Session["Acctype"] = UserLoginDetails.Acctype;
+
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
                             Session["AuthToken"] = guid;
@@ -118,7 +154,7 @@ public partial class Login_Login : System.Web.UI.Page
                         {
                             //session ANSELM TEOH
                             Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-
+                            Session["Acctype"] = UserLoginDetails.Acctype;
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
                             Session["AuthToken"] = guid;
@@ -133,7 +169,7 @@ public partial class Login_Login : System.Web.UI.Page
                         {
                             //session ANSELM TEOH
                             Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-
+                            Session["Acctype"] = UserLoginDetails.Acctype;
                             //create a new GUID and save into session
                             string guid = Guid.NewGuid().ToString();
                             Session["AuthToken"] = guid;
@@ -176,7 +212,7 @@ public partial class Login_Login : System.Web.UI.Page
                     {
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-
+                        Session["Acctype"] = UserLoginDetails.Acctype;
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();
                         Session["AuthToken"] = guid;
@@ -190,7 +226,7 @@ public partial class Login_Login : System.Web.UI.Page
                     {
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-
+                        Session["Acctype"] = UserLoginDetails.Acctype;
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();
                         Session["AuthToken"] = guid;
@@ -205,7 +241,7 @@ public partial class Login_Login : System.Web.UI.Page
                     {
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-
+                        Session["Acctype"] = UserLoginDetails.Acctype;
                         //create a new GUID and save into session
                         string guid = Guid.NewGuid().ToString();
                         Session["AuthToken"] = guid;
