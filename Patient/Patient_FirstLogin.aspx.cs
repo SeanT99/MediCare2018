@@ -19,7 +19,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
     protected void details_Click(object sender, EventArgs e)
     {
-        string id = Session["LoggedIn"].ToString();
+        string id = Session["LoggedIn"].ToString();//TODO add the id details
         string q1, q2, q3;
         q1 = sq1DDL.SelectedItem.Text.ToUpper();
         q2 = sq2DDL.SelectedItem.Text.ToUpper();
@@ -28,8 +28,9 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         // check if both passwords match
         if (NewPasswordTB.Text == ConfirmPasswordTB.Text)
         {
-            //validate to make sure no 2 security qn is the same
-            
+            //TODO validate to make sure no 2 security qn is the same
+            //12 13
+            //23
             if (q1 == q2 || q1 == q3 || q2 == q3)
             {
                 Response.Write("<script>alert('Please select different questions!');</script>");
@@ -43,16 +44,19 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
 
                 //submit the security questions to database
-                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text.ToUpper(), q2, sqAns2TB.Text.ToUpper(), q3, sqAns3TB.Text.ToUpper());
+                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text, q3, sqAns3TB.Text);
                 x.SecurityQuestionUpdate(id);
+
+                String hashPassword = passHash[1].ToString().Trim();
+                String OldSalt = passHash[0].Trim();
                 
-                cpu.PatientInsertOldPassword(id, passHash[1]);
-                
-                //retrieve user email /name
+                cpu.PatientInsertOldPassword(id, hashPassword,OldSalt); // Insert into Password DB
+
+                //TODO retrieve user email /name
                 string[] email = mail.getPatientMailDetails(id);
 
-                //send email to the user 
-                mail.sendFirstLoginChanged(email[0], email[1]);
+                //TODO send email to the user 
+                mail.sendPasswordChanged(email[0], email[1]);
 
                 //success message
                 Response.Write("<script>alert('Password and security questions updated successfully');location.href='../Appointment/OnlineAppt.aspx';</script>");
@@ -64,4 +68,4 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         }
     }
 
-    }
+}
