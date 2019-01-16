@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Diagnostics;
 
 /// <summary>
 /// Summary description for PatientPayment
@@ -61,7 +62,7 @@ public class PatientPayment
     {
         PatientPayment patientPaymentDetails = null;
         string patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate;
-        string queryStr = "SELECT * FROM PatientPayment WHERE patientID = @patientID";
+        string queryStr = "SELECT * FROM PatientPayment WHERE patient = @patientID";
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
         cmd.Parameters.AddWithValue("@patientID", patient_ID);
@@ -94,7 +95,7 @@ public class PatientPayment
     {
         string msg = null;
         int result = 0;
-        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
+        string queryStr = "INSERT INTO PatientPayment(patient, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
             + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, @key, @iv, @paymentDate)";
         try
         {
@@ -116,6 +117,7 @@ public class PatientPayment
         }
         catch (SqlException ex)
         {
+            Debug.Write(ex);
             return 0;
         }
     }//end Insert

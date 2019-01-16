@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using static System.Web.HttpContext;
+using System.Diagnostics;
 
 /// <summary>
 /// Summary description for PatientAppt
@@ -42,7 +43,7 @@ public class PatientAppt
     {
         PatientAppt patientApptDetails = null;
         string patientID, apptTiming, apptDate;
-        string queryStr = "SELECT * FROM PatientAppt WHERE patientID = @patientID";
+        string queryStr = "SELECT * FROM PatientAppt WHERE patient = @patientID";
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
         cmd.Parameters.AddWithValue("@patientID", patient_ID);
@@ -74,7 +75,7 @@ public class PatientAppt
 
         string msg = null;
         int result = 0;
-        string queryStr = "INSERT INTO PatientAppt(patientID,apptTiming, apptDate)" 
+        string queryStr = "INSERT INTO PatientAppt(patient,apptTiming, apptDate)" 
             + "values (@patientID,@apptTiming, @apptDate)";
         try {
             SqlConnection conn = new SqlConnection(_connStr);
@@ -90,7 +91,7 @@ public class PatientAppt
         }
         catch (SqlException ex)
         {
-
+            Debug.Write(ex);
             Current.Response.Write("<script>alert('Your booking appointment is not successful. Please select the correct date.');</script>");
             return 0;
         }
