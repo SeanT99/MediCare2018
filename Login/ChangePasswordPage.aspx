@@ -51,24 +51,33 @@
 
 
                     <asp:TextBox ID="ChangePasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>                  
                     <br />
-                    <asp:Label ID="PasswordUsedPreviouslyLabel" runat="server" ForeColor="Red" Text="Password Used Previously, Please Choose Another Password"></asp:Label>
+                    
+
+
+
                 </div>
 
                 <div class="form-group ml-sm-5">
+
                     <asp:Label ID="VerifyPasswordLabel" runat="server" Text="Verify New Password"></asp:Label>
 
                 </div>
 
                 <p class="form-group ml-sm-5">
 
-                    <asp:TextBox ID="VerifyPasswordTextBox" runat="server" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
-                   
+                    <asp:TextBox ID="VerifyPasswordTextBox" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px"></asp:TextBox>
+
                     <asp:RequiredFieldValidator ID="VerifyNewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="VerifyPasswordTextBox" ForeColor="Red">Verify Password Field Cannot Be Empty</asp:RequiredFieldValidator>
                     <br />
                     <asp:Label ID="NewPasswordDoesNotMatchLabel" runat="server" ForeColor="Red" Text="New Password Does Not Match"></asp:Label>
-
+                    <br />
+                    <asp:Label ID="PasswordUsedPreviouslyLabel" runat="server" ForeColor="Red" Text="Password Used Previously, Please Choose Another Password"></asp:Label>
+                    
+                    <br />
+                    <asp:Label ID="AlphaNumericLabel" runat="server" Text="Password Must Be Alphanumeric" ForeColor="Red"></asp:Label>
+                    <br />
                     <asp:Button ID="details" runat="server" Text="Submit" CssClass="btn btn-primary col-sm-9 color1" OnClick="details_Click" Style="left: 0px; top: 0px" />
 
 
@@ -80,6 +89,8 @@
                 </div>
 
             </div>
+
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
 
         </div>
     </form>
