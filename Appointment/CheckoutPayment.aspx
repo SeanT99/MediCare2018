@@ -40,20 +40,20 @@
                         <br />
                         <asp:Label ID="cardholdername_lbl" runat="server" Text="Card Holder's Name"></asp:Label>
                         <br />
-                        <asp:TextBox ID="cardholdername_tb" runat="server" Width="254px"></asp:TextBox>
+                        <asp:TextBox ID="cardholdername_tb" runat="server" Width="254px" AutoCompleteType="Disabled" OnTextChanged="cardholdername_tb_TextChanged"></asp:TextBox>
                         <asp:RequiredFieldValidator runat="server" ErrorMessage="Please enter your card holder name." ID="rfv_cardholdername" ControlToValidate="cardholdername_tb" ForeColor="Red"></asp:RequiredFieldValidator>
                         <br />
                         <asp:Label ID="creditNo_lbl" runat="server" Text="Credit Card Number"></asp:Label>
                         <br />
-                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" MaxLength="16"></asp:TextBox>
+                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" MaxLength="16" AutoCompleteType="Disabled"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfv_creditcardno" runat="server" ControlToValidate="creditNo_tb" ErrorMessage="Please enter your credit card number." ForeColor="Red" ></asp:RequiredFieldValidator>
                         <br />       
                         <span class="expiryDate_lbl">Expiry Date</span>
                         <asp:Label ID="cvv_lbl" runat="server" Text="CCV/CVV"></asp:Label>
                         <br />
-                        <asp:TextBox ID="expiryDateMM_tb" runat="server" Width="60px" placeholder="MM" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);"></asp:TextBox>/
-                        <asp:TextBox ID="expiryDateYY_tb" runat="server" Width="60px" placeholder="YY" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" ></asp:TextBox>
-                        <asp:TextBox ID="cvv_tb" runat="server" Width="125px" placeholder="XXX" MaxLength="3" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);"></asp:TextBox>
+                        <asp:TextBox ID="expiryDateMM_tb" runat="server" Width="60px" placeholder="MM" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" AutoCompleteType="Disabled"></asp:TextBox>/
+                        <asp:TextBox ID="expiryDateYY_tb" runat="server" Width="60px" placeholder="YY" MaxLength="2" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" AutoCompleteType="Disabled" ></asp:TextBox>
+                        <asp:TextBox ID="cvv_tb" runat="server" Width="125px" placeholder="XXX" MaxLength="3" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" AutoCompleteType="Disabled"></asp:TextBox>
 
                         <asp:RequiredFieldValidator ID="rfv_expiryDate" runat="server" ControlToValidate="expiryDateMM_tb" ErrorMessage="Please enter the expiry date." ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:RequiredFieldValidator ID="rvf_ccv" runat="server" ControlToValidate="cvv_tb" ErrorMessage="Please enter the CCV." ForeColor="Red"></asp:RequiredFieldValidator>
