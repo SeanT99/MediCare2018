@@ -36,6 +36,10 @@
                     <asp:RequiredFieldValidator ID="ValidateChangePassUsernameField" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="ChangePassUsernameField" ForeColor="Red">Username Cannot Be Empty</asp:RequiredFieldValidator>
                     <br />
                     <asp:Label ID="ChangePassUserErrorLabel" runat="server" Text="Username Does Not Exist" ForeColor="Red"></asp:Label>
+                    <br />
+                    <asp:Label ID="otp_lbl" runat="server" Text="OTP:"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="otp_tb" runat="server" Width="318px"></asp:TextBox>
                 </div>
 
                 <div class="form-group ml-sm-5">
@@ -78,6 +82,8 @@
                     <br />
                     <asp:Label ID="AlphaNumericLabel" runat="server" Text="Password Must Be Alphanumeric" ForeColor="Red"></asp:Label>
                     <br />
+                    <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+
                     <asp:Button ID="details" runat="server" Text="Submit" CssClass="btn btn-primary col-sm-9 color1" OnClick="details_Click" Style="left: 0px; top: 0px" />
 
 

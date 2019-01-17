@@ -40,7 +40,7 @@
                         <br />
                         <asp:Label ID="cardholdername_lbl" runat="server" Text="Card Holder's Name"></asp:Label>
                         <br />
-                        <asp:TextBox ID="cardholdername_tb" runat="server" Width="254px" AutoCompleteType="Disabled" OnTextChanged="cardholdername_tb_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="cardholdername_tb" runat="server" Width="254px" AutoCompleteType="Disabled"></asp:TextBox>
                         <asp:RequiredFieldValidator runat="server" ErrorMessage="Please enter your card holder name." ID="rfv_cardholdername" ControlToValidate="cardholdername_tb" ForeColor="Red"></asp:RequiredFieldValidator>
                         <br />
                         <asp:Label ID="creditNo_lbl" runat="server" Text="Credit Card Number"></asp:Label>

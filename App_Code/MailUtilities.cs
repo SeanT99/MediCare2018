@@ -246,19 +246,28 @@ public class MailUtilities
     }
 
     //JJ
-    public int sendChangePasswordMail(string email, string name)
+    public int sendChangePasswordMail(string email, string name, string otp)
     {
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-
+        MailMessage mail = new MailMessage();
+        String body = "";
         int result = 1;
 
-        string body = "Hi " + name + ",<br/>You Requested To Change Your Password.<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
-
+        //sandra added otp parameter
+        if (otp == "")
+        {
+            body = "Hi " + name + ",<br/>Your password has been changed successfully<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" > Login Here</a> ";
+            mail.Subject = "MediCare Security Alert";
+        }
+        else {
+            body = "Hi " + name + ",<br/>You Requested To Change Your Password. The OTP is as follows: " + otp + "<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" > Login Here</a> ";
+            mail.Subject = "MediCare Portal Change Password Request";
+        }
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
         smtpClient.EnableSsl = true;
         smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        MailMessage mail = new MailMessage();
+        
 
         //Setting From , To and CC
         mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
