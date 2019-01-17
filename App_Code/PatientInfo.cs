@@ -154,15 +154,19 @@ public class PatientInfo
     }
 
     //login constructor -- jj
-    public PatientInfo(string id, string login_password, string salt, string acctype,string tochangepw)
+    public PatientInfo(string id, string login_password, string salt, string acctype, string tochangepw, string email, string family_name, string given_name)
     {
         this.id = id;
         this.login_password = login_password;
         this.salt = salt;
         this.acctype = acctype;
-		this.tochangepw = tochangepw;
+        this.tochangepw = tochangepw;
+        this.email = email;
+        this.family_Name = family_name;
+        this.given_Name = given_name;
+
     }
-    
+
     //Check if it exist or not, Not very sure if is new
     public PatientInfo(string email)
     {
@@ -281,6 +285,7 @@ public class PatientInfo
     }
 
     //JJ get login account
+    //JJ get login account
     public PatientInfo GetLoginDetails(string LoginNRIC)
     {
         PatientInfo x = null;
@@ -288,7 +293,7 @@ public class PatientInfo
         //strings for the object creation
 
         //query string
-        string queryStr = "SELECT id,login_password,salt,acctype,toChangePw FROM PatientInfo WHERE id = @LoginNRIC";
+        string queryStr = "SELECT id,login_password,salt,acctype,toChangePw,email,family_Name,given_Name FROM PatientInfo WHERE id = @LoginNRIC";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -305,8 +310,11 @@ public class PatientInfo
             salt = dr["salt"].ToString();
             acctype = dr["acctype"].ToString();
             tochangepw = dr["toChangePw"].ToString();
+            email = dr["email"].ToString();
+            family_Name = dr["family_Name"].ToString();
+            given_Name = dr["given_Name"].ToString();
 
-            x = new PatientInfo(id, login_password, salt, acctype, tochangepw);
+            x = new PatientInfo(id, login_password, salt, acctype, tochangepw, email, family_Name, given_Name);
         }
 
         //close connecetions
