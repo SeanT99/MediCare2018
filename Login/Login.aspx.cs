@@ -39,9 +39,9 @@ public partial class Login_Login : System.Web.UI.Page
 
 
                     string Acctype = HttpContext.Current.Session["Acctype"].ToString();
-                    if (Acctype == "PATIENT")
+                    if (Acctype.TrimEnd() == "PATIENT")
                     {
-                        Response.Redirect("../Patient/OnlineAppt.aspx", false);
+                        Response.Redirect("../Appointment/OnlineAppt.aspx", false);
                     }
                     //else nurse
                     else

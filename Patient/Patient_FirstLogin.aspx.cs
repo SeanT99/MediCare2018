@@ -25,6 +25,8 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         q2 = sq2DDL.SelectedItem.Text.ToUpper();
         q3 = sq3DDL.SelectedItem.Text.ToUpper();
 
+        //TODO VALIDATE PASSWORD
+
         // check if both passwords match
         if (NewPasswordTB.Text == ConfirmPasswordTB.Text)
         {
