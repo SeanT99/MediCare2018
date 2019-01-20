@@ -6,11 +6,20 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//imports needed for db
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Diagnostics;
+
 public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Page
 {
     PatientInfo a = new PatientInfo();
     MailUtilities mail = new MailUtilities();
     string id = "";
+
+    //database connection string
+    readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -30,6 +39,11 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
 
         //send delete command
         int result = a.PatientDelete(deleteid);
+        result = otpDelete(deleteid);
+        result = PasswordDelete(deleteid);
+        result = apptDelete(deleteid);
+        result = payDelete(deleteid);
+        
         int pass = -1;
 
         if (result > 0)
@@ -128,6 +142,109 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
       
 
         return pass;
+    }
+    // password table deletion method
+    public int PasswordDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM Password WHERE Id = @id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
+    }
+
+    // otp table deletion method
+    public int otpDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM OTP WHERE patientID = @id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
+    }
+
+    // appt table deletion method
+    public int apptDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM PatientAppt WHERE patient = @id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
+    }
+
+    // payment table deletion method
+    public int payDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM PatientPayment WHERE patientID = @id";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
     }
 
 }
