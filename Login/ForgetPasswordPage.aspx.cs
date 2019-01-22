@@ -48,13 +48,19 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
             int result = o.insertOTP();
             Debug.Write("-------" + result);
 
-
-            //send otp and change pw email
+            
             MailUtilities sendPasswordRequest = new MailUtilities();
+            //send otp sms
+            //sendPasswordRequest.sendOTP("98257046", "TEST"+otp);//sandra #
+            sendPasswordRequest.sendOTP("93868983", "TEST"+otp); //sean
+
+            /*
+            //send otp and change pw email
+            
             sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
 
 
-
+    */
         }
 
     }

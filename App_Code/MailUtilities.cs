@@ -11,6 +11,11 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
 
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Net;
+using System.Collections.Specialized;
+using System.Text;
 
 /// <summary>
 /// Summary description for MailUtilities
@@ -463,6 +468,26 @@ public class MailUtilities
         return result;
 
     }
+
+    public string sendOTP(string mobile, string message)
+    {
+        using (var wb = new WebClient())
+        {
+            var data = new NameValueCollection();
+            data["SMSAccount"] = "A2";
+            data["Pwd"] = "914980";
+            data["Mobile"] = mobile;
+            data["Message"] = message;
+
+            var response = wb.UploadValues("http://sms.sit.nyp.edu.sg/SMSWebService/sms.asmx/sendMessage", "POST", data);
+            string responseInString = Encoding.UTF8.GetString(response);
+
+            return responseInString;
+        }
+    }
+
+
+
     /*
     //for sending reminder to patient to login to portal
     public int sendLoginReminder(string email, string name, string password)
