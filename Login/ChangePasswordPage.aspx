@@ -90,13 +90,12 @@
                 </p>
 
                 <div>
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="Button" />
                 </div>
                 <div class="align-text-bottom text-sm-center mr-sm-5">
                 </div>
 
             </div>
-
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
 
         </div>
     </form>

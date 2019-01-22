@@ -33,6 +33,7 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
         if (!EmailInfo.GetSpecificPatient(EnteredEmail).Email.Equals(EnteredEmail))
         {
             Debug.Write("No Existing Email");
+            EmailAddressDoNotExistLabel.Visible = true;
         }
         else if (EmailInfo.GetSpecificPatient(EnteredEmail).Email.Equals(EnteredEmail))
         {
@@ -48,19 +49,15 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
             int result = o.insertOTP();
             Debug.Write("-------" + result);
 
-            
-            MailUtilities sendPasswordRequest = new MailUtilities();
-            //send otp sms
-            //sendPasswordRequest.sendOTP("98257046", "TEST"+otp);//sandra #
-            sendPasswordRequest.sendOTP("93868983", "TEST"+otp); //sean
 
-            /*
             //send otp and change pw email
-            
-            sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            MailUtilities sendPasswordRequest = new MailUtilities();
+            //sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            sendPasswordRequest.sendOTP("82988515", otp);
+
+            Response.Redirect("ForgetPasswordEmailConfirmation.aspx", false);
 
 
-    */
         }
 
     }

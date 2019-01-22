@@ -67,28 +67,28 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
             Debug.Write(ex);
         }
 
-
         if (OTP != "0")//if have record
         {
+            Debug.WriteLine("OTP has record");
             double XTIME = subtractMinutes(OTPdt, DateTime.Now);
             Debug.Write(XTIME);
             Debug.Write(XTIME + OTP_used);
-            if ( (XTIME > 5) || (OTP_used == "1"))
+            if ((XTIME > 5) || (OTP_used == "1"))
             {
                 //expired otp
                 lblError.Text = "Your OTP has expired.";
             }
             else
             {
-                Debug.Write("STARTING TO INSERT PASSWORD");
+                Debug.WriteLine("STARTING TO INSERT PASSWORD");
                 //otp success
-                String Username = ChangePassUsernameField.Text;
+                String Username = ChangePassUsernameField.Text.ToUpper();
                 String NewPassword = ChangePasswordField.Text;
                 String VerifyNewPassword = VerifyPasswordTextBox.Text;
 
                 PatientInfo getUserInfo = new PatientInfo();
                 PatientInfo LoginDetails = getUserInfo.GetLoginDetails(Username); // Check if Username exist in db
-                Debug.Write(LoginDetails.Id + "Test");
+                Debug.WriteLine(LoginDetails.Id + "Test"); // pass
                 PasswordUtility CheckPassword = new PasswordUtility();
                 ChangePasswordUtility InsertOldPassword = new ChangePasswordUtility();
                 ChangePasswordUtility UpdateNewPasswordToPatientTable = new ChangePasswordUtility();
@@ -96,25 +96,24 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 PasswordValidator ValidatePassword = new PasswordValidator();
                 MailUtilities NotifyPasswordChanged = new MailUtilities();
                 List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
+                Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
 
                 if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
                 {
                     if (InfoNeededForUserToChangePassword.Count > 0 && ValidatePassword.IsValid(NewPassword) == true) // Check if Username exist in database, if does not, then password also cannot change
-                    {
-                        Debug.Write("PASS");//TODO remove
-                        // To get new password + old salt       
+                    {                                              // To get new password + old salt       
                         if (NewPassword.Equals(VerifyNewPassword)) //if Username exist then continue to check new password and verify password if is the same
                         {
-                            Debug.Write("PASS");//TODO remove
+
+                            Debug.WriteLine("New pass = Verify pass PASS");//TODO remove
                             Boolean PasswordExist = false;
                             for (int i = 0; i < InfoNeededForUserToChangePassword.Count; i++) // To check if old password used
                             {
-                                Debug.Write("PASS");//TODO remove
+                                Debug.WriteLine("PASS1");//TODO remove
                                 string AllExistingOldSalt = InfoNeededForUserToChangePassword[i].Old_salt.Trim();
                                 string NewPasswordHashCheckWithAllExistingOldSalt = InsertOldPassword.generateHashWithOrignalSalt(Username, NewPassword, AllExistingOldSalt.Trim());
                                 string AllOldPassword = InfoNeededForUserToChangePassword[i].Old_password.Trim();
                                 //Help me to get the Old Password with old salt
-
                                 if (NewPasswordHashCheckWithAllExistingOldSalt.Trim().Equals(AllOldPassword.Trim())) // Check if NewPass + old salt = OldPass + Old Salt (Check if password is used before)
                                 {
                                     PasswordUsedPreviouslyLabel.Visible = true;
@@ -139,37 +138,36 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                                 // Send email after password is changed
                                 string FullName = LoginDetails.Family_Name + " " + LoginDetails.Given_Name;
                                 NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
-
-                                Response.Redirect("ConfirmChangedPassword.aspx, false");
-
-
                                 Debug.WriteLine("Password not used");
+
+                                Response.Redirect("ConfirmChangedPassword.aspx",false);
+                                
                             }
                             PasswordExist = false;
                         }
                     }
-                }
-                else if (LoginDetails == null && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
-                {
-                    ChangePassUserErrorLabel.Visible = true;
-                    AlphaNumericLabel.Visible = true;
-
-                }
-                else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
-                {
-                    AlphaNumericLabel.Visible = true;
-                    NewPasswordDoesNotMatchLabel.Visible = true;
-
-                }
-                else if (ValidatePassword.IsValid(NewPassword) == false && NewPassword.Equals(VerifyNewPassword))
-                {
-                    AlphaNumericLabel.Visible = true;
-                }
-
-
+                    else if (!(LoginDetails.Id.Equals(Username)) && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
+                    {
+                        ChangePassUserErrorLabel.Visible = true;
+                        AlphaNumericLabel.Visible = true;
+                        lblError.Text = "";
+                        Debug.WriteLine("Password Valid, Username Invalid");
+                    }
+                    else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
+                    {
+                        AlphaNumericLabel.Visible = true;
+                        NewPasswordDoesNotMatchLabel.Visible = true;
+                        Debug.WriteLine("Password Not Valid, Password does not match");
+                    }
+                    else if (ValidatePassword.IsValid(NewPassword) == false && NewPassword.Equals(VerifyNewPassword))
+                    {
+                        AlphaNumericLabel.Visible = true;
+                        Debug.WriteLine("Password matches, but not valid");
+                    }
+                }// End of Login != null IF Loop                           
                 //mark this otp as used
                 setUsed(username_session);
-            }
+            } //Insert Else statement ends here
         }
         else
         {
@@ -177,8 +175,6 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         }
 
         myConn.Close();
-
-
 
     }
 
@@ -286,6 +282,99 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
     }
 
+
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+
+        Debug.WriteLine("STARTING TO INSERT PASSWORD");
+        //otp success
+        String Username = ChangePassUsernameField.Text;
+        String NewPassword = ChangePasswordField.Text;
+        String VerifyNewPassword = VerifyPasswordTextBox.Text;
+
+        PatientInfo getUserInfo = new PatientInfo();
+        PatientInfo LoginDetails = getUserInfo.GetLoginDetails(Username); // Check if Username exist in db
+        Debug.WriteLine(LoginDetails.Id + "Test"); // pass
+        PasswordUtility CheckPassword = new PasswordUtility();
+        ChangePasswordUtility InsertOldPassword = new ChangePasswordUtility();
+        ChangePasswordUtility UpdateNewPasswordToPatientTable = new ChangePasswordUtility();
+        ChangePasswordUtility UpdateNewDataToPasswordTable = new ChangePasswordUtility();
+        PasswordValidator ValidatePassword = new PasswordValidator();
+        MailUtilities NotifyPasswordChanged = new MailUtilities();
+        List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
+        Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
+
+        if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
+        {
+            if (InfoNeededForUserToChangePassword.Count > 0 && ValidatePassword.IsValid(NewPassword) == true) // Check if Username exist in database, if does not, then password also cannot change
+            {
+                Debug.WriteLine("Breaks here");// To get new password + old salt   
+                Debug.WriteLine(NewPassword);
+                Debug.WriteLine(VerifyNewPassword);
+                if (NewPassword.Equals(VerifyNewPassword)) //if Username exist then continue to check new password and verify password if is the same
+                {
+                    Debug.WriteLine("New pass = Verify pass PASS");//TODO remove
+                    Boolean PasswordExist = false;
+                    for (int i = 0; i < InfoNeededForUserToChangePassword.Count; i++) // To check if old password used
+                    {
+                        Debug.WriteLine("PASS");//TODO remove
+                        string AllExistingOldSalt = InfoNeededForUserToChangePassword[i].Old_salt.Trim();
+                        string NewPasswordHashCheckWithAllExistingOldSalt = InsertOldPassword.generateHashWithOrignalSalt(Username, NewPassword, AllExistingOldSalt.Trim());
+                        string AllOldPassword = InfoNeededForUserToChangePassword[i].Old_password.Trim();
+                        //Help me to get the Old Password with old salt
+
+                        if (NewPasswordHashCheckWithAllExistingOldSalt.Trim().Equals(AllOldPassword.Trim())) // Check if NewPass + old salt = OldPass + Old Salt (Check if password is used before)
+                        {
+                            PasswordUsedPreviouslyLabel.Visible = true;
+                            PasswordExist = true;
+
+                            Debug.WriteLine("Password used");
+                        }
+                    }
+                    if (PasswordExist == false) //If Password does not exist
+                    {
+                        //If is new password, update patientInfo salt and login password
+                        //string[] GenerateNewPasswordHash = CheckPassword.generateHash(Username, NewPassword);
+                        //string NewSalt = GenerateNewPasswordHash[0];
+                        //string NewLoginPassword = GenerateNewPasswordHash[1];
+                        //UpdateNewPasswordToPatientTable.updateAccountPassword(Username, NewLoginPassword, NewSalt);
+                        ////Retrieve updated salt and password 
+                        //PatientInfo getUpdatedPasswordAndSalt = getUserInfo.GetLoginDetails(Username);
+                        //string UpdatedSalt = getUpdatedPasswordAndSalt.Salt;
+                        //string UpdatedPassword = getUpdatedPasswordAndSalt.Login_password;
+                        //UpdateNewDataToPasswordTable.UpdatePasswordTableWithNewDataAfterUserChangedPassword(Username, UpdatedPassword, UpdatedSalt);
+
+                        //// Send email after password is changed
+                        //string FullName = LoginDetails.Family_Name + " " + LoginDetails.Given_Name;
+                        //NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
+
+                        Response.Redirect("ConfirmChangedPassword.aspx", false);
+
+
+                        Debug.WriteLine("Password not used");
+                    }
+                    PasswordExist = false;
+                }
+            }
+        }
+        else if (LoginDetails == null && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
+        {
+            ChangePassUserErrorLabel.Visible = true;
+            AlphaNumericLabel.Visible = true;
+
+        }
+        else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
+        {
+            AlphaNumericLabel.Visible = true;
+            NewPasswordDoesNotMatchLabel.Visible = true;
+
+        }
+        else if (ValidatePassword.IsValid(NewPassword) == false && NewPassword.Equals(VerifyNewPassword))
+        {
+            AlphaNumericLabel.Visible = true;
+        }
+        //mark this otp as used
+    }
 }
 
 
