@@ -46,27 +46,21 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         
         int pass = -1;
 
-        if (result > 0)
-        {
             //send email
             pass = mail.sendDeletedMail(email, name);
-            if (pass > 0)
-            {
-                Response.Write("<script>alert('Patient Removed successfully');location.href='PatientManagement_List.aspx';</script>");
-            }
-            else
-            {
-                //"PatientManagement_List_DeleteAuth.aspx?id=" + id
-                Response.Write("<script>alert('Patient Removal NOT successful--Mail Failed');location.href='PatientManagement_List_DeleteAuth.aspx?id="+id+"';</script>");
-                //re-insert the patient info into db
-                x.PatientInsert();
-            }
-
+        if (pass > 0)
+        {
+            Response.Write("<script>alert('Patient Removed successfully');location.href='PatientManagement_List.aspx';</script>");
         }
         else
         {
-            Response.Write("<script>alert('Patient Removal NOT successful');location.href='PatientManagement_List_DeleteAuth.aspx?id=" + id + "';</script>");
+            //"PatientManagement_List_DeleteAuth.aspx?id=" + id
+            Response.Write("<script>alert('Patient Removal NOT successful--Mail Failed');location.href='PatientManagement_List_DeleteAuth.aspx?id=" + id + "';</script>");
+            //re-insert the patient info into db
+            x.PatientInsert();
         }
+
+        
 
         return pass;
     }
