@@ -11,6 +11,7 @@
         <td style="width: 318px; font-weight: bold; height: 23px;">OTP</td>
             <td >
                 <asp:TextBox ID="otpTB" runat="server" AutoCompleteType="Disabled" MaxLength="6" TextMode="Password"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="otpTB" ErrorMessage="Please enter your OTP" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <td style="width: 318px; font-weight: bold; height: 23px;">Question 1</td>
