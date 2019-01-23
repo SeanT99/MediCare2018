@@ -45,7 +45,7 @@
                         <br />
                         <asp:Label ID="creditNo_lbl" runat="server" Text="Credit Card Number"></asp:Label>
                         <br />
-                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px" onkeydown = "return (!((event.keyCode>=65 && event.keyCode <= 95) || event.keyCode >= 106 || (event.keyCode >= 48 && event.keyCode <= 57 && isNaN(event.key))) && event.keyCode!=32);" MaxLength="16" AutoCompleteType="Disabled"></asp:TextBox>
+                        <asp:TextBox ID="creditNo_tb" runat="server" Width="254px" MaxLength="16" AutoCompleteType="Disabled"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfv_creditcardno" runat="server" ControlToValidate="creditNo_tb" ErrorMessage="Please enter your credit card number." ForeColor="Red" ></asp:RequiredFieldValidator>
                         <br />       
                         <span class="expiryDate_lbl">Expiry Date</span>

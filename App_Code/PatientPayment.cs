@@ -95,8 +95,8 @@ public class PatientPayment
     {
         string msg = null;
         int result = 0;
-        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, strKey, iv, paymentDate)"
-            + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, @key, @iv, @paymentDate)";
+        string queryStr = "INSERT INTO PatientPayment(patientID, paymentPrice, cardHolderName, creditcardNo, expiryDate, paymentID, strKey, iv, paymentDate)"
+            + "values (@patientID,@paymentPrice, @cardHolderName, @creditcardNo, @expiryDate, newid(), @key, @iv, @paymentDate)";
         try
         {
             SqlConnection conn = new SqlConnection(_connStr);
@@ -106,6 +106,7 @@ public class PatientPayment
             cmd.Parameters.AddWithValue("@cardHolderName", this.cardHolderName);
             cmd.Parameters.AddWithValue("@creditcardNo", this.creditcardNo);
             cmd.Parameters.AddWithValue("@expiryDate", this.expiryDate);
+            cmd.Parameters.AddWithValue("@paymentID", this.paymentID);
             cmd.Parameters.AddWithValue("@key", this.key);
             cmd.Parameters.AddWithValue("@iv", this.iv);
             cmd.Parameters.AddWithValue("@paymentDate", DateTime.Now.ToString("d/M/yyyy"));
