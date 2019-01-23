@@ -52,8 +52,8 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
 
             //send otp and change pw email
             MailUtilities sendPasswordRequest = new MailUtilities();
-            //sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
-            sendPasswordRequest.sendOTP("82988515", otp);
+            sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            //sendPasswordRequest.sendOTP("82988515", otp);
 
             Response.Redirect("ForgetPasswordEmailConfirmation.aspx", false);
 
