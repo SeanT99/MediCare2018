@@ -23,19 +23,19 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
 
     protected void SubmitButton_Click(object sender, EventArgs e)
     {
-        string EnteredEmail = EmailAddressField.Text;
+        string EnteredEmail = EmailAddressField.Text.ToLower();
 
         PatientInfo EmailInfo = new PatientInfo();
-        List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail();
+        List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail(EnteredEmail);
 
         PatientInfo SpecificPatientName;
 
-        if (!EmailInfo.GetSpecificPatient(EnteredEmail).Email.Equals(EnteredEmail))
+        if (AllEmailContact.Count <= 0)
         {
             Debug.Write("No Existing Email");
             EmailAddressDoNotExistLabel.Visible = true;
         }
-        else if (EmailInfo.GetSpecificPatient(EnteredEmail).Email.Equals(EnteredEmail))
+        else
         {
             SpecificPatientName = EmailInfo.GetSpecificPatientByEmail(EnteredEmail);
             String FamilyAndGivenName = SpecificPatientName.Given_Name + SpecificPatientName.Family_Name;

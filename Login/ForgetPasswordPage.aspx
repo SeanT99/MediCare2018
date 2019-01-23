@@ -39,11 +39,11 @@
         </div>
     
     <p class="form-group ml-sm-5">
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="EmailValidatorMessage" ControlToValidate="EmailAddressField" ErrorMessage="RequiredFieldValidator" ForeColor="Red">Please Enter A Valid Email.</asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="EmailAddressField" ErrorMessage="RegularExpressionValidator" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">Please Enter A Valid Email Address</asp:RegularExpressionValidator>
         <br />
         <asp:Label ID="EmailAddressDoNotExistLabel" runat="server" Text="Email Address Do Not Exist" ForeColor="Red"></asp:Label>
         <br />
-        <asp:Button ID="SubmitButton" runat="server" Text="SUBMIT" CssClass="btn btn-primary col-sm-9 color1" OnClick="SubmitButton_Click"  />
+        <asp:Button ID="SubmitButton" runat="server" Text="SUBMIT" CssClass="btn btn-primary col-sm-9 color1" OnClick="SubmitButton_Click" style="left: 0px; top: 0px"  />
 
 
     </p>

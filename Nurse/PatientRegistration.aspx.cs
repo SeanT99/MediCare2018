@@ -42,7 +42,7 @@ public partial class Nurse_Registration : System.Web.UI.Page
             string dob = dobTB.Text;
             string gender = "";
 
-            string email = emailTB.Text;
+            string email = emailTB.Text.ToLower();
             string mobileNumber = mobileTB.Text;
             string homeNumber = homeTB.Text;
 

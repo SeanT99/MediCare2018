@@ -19,6 +19,14 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
     string id = "";
     MailUtilities mail = new MailUtilities();
     readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
+    string passwordDoNotMatch = "- Password Do Not Match!";
+    string passwordMinimum = "- Password Length Must Be More Than 6";
+    string passwordMaximum = "- Password Length Must Be Less Than 16";
+    string passwordUpper = "- Password Must Contain At Least 1 Uppercase Letter";
+    string passwordAlpha = "- Password Be Alphanumeric, Has No Special Symbols";
+    string UsernameDonExist = "- Username Do Not Exist";
+    string NewAndVerifyPass = "- New Password Does Not Match With Each Other";
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -96,7 +104,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 PasswordValidator ValidatePassword = new PasswordValidator();
                 MailUtilities NotifyPasswordChanged = new MailUtilities();
                 List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
-                //Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
+                Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
 
                 if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
                 {
@@ -148,20 +156,28 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                     }
                     else if (!(LoginDetails.Id.Equals(Username)) && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
                     {
-                        ChangePassUserErrorLabel.Visible = true;
-                        AlphaNumericLabel.Visible = true;
+                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + UsernameDonExist + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+
+                        //ChangePassUserErrorLabel.Visible = true;
+                        //AlphaNumericLabel.Visible = true;
                         lblError.Text = "";
-                        Debug.WriteLine("Password Valid, Username Invalid");
+                        
+                        Debug.WriteLine("Password not valid, Username Invalid");
                     }
                     else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
                     {
-                        AlphaNumericLabel.Visible = true;
-                        NewPasswordDoesNotMatchLabel.Visible = true;
+                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + NewAndVerifyPass + "\\r\\n" + "AND" + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+                        //AlphaNumericLabel.Visible = true;
+                        //NewPasswordDoesNotMatchLabel.Visible = true;
                         Debug.WriteLine("Password Not Valid, Password does not match");
+
+
+
                     }
                     else if (ValidatePassword.IsValid(NewPassword) == false && NewPassword.Equals(VerifyNewPassword))
                     {
-                        AlphaNumericLabel.Visible = true;
+                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "PASSWORD MATCHES, BUT DOES NOT MEET THE PASSWORD REQURIEMENT" + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+                        //AlphaNumericLabel.Visible = true;
                         Debug.WriteLine("Password matches, but not valid");
                     }
                 }// End of Login != null IF Loop                           

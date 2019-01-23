@@ -39,7 +39,7 @@
                     <br />
                     <asp:Label ID="otp_lbl" runat="server" Text="OTP:"></asp:Label>
                     <br />
-                    <asp:TextBox ID="otp_tb" runat="server" Width="318px"></asp:TextBox>
+                    <asp:TextBox ID="otp_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
                 </div>
 
                 <div class="form-group ml-sm-5">
@@ -90,7 +90,6 @@
                 </p>
 
                 <div>
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="Button" />
                 </div>
                 <div class="align-text-bottom text-sm-center mr-sm-5">
                 </div>

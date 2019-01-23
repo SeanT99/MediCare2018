@@ -569,15 +569,16 @@ public class PatientInfo
 
     
     //JJ get all Email Method //new
-    public List<PatientInfo> GetPatientsEmail()
+    public List<PatientInfo> GetPatientsEmail(string useremail)
     {
         List<PatientInfo> patients = new List<PatientInfo>();
 
 
-        string queryStr = "SELECT email from PatientInfo";
+        string queryStr = "SELECT email from PatientInfo Where email = @Email";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@Email", useremail);
         try
         {
             conn.Open();
