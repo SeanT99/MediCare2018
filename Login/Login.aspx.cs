@@ -72,8 +72,9 @@ public partial class Login_Login : System.Web.UI.Page
 
     protected void forgotPassword_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ForgetPasswordPage.aspx");
 
+        Response.Redirect("ForgetPasswordPage.aspx");
+            
     }
 
     protected void ChangePasswordButton_Click(object sender, EventArgs e)
@@ -83,6 +84,7 @@ public partial class Login_Login : System.Web.UI.Page
 
     protected void Login_Method(object sender, EventArgs e)
     {
+
         LoginNRIC = UsernameField.Text.ToUpper();
         Password = PasswordField.Text;
         string hashStr = "";

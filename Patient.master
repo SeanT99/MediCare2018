@@ -19,7 +19,7 @@
         
 
        <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-           <a class="navbar-brand mr-sm-4" href="Homepage.aspx">MediCare</a>
+           <a class="navbar-brand mr-sm-4" href="/Appointment/OnlineAppt.aspx">MediCare</a>
            <ul class="nav navbar-nav mr-auto">
                <li class="nav-item">
                    <a class ="nav-link" href="../Appointment/OnlineAppt.aspx">Appointment</a>
