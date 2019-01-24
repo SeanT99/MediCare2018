@@ -50,10 +50,12 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
             Debug.Write("-------" + result);
 
 
+            //string msg = "This is your medicare portal OTP " + otp ;
             //send otp and change pw email
             MailUtilities sendPasswordRequest = new MailUtilities();
             sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
-            //sendPasswordRequest.sendOTP("82988515", otp);
+            //sendPasswordRequest.sendOTP("98257046", msg);
+
 
             Response.Redirect("ForgetPasswordEmailConfirmation.aspx", false);
 

@@ -94,7 +94,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 String NewPassword = ChangePasswordField.Text;
                 String VerifyNewPassword = VerifyPasswordTextBox.Text;
 
-                PatientInfo getUserInfo = new PatientInfo();
+                PatientInfo getUserInfo = new PatientInfo();    
                 PatientInfo LoginDetails = getUserInfo.GetLoginDetails(Username); // Check if Username exist in db
                 Debug.WriteLine(LoginDetails.Id + "Test"); // pass
                 PasswordUtility CheckPassword = new PasswordUtility();
@@ -154,16 +154,16 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                             PasswordExist = false;
                         }
                     }
-                    else if (!(LoginDetails.Id.Equals(Username)) && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
-                    {
-                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + UsernameDonExist + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+                    //else if (!(LoginDetails.Id.Equals(Username)) && ValidatePassword.IsValid(NewPassword) == false)//The place to show error message
+                    //{
+                    //    Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + UsernameDonExist + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
 
-                        //ChangePassUserErrorLabel.Visible = true;
-                        //AlphaNumericLabel.Visible = true;
-                        lblError.Text = "";
+                    //    //ChangePassUserErrorLabel.Visible = true;
+                    //    //AlphaNumericLabel.Visible = true;
+                    //    lblError.Text = "";
                         
-                        Debug.WriteLine("Password not valid, Username Invalid");
-                    }
+                    //    Debug.WriteLine("Password not valid, Username Invalid");
+                    //}
                     else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
                     {
                         Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + NewAndVerifyPass + "\\r\\n" + "AND" + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
