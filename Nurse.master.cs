@@ -20,6 +20,8 @@ public partial class Admin2 : System.Web.UI.MasterPage
         {
             Response.Redirect("../Login/Login.aspx", false);
         }
+
+       // Response.AddHeader("Refresh", "60");
     }
 
     //ANSELM TEOH LOGOUT method

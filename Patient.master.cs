@@ -20,6 +20,8 @@ public partial class Patient : System.Web.UI.MasterPage
         {
             Response.Redirect("../Login/Login.aspx", false);
         }
+
+        //Response.AddHeader("Refresh", "60");
     }
 
     protected void Logout(object sender, EventArgs e)
