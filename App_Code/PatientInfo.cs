@@ -602,6 +602,38 @@ public class PatientInfo
         return patients;
     }
 
+    //get patient's mobile num
+    public string GetPatientsMobile(string username)
+    {
+        string mobile = "";
+
+
+        string queryStr = "SELECT mobileNumber from PatientInfo Where id = @id";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@id", username);
+        try
+        {
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                mobile = dr["mobileNumber"].ToString().Trim();
+            }
+
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+        return mobile;
+    }
+
     //get the patient's details using email
     public PatientInfo GetSpecificPatientByEmail(string enteredEmail)
     {
