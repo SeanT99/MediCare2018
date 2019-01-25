@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:Label runat="server" Text="*No Patients Found*" ID="notFoundLbl" Font-Bold="True" ViewStateMode="Disabled" Visible="False"></asp:Label>
-    <asp:label colspan="2" style="font-weight: bold; height: 26px; font-size: x-large; text-transform: none; text-decoration: underline;">PATIENT LISTINGS</asp:label>
+    <div colspan="2" style="font-weight: bold; height: 26px; font-size: x-large; text-transform: none; text-decoration: underline;">PATIENT LISTINGS</div>
     <asp:GridView ID="gvPatient" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="gvPatient_SelectedIndexChanged" DataKeyNames="id" OnRowDeleting="gvPatient_RowDeleting">
          <Columns>
             <asp:BoundField DataField="id" HeaderText="ID Number" />
