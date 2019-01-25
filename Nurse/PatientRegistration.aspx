@@ -3,6 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <table style="width:100%;">
         <tr>
+            <td colspan="2" style="font-weight: bold; height: 26px; font-size: x-large; text-transform: none; text-decoration: underline;">PATIENT REGISTRATION</td>
+        </tr>
+        <tr>
             <td colspan="2" style="font-weight: bold; height: 26px;">Patient Basic Info</td>
         </tr>
         <tr>
