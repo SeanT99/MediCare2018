@@ -81,6 +81,7 @@
             <td style="width: 318px">Mobile Phone</td>
             <td>
                 <asp:TextBox ID="mobileTB" runat="server" Width="265px" TextMode="Phone" MaxLength="8" autocomplete="off"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="MBRequiredField" runat="server" ControlToValidate="mobileTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="mobileTB" ErrorMessage="Only numbers allowed" Font-Bold="True" ForeColor="Red" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             </td>
         </tr>
