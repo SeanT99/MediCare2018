@@ -37,7 +37,7 @@
     
     <p class="form-group ml-sm-5">
         <br />
-        <asp:Button ID="BackToLoginPageButton" runat="server" Text="Back To Login Page" CssClass="btn btn-primary col-sm-9 color1" OnClick="BackToLoginPageButton_Click"  />
+        <asp:Button ID="BackToLoginPageButton" runat="server" Text="Proceed to change password" CssClass="btn btn-primary col-sm-9 color1" OnClick="BackToLoginPageButton_Click"  />
     </p>
 
         <div class ="align-text-bottom text-sm-center mr-sm-5">
