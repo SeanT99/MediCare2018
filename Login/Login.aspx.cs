@@ -149,7 +149,7 @@ public partial class Login_Login : System.Web.UI.Page
                             // Create cookie with this guid value
                             Response.Cookies.Add(new HttpCookie("AuthToken", guid));
 
-                            Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                            Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                         }
                       
                         else if (UserLoginDetails.Acctype != "PATIENT   ")
@@ -222,7 +222,7 @@ public partial class Login_Login : System.Web.UI.Page
                         // Create cookie with this guid value
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
 
-                        Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                        Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                     }
                     else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
                     {
