@@ -364,7 +364,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                         //string FullName = LoginDetails.Family_Name + " " + LoginDetails.Given_Name;
                         //NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
 
-                        Response.Redirect("ConfirmChangedPassword.aspx", false);
+                        Response.Redirect("Forget_ConfirmChangedPassword.aspx", false);
 
 
                         Debug.WriteLine("Password not used");

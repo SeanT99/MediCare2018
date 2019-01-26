@@ -14,6 +14,6 @@ public partial class Login_ForgetPasswordEmailConfirmation : System.Web.UI.Page
 
     protected void BackToLoginPageButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Login.aspx");
+        Response.Redirect("Forget_ChangePasswordPage.aspx");
     }
 }
