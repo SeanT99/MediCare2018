@@ -72,7 +72,7 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         {
             //check password
             //bool pass = authDelete(id, PasswordTB.Text);
-            bool pass = authDelete(HttpContext.Current.Session["LoggedIn"].ToString(), PasswordTB.Text); 
+            bool pass = passAuth(HttpContext.Current.Session["LoggedIn"].ToString(), PasswordTB.Text); 
 
             if (pass == true)
             {
@@ -92,7 +92,7 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         { Response.Write("<script>alert('Verification message is wrong');</script>"); }
     }
 
-    protected bool authDelete(string id, string Password)
+    protected bool passAuth(string id, string Password)
     {
         bool pass = false;
 

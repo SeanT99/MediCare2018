@@ -39,7 +39,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         // check if both passwords match
         if ((NewPasswordTB.Text == ConfirmPasswordTB.Text) && ValidatePass.IsValid(NewPasswordTB.Text))
         {
-            //TODO validate to make sure no 2 security qn is the same
+            // validate to make sure no 2 security qn is the same
             //12 13
             //23
             if (q1 == q2 || q1 == q3 || q2 == q3)
@@ -63,10 +63,10 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 
                 cpu.PatientInsertOldPassword(id, hashPassword,OldSalt); // Insert into Password DB
 
-                //TODO retrieve user email /name
+                // retrieve user email /name
                 string[] email = mail.getPatientMailDetails(id);
 
-                //TODO send email to the user 
+                // send email to the user 
                 mail.sendPasswordChanged(email[0], email[1]);
 
                 //success message
