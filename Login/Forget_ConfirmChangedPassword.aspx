@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConfirmChangedPassword.aspx.cs" Inherits="Login_ConfirmChangedPassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Forget_ConfirmChangedPassword.aspx.cs" Inherits="Login_ConfirmChangedPassword" %>
 
 <!DOCTYPE html>
 

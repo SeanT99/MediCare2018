@@ -104,7 +104,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 PasswordValidator ValidatePassword = new PasswordValidator();
                 MailUtilities NotifyPasswordChanged = new MailUtilities();
                 List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
-                Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
+                //Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
 
                 if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
                 {
@@ -148,7 +148,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                                 NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
                                 Debug.WriteLine("Password not used");
 
-                                Response.Redirect("ConfirmChangedPassword.aspx",false);
+                                Response.Redirect("Forget_ConfirmChangedPassword.aspx",false);
                                 
                             }
                             PasswordExist = false;
