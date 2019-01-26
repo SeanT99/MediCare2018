@@ -44,9 +44,14 @@ public class PatientInfo
     private string sec_ans2;
     private string sec_qn3;
     private string sec_ans3;
-    private string acctype;//jj
-    private string salt;//jj
-	private string tochangepw; // jj new changes
+    private string acctype;
+    private string salt;
+	private string tochangepw;
+    //New for Block account
+    private int loginattempts;
+    private string accountstatus;
+
+
 
     //variables for patient listing table
     private string emergency_contact;
@@ -80,6 +85,8 @@ public class PatientInfo
     public string Acctype { get => acctype; set => acctype = value; }
     public string Salt { get => salt; set => salt = value; }
 	public string Tochangepw { get => tochangepw; set => tochangepw = value; } //  JJ New Changes
+    public int Loginattempts { get => loginattempts; set => loginattempts = value; }
+    public string Accountstatus { get => accountstatus; set => accountstatus = value; }
 
     //----------------------------------------------------------------------------------------------
     //------------------------------------------CONSTRUCTORS----------------------------------------
@@ -87,7 +94,8 @@ public class PatientInfo
 
     public PatientInfo() {}
 
-    public PatientInfo(string id, string id_Type, string family_Name, string given_Name, string gender, string dob, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history, string login_password, string sec_qn1, string sec_ans1, string sec_qn2, string sec_ans2, string sec_qn3, string sec_ans3, string salt)
+    //New constructor with login attempts and account status
+    public PatientInfo(string id, string id_Type, string family_Name, string given_Name, string gender, string dob, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history, string login_password, string sec_qn1, string sec_ans1, string sec_qn2, string sec_ans2, string sec_qn3, string sec_ans3, string salt ,int loginattempts, string accountstatus)
     {
         this.id = id;
         this.id_Type = id_Type;
@@ -116,7 +124,17 @@ public class PatientInfo
         this.sec_qn3 = sec_qn3;
         this.sec_ans3 = sec_ans3;
         this.salt = salt;
+        this.loginattempts = loginattempts;
+        this.accountstatus = accountstatus;
+
     }
+
+
+
+
+
+
+
 
     //the listing constructor
     public PatientInfo(string id, string family_Name, string given_Name, string gender, string mobileNumber, string medical_allergies,string emergency_contact)
@@ -179,7 +197,12 @@ public class PatientInfo
         this.given_Name = given_Name;
         this.family_Name = family_Name;
     }
-    
+    public PatientInfo(int loginattempts,string accountstatus)
+    {
+        this.loginattempts = loginattempts;
+        this.accountstatus = accountstatus;
+    }
+
 
     //update details constructor
 
@@ -201,6 +224,8 @@ public class PatientInfo
         this.medical_history = medical_history;
     }
 
+    
+
 
     //----------------------------------------------------------------------------------------------
     //---------------------------------DATABASE ACCESS METHODS--------------------------------------
@@ -212,8 +237,8 @@ public class PatientInfo
         int result = 0;
 
         //create the query "template" string
-        string queryStr = "INSERT INTO PatientInfo(id, id_Type, acctype, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, salt, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, registerDate, toChangePw)" +
-            " VALUES (@id, @id_Type, @acctype, @family_Name, @given_Name, @gender, @dob, @email, @mobileNumber, @homeNumber, @address_blk, @address_street, @address_unit, @address_building, @address_postal, @kin_name, @kin_contact, @kin_relationship, @medical_allergies, @medical_history, @salt, @login_password, @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3, @registerDate, @toChangePw)";
+        string queryStr = "INSERT INTO PatientInfo(id, id_Type, acctype, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, salt, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, registerDate, toChangePw, loginAttempts, accountStatus)" +
+            " VALUES (@id, @id_Type, @acctype, @family_Name, @given_Name, @gender, @dob, @email, @mobileNumber, @homeNumber, @address_blk, @address_street, @address_unit, @address_building, @address_postal, @kin_name, @kin_contact, @kin_relationship, @medical_allergies, @medical_history, @salt, @login_password, @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3, @registerDate, @toChangePw, @loginAttempts, @accountStatus)";
 
         // @sec_qn1, @sec_ans1, @sec_qn2, @sec_ans2, @sec_qn3, @sec_ans3
 
@@ -250,6 +275,8 @@ public class PatientInfo
         cmd.Parameters.AddWithValue("@salt", this.salt);
         cmd.Parameters.AddWithValue("@toChangePw", "TRUE");
         cmd.Parameters.AddWithValue("@registerDate", DateTime.Now.ToString("d/M/yyyy"));
+        cmd.Parameters.AddWithValue("@loginAttempts", this.loginattempts);
+        cmd.Parameters.AddWithValue("@accountStatus", this.accountstatus);
 
         try
         {
@@ -462,8 +489,8 @@ public class PatientInfo
         PatientInfo x = null;
 
         //strings for the object creation
-        string id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, salt;
-
+        string id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, salt, accountstatus;
+        int loginattempts;
         //query string
         string queryStr = "SELECT * FROM PatientInfo WHERE id = @id";
 
@@ -507,9 +534,11 @@ public class PatientInfo
                 sec_ans2 = dr["sec_ans2"].ToString();
                 sec_qn3 = dr["sec_qn3"].ToString();
                 sec_ans3 = dr["sec_ans3"].ToString();
+                loginattempts = Convert.ToInt32(dr["loginAttempts"]);
+                accountstatus = dr["accountStatus"].ToString();
 
 
-                x = new PatientInfo(id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, salt);
+                x = new PatientInfo(id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, login_password, sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3, salt, loginattempts, accountstatus);
             }
 
             //close connecetions
@@ -602,38 +631,6 @@ public class PatientInfo
         return patients;
     }
 
-    //get patient's mobile num
-    public string GetPatientsMobile(string username)
-    {
-        string mobile = "";
-
-
-        string queryStr = "SELECT mobileNumber from PatientInfo Where id = @id";
-
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@id", username);
-        try
-        {
-            conn.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                mobile = dr["mobileNumber"].ToString().Trim();
-            }
-
-            conn.Close();
-            dr.Close();
-            dr.Dispose();
-        }
-        catch (SqlException e)
-        {
-            Debug.Write(e);
-        }
-        return mobile;
-    }
-
     //get the patient's details using email
     public PatientInfo GetSpecificPatientByEmail(string enteredEmail)
     {
@@ -702,4 +699,72 @@ public class PatientInfo
 
         return x;
     }
+
+
+    //JJ New method for Block account
+    public PatientInfo GetPatientLoginAttemptAndAccountStatus(string LoginNRIC)
+    {
+        PatientInfo x = null;
+
+        //strings for the object creation
+
+        //query string
+        string queryStr = "SELECT loginAttempts,accountStatus from PatientInfo Where id=@LoginNRIC";
+
+        //open connections, insert param and execute query
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        conn.Open();
+        SqlDataReader dr = cmd.ExecuteReader();
+
+        if (dr.Read())
+        {
+            //store the data into object
+            int loginattempts = Convert.ToInt32(dr["loginAttempts"]);
+            string accountstatus = dr["accountStatus"].ToString();
+            x = new PatientInfo(loginattempts,accountstatus);
+        }
+
+        //close connecetions
+        conn.Close();
+        dr.Close();
+        dr.Dispose();
+
+
+        return x;
+    }
+
+    //Update Login Attempts
+     public int updatePatientLoginAttempt(string LoginNRIC, int loginattempts)
+    {
+        int result = 0;
+
+
+        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
+
+        string queryStr = "UPDATE PatientInfo SET loginAttempts = @loginAttempts WHERE id=@LoginNRIC";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        cmd.Parameters.AddWithValue("@loginAttempts", loginattempts);
+       
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
+    
 } 
