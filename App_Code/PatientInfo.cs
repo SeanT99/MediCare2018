@@ -798,5 +798,35 @@ public class PatientInfo
         return mobile;
     }
 
+    public int updatePatientAccountStatus(string LoginNRIC, string accountStatus)
+    {
+        int result = 0;
+
+
+        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
+
+        string queryStr = "UPDATE PatientInfo SET accountStatus = @accountStatus WHERE id=@LoginNRIC";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        cmd.Parameters.AddWithValue("@accountStatus", accountStatus);
+
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
 
 }
