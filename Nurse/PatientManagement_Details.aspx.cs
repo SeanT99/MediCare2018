@@ -58,13 +58,26 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
         string[] passHash =  passUtil.generateHash(id, newPw);
         //hashDetail = new string[] { saltStr, hashStr };
 
+        //Retrieve account status
+        PatientInfo LoginInfo = new PatientInfo();
+        PatientInfo GetUserAccountStatus = LoginInfo.GetLoginDetails(x.Id);
+        String accountstatus = GetUserAccountStatus.Accountstatus;
         // update database
-        int result = passUtil.updatePassword(id, passHash[0], passHash[1]);
+        int result = passUtil.ResetPassword(id, passHash[0], passHash[1]);
+          // update database
         if (result > 0)
         {
+            if (GetUserAccountStatus.Accountstatus == "LOCKED    ")
+            {
+                result = mail.sendUnblockEmail(x.Email, x.Given_Name, newPw);
+                passUtil.ResetPassword(id, passHash[0], passHash[1]);
+            }
             // send the email
-            result = mail.sendNurseReset(x.Email, x.Given_Name, newPw);
-
+            else
+            {
+                result = mail.sendNurseReset(x.Email, x.Given_Name, newPw);
+            }
+           
             if (!(result > 0))
             {
                 //alert mail failed check connection and try again (need to reset again )
