@@ -32,7 +32,7 @@
                 <div class="form-group ml-sm-5">
                     <asp:Label ID="otp_lbl" runat="server" Text="Old Password:"></asp:Label>
                     <br />
-                    <asp:TextBox ID="old_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px"></asp:TextBox>
+                    <asp:TextBox ID="old_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px" TextMode="Password"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter your old password" ForeColor="Red" ControlToValidate="old_tb"></asp:RequiredFieldValidator>
                     <br />
                 </div>
