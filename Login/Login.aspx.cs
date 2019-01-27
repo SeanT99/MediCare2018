@@ -431,19 +431,7 @@ public partial class Login_Login : System.Web.UI.Page
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
         //Checking Captcha Success True Or False
         public bool CheckReCaptcha()
