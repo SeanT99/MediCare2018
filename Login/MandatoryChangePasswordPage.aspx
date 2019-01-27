@@ -14,8 +14,6 @@
 
     <title>Login</title>
 
-
-
 </head>
 <body>
 
@@ -32,7 +30,7 @@
                 <div class="form-group ml-sm-5">
                     <asp:Label ID="otp_lbl" runat="server" Text="Old Password:"></asp:Label>
                     <br />
-                    <asp:TextBox ID="old_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="old_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 1px; top: 1px" TextMode="Password"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter your old password" ForeColor="Red" ControlToValidate="old_tb"></asp:RequiredFieldValidator>
                     <br />
                 </div>
@@ -43,7 +41,7 @@
 
 
                     <asp:TextBox ID="ChangePasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>                  
+                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">Please enter your new password</asp:RequiredFieldValidator>                  
                     <br />
                     
 
@@ -53,7 +51,7 @@
 
                 <div class="form-group ml-sm-5">
 
-                    <asp:Label ID="VerifyPasswordLabel" runat="server" Text="Verify New Password"></asp:Label>
+                    <asp:Label ID="VerifyPasswordLabel" runat="server" Text="Confirm New Password"></asp:Label>
 
                 </div>
 
@@ -61,7 +59,7 @@
 
                     <asp:TextBox ID="VerifyPasswordTextBox" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px"></asp:TextBox>
 
-                    <asp:RequiredFieldValidator ID="VerifyNewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="VerifyPasswordTextBox" ForeColor="Red" Text="Verify Password Field Cannot Be Empty" /><br />
+                    <asp:RequiredFieldValidator ID="VerifyNewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="VerifyPasswordTextBox" ForeColor="Red" Text="Please re-enter your new password" /><br />
                     
                     <asp:Label ID="NewPasswordDoesNotMatchLabel" runat="server" ForeColor="Red" Text="New Password Does Not Match"></asp:Label>
                     <br />

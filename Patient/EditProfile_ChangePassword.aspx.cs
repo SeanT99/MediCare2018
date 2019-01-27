@@ -6,38 +6,30 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
+public partial class Patient_EditProfile_ChangePassword : System.Web.UI.Page
 {
     readonly MailUtilities mail = new MailUtilities();
     readonly PasswordUtility pwUtility = new PasswordUtility();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
-        {
-            if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
-            {
-                Response.Redirect("Login.aspx", false);
-            }
-        }
-        else
-        {
-            Response.Redirect("../Login/Login.aspx", false);
-        }
-
-        PasswordUsedPreviouslyLabel.Visible = false;
-        NewPasswordDoesNotMatchLabel.Visible = false;
-        AlphaNumericLabel.Visible = false;
+        PasswordDoesNotMatchLabel.Visible = false;
+        PasswordIncorrectLabel.Visible = false;
     }
 
-    protected void details_Click(object sender, EventArgs e)
+    protected void Button1_Click(object sender, EventArgs e)
     {
+
         //get the patient id from the session
         string id = Session["LoggedIn"].ToString();
         //check the old password and both new match
         bool pass = passAuth(id, old_tb.Text);
         //if pass
-        if (pass && (ChangePasswordField.Text == VerifyPasswordTextBox.Text))
+        if (!pass)
+        {
+            PasswordIncorrectLabel.Visible = true;
+        }
+        else if (pass && (ChangePasswordField.Text == VerifyPasswordTextBox.Text))
         {
             // hash password and submit to database
             string[] passHash = pwUtility.generateHash(id, ChangePasswordField.Text);
@@ -51,8 +43,12 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
             //show success message
             Response.Write("<script>alert('Password updated successfully');location.href='../Appointment/OnlineAppt.aspx';</script>");
         }
-    }
+        else if(!(ChangePasswordField.Text == VerifyPasswordTextBox.Text))
+        {
+            PasswordDoesNotMatchLabel.Visible = true;
+        }
 
+    }
     protected bool passAuth(string id, string Password)
     {
         bool pass = false;
@@ -98,4 +94,5 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
 
         return pass;
     }
+
 }
