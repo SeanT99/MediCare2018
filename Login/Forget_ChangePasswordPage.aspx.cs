@@ -396,6 +396,9 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
     }
 
     protected void resend_btn_Click(object sender, EventArgs e)
+    {
+
+        string EnteredEmail = Session["EnteredEmail"].ToString();
         PatientInfo EmailInfo = new PatientInfo();
         List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail(EnteredEmail);
          PatientInfo SpecificPatientName;

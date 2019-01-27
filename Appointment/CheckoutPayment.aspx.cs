@@ -12,12 +12,25 @@ using static System.Web.HttpContext;
 public partial class Appointment_CheckoutPayment : System.Web.UI.Page
 {
     AesCryptoServiceProvider crypt_provider = new AesCryptoServiceProvider();
+    PatientPayment patient = new PatientPayment();
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
         confirmationTiming.Text = Request.QueryString["Parameter"].ToString();
         confirmationDate.Text = Request.QueryString["Parameter2"].ToString();
+
+
+
+        patient = patient.GetPatientCreditCardDetails(Session["LoggedIn"].ToString());
+        
+
+        cardholdername_tb.Text = patient.CardHolderName;
+        creditNo_tb.Text = decrypt(patient.CreditcardNo, patient.Key, patient.Iv);
+
+
+
+
 
     }
 
@@ -134,6 +147,7 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
         return str;
     }
 
+ 
 
     public static bool Mod10Check(string creditcardNo)
     {

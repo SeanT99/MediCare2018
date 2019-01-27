@@ -597,6 +597,59 @@ public class MailUtilities
 
     }
 
+    public int sendResendOTPMail(string email, string name, string otp)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+        MailMessage mail = new MailMessage();
+        String body = "";
+        int result = 1;
+
+        //sandra added otp parameter
+        if (otp == "")
+        {
+            body = "Hi " + name + ",<br/>Your resend otp has been reset successfully<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" > Login Here</a> ";
+            mail.Subject = "MediCare Account Security Alert";
+        }
+        else
+        {
+            body = "Hi " + name + ",<br/>You Requested to resend your otp. The OTP is as follows: " + otp + "<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" > Login Here</a> ";
+            mail.Subject = "MediCare Portal Resend OTP Request";
+        }
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress(email));
+
+
+        //to set the contents of the email
+        mail.Subject = "MediCare Portal Change Password Request";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
+
+    }
+
+
+
     public string sendOTP(string mobile, string message)
     {
         using (var wb = new WebClient())

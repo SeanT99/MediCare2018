@@ -47,15 +47,13 @@ public class PatientPayment
         //this.paymentID = paymentID;
     }
 
-    public PatientPayment(string paymentPrice, string cardHolderName, string creditcardNo, string expiryDate, string key, string iv)
+    public PatientPayment(string patientID, string cardHolderName, string creditcardNo, string key, string iv)
     {
-        this.PaymentPrice = paymentPrice;
+        this.patientID = patientID;
         this.CardHolderName = cardHolderName;
         this.CreditcardNo = creditcardNo;
-        this.ExpiryDate = expiryDate;
         this.key = key;
         this.iv = iv;
-        //this.paymentID = paymentID;
     }
 
     public PatientPayment getPatientPayment(string patient_ID)
@@ -122,6 +120,54 @@ public class PatientPayment
             return 0;
         }
     }//end Insert
+
+    //the retrieval of a specific patient's creditcard details
+    public PatientPayment GetPatientCreditCardDetails(string patient_id)
+    {
+        PatientPayment x = null;
+
+        //strings for the object creation
+        string patientID, cardHolderName, creditcardNo;
+
+        //query string
+        string queryStr = "SELECT patientID, cardHolderName, creditcardNo, strkey, iv FROM PatientPayment WHERE patientID = @patientID";
+
+        //open connections, insert param and execute query
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@patientID", patient_id);
+        try
+        {
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                //store the data into object
+                patientID = dr["patientID"].ToString();
+                cardHolderName= dr["cardHolderName"].ToString();
+                creditcardNo = dr["creditcardNo"].ToString();
+                key = dr["strkey"].ToString();
+                iv = dr["iv"].ToString();
+
+                x = new PatientPayment(patientID, cardHolderName, creditcardNo, key, iv);
+            }
+
+            //close connecetions
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+
+        return x;
+    }
+
+
 
 
 }
