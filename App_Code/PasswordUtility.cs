@@ -80,17 +80,18 @@ public class PasswordUtility
         return result;
     }
 
-    public int ResetPassword(string id, string salt, string hash)
+    public int ResetPassword(string id, string salt, string hash, string toChangePw)
     {
         int result = 0;
 
-        string queryStr = "UPDATE PatientInfo SET salt = @salt, login_password = @hash, loginAttempts = 0 , accountStatus = 'AVAILABLE ' , toChangePw = 'TRUE      '  WHERE id = @id";
+        string queryStr = "UPDATE PatientInfo SET salt = @salt, login_password = @hash, loginAttempts = 0 , accountStatus = 'AVAILABLE ' , toChangePw = @toChangePw  WHERE id = @id";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
         cmd.Parameters.AddWithValue("@salt", salt);
         cmd.Parameters.AddWithValue("@hash", hash);
         cmd.Parameters.AddWithValue("@id", id);
+        cmd.Parameters.AddWithValue("@toChangePw", toChangePw);
 
         try
         {
