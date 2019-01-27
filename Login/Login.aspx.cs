@@ -104,6 +104,7 @@ public partial class Login_Login : System.Web.UI.Page
 
         if (UserLoginDetails != null && UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Accountstatus == "AVAILABLE ")
         {
+            //----------------ALL FOR PATIENTS----------------------------
             Debug.WriteLine("PATIENT ACCOUNT TEST");
             PatientInfo GetPatientLoginAttemptAndStatus = LoginInfo.GetPatientLoginAttemptAndAccountStatus(LoginNRIC);
             int UserCurrentLoginAttempts = GetPatientLoginAttemptAndStatus.Loginattempts; //User login attempt
@@ -176,22 +177,7 @@ public partial class Login_Login : System.Web.UI.Page
 
                         Response.Redirect("../Appointment/OnlineAppt.aspx", false);
                     }
-                    else if (UserLoginDetails.Acctype != "PATIENT   ")
-                    {
-                        //session ANSELM TEOH
-                        Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-                        Session["Acctype"] = UserLoginDetails.Acctype;
-                        //create a new GUID and save into session
-                        string guid = Guid.NewGuid().ToString();
-                        Session["AuthToken"] = guid;
-
-                        // Create cookie with this guid value
-                        Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-                        NonAccountAttempt = 0;
-
-                        Response.Redirect("../Nurse/PatientRegistration.aspx", false);
-
-                    }
+                   
                 }
             }
 
@@ -229,22 +215,7 @@ public partial class Login_Login : System.Web.UI.Page
 
                                 Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                             }
-                            else if (UserLoginDetails.Acctype != "PATIENT   ")
-                            {
-                                //session ANSELM TEOH
-                                Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
-                                Session["Acctype"] = UserLoginDetails.Acctype;
-                                //create a new GUID and save into session
-                                string guid = Guid.NewGuid().ToString();
-                                Session["AuthToken"] = guid;
-
-                                // Create cookie with this guid value
-                                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-                                NonAccountAttempt = 0;
-
-                                Response.Redirect("../Nurse/PatientRegistration.aspx", false);
-
-                            }
+                          
                             else
                             {
                                 //session ANSELM TEOH
@@ -296,6 +267,7 @@ public partial class Login_Login : System.Web.UI.Page
             Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "YOUR ACCOUNT HAS BEEN LOCKED, PLEASE CONTACT ADMINSTRATOR FOR ASSISTANCE" + "\\r\\n" + "');</script>");
             //Create another page for email and redirect them
         }
+        //------------------------ADMIN--------------------------------
         else if (UserLoginDetails != null && UserLoginDetails.Acctype == "ADMIN     ") //Admin account with catpcha validation
         {
             Debug.WriteLine("ADMIN ACCOUNT TEST");
@@ -491,11 +463,7 @@ public partial class Login_Login : System.Web.UI.Page
             {
                 CaptchaClass.Visible = true; // Set the captcha visible first
             } // end of else loop
-
-
-
-
-
+            
         }
 
     }
