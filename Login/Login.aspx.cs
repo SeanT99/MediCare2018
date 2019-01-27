@@ -141,13 +141,11 @@ public partial class Login_Login : System.Web.UI.Page
                     UserCurrentLoginAttempts++;
                     Debug.WriteLine(UserCurrentLoginAttempts);
                     LoginInfo.updatePatientLoginAttempt(LoginNRIC, UserCurrentLoginAttempts);
-
                     
-
                 }
                 else if ((hashStr == UserLoginDetails.Login_password) && LoginNRIC == UserLoginDetails.Id) // After captcha returned True if is completed, check If Username, Password and Captcha is all completed then allow login for user
                 {
-                    if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
+                    if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "TRUE")
                     {
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
@@ -162,7 +160,23 @@ public partial class Login_Login : System.Web.UI.Page
 
                         Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                     }
-                    else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
+                    else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "MCP")
+                    {
+                        //session ANSELM TEOH
+                        Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
+                        Session["Acctype"] = UserLoginDetails.Acctype;
+                        //create a new GUID and save into session
+                        string guid = Guid.NewGuid().ToString();
+                        Session["AuthToken"] = guid;
+
+                        // Create cookie with this guid value
+                        Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+                        NonAccountAttempt = 0;
+
+                        Response.Redirect("../Login/MandatoryChangePassword.aspx", false);
+                    }
+
+                    else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "FALSE")
                     {
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
@@ -193,13 +207,12 @@ public partial class Login_Login : System.Web.UI.Page
                             CaptchaNotCompletedLabel.Visible = false;
                             IncorrectUsernameAndPasswordLabel.Visible = true;
                             UserCurrentLoginAttempts++;
-                            Debug.WriteLine("TEST TEST");
                             LoginInfo.updatePatientLoginAttempt(LoginNRIC, UserCurrentLoginAttempts);
 
                         }
                         else if ((hashStr == UserLoginDetails.Login_password)) // After captcha returned True if is completed, check If Username, Password and Captcha is all completed then allow login for user
                         {
-                            if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "TRUE      ")
+                            if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "TRUE")
                             {
                                 //session ANSELM TEOH
                                 Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
@@ -215,7 +228,22 @@ public partial class Login_Login : System.Web.UI.Page
 
                                 Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                             }
-                          
+                            else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "MCP")
+                            {
+                                //session ANSELM TEOH
+                                Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
+
+                                Session["Acctype"] = UserLoginDetails.Acctype;
+
+                                //create a new GUID and save into session
+                                string guid = Guid.NewGuid().ToString();
+                                Session["AuthToken"] = guid;
+                                // Create cookie with this guid value
+                                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+                                NonAccountAttempt = 0;
+
+                                Response.Redirect("../Login/MandatoryChangePassword.aspx", false);
+                            }
                             else
                             {
                                 //session ANSELM TEOH
