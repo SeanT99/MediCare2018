@@ -41,6 +41,7 @@
                     <br />
                     <asp:TextBox ID="otp_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px" MaxLength="6"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="OTP Cannot Be Empty" ForeColor="Red" ControlToValidate="otp_tb"></asp:RequiredFieldValidator>
+                    <asp:Button ID="resend_btn" runat="server" CssClass="btn btn-primary col-sm-3 ml-sm-5 mt-sm-2 color1" CausesValidation="False" OnClick="resend_btn_Click" Text="RESEND" />
                     <br />
                 </div>
 

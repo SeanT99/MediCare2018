@@ -655,8 +655,8 @@ public class MailUtilities
         using (var wb = new WebClient())
         {
             var data = new NameValueCollection();
-            data["SMSAccount"] = "A2";
-            data["Pwd"] = "914980";
+            data["SMSAccount"] = "A3";
+            data["Pwd"] = "955460";
             data["Mobile"] = mobile;
             data["Message"] = message;
 

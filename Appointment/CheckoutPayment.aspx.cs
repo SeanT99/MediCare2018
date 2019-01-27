@@ -7,28 +7,35 @@ using System.Web.UI.WebControls;
 using System.Security.Cryptography;
 using System.Text;
 using static System.Web.HttpContext;
-
+using System.Text.RegularExpressions;
 
 public partial class Appointment_CheckoutPayment : System.Web.UI.Page
 {
     AesCryptoServiceProvider crypt_provider = new AesCryptoServiceProvider();
     PatientPayment patient = new PatientPayment();
+    String creditcarddetails = null;
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+
+
         confirmationTiming.Text = Request.QueryString["Parameter"].ToString();
         confirmationDate.Text = Request.QueryString["Parameter2"].ToString();
 
-
-
         patient = patient.GetPatientCreditCardDetails(Session["LoggedIn"].ToString());
-        
 
-        cardholdername_tb.Text = patient.CardHolderName;
-        creditNo_tb.Text = decrypt(patient.CreditcardNo, patient.Key, patient.Iv);
+        if (patient != null)
+            {
+                cardholdername_tb.Text = patient.CardHolderName;
+                creditNo_tb.Text = decrypt(patient.CreditcardNo, patient.Key, patient.Iv);
+                creditNo_tb.Text = string.Format("************{0}", creditNo_tb.Text.Trim().Substring(12, 4));
 
+            }  
 
+        }
 
 
 
@@ -147,7 +154,7 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
         return str;
     }
 
- 
+    
 
     public static bool Mod10Check(string creditcardNo)
     {

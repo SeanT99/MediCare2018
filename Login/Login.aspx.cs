@@ -157,7 +157,7 @@ public partial class Login_Login : System.Web.UI.Page
                         // Create cookie with this guid value
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
-
+                        LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                         Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                     }
                     else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "MCP")
@@ -172,7 +172,7 @@ public partial class Login_Login : System.Web.UI.Page
                         // Create cookie with this guid value
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
-
+                        LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                         Response.Redirect("../Login/MandatoryChangePasswordPage.aspx", false);
                     }
 
@@ -188,7 +188,7 @@ public partial class Login_Login : System.Web.UI.Page
                         // Create cookie with this guid value
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
-
+                        LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                         Response.Redirect("../Appointment/OnlineAppt.aspx", false);
                     }
                    
@@ -225,7 +225,7 @@ public partial class Login_Login : System.Web.UI.Page
                                 // Create cookie with this guid value
                                 Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                                 NonAccountAttempt = 0;
-
+                                LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                                 Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                             }
                             else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "MCP")
@@ -241,7 +241,7 @@ public partial class Login_Login : System.Web.UI.Page
                                 // Create cookie with this guid value
                                 Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                                 NonAccountAttempt = 0;
-
+                                LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                                 Response.Redirect("../Login/MandatoryChangePasswordPage.aspx", false);
                             }
                             else
@@ -256,7 +256,7 @@ public partial class Login_Login : System.Web.UI.Page
                                 // Create cookie with this guid value
                                 Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                                 NonAccountAttempt = 0;
-
+                                LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                                 Response.Redirect("../Appointment/OnlineAppt.aspx", false);
                             }
                         }
@@ -384,7 +384,7 @@ public partial class Login_Login : System.Web.UI.Page
 
                         Int32 rowsAffected = cmd.ExecuteNonQuery();
                         #endregion
-
+                        LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                         Response.Redirect("../Nurse/PatientRegistration.aspx", false);
                     }
                 }
@@ -453,7 +453,7 @@ public partial class Login_Login : System.Web.UI.Page
                             #endregion
 
 
-
+                            LoginInfo.updatePatientLoginAttempt(LoginNRIC);
                             Response.Redirect("../Nurse/PatientRegistration.aspx", false);
 
                         }

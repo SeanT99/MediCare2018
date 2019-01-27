@@ -104,11 +104,13 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                 double XTIME = subtractMinutes(OTPdt, DateTime.Now);
                 Debug.Write(XTIME);
                 Debug.Write(XTIME + OTP_used);
-                if ((XTIME > 5) || (OTP_used == "1"))
+                if ((XTIME > 5) || (OTP_used == "1 "))
                 {
                     //expired otp
                     lblError.Text = "Your OTP has expired.";
                 }
+                
+
                 else
                 {
                     Debug.WriteLine("STARTING TO INSERT PASSWORD");
@@ -186,8 +188,18 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
               //mark this otp as used
                     setUsed(username_session);
                 } //Insert Else statement ends here
+
+            }
+            else if (OTP == "0" || OTP_used == "1 ")
+            {
+                lblError.Text = "Your OTP is incorrect";
             }
         }// End of Login != null IF Loop 
+
+
+
+
+
         else if(LoginDetails == null)
         {
             ChangePassUserErrorLabel.Visible = true;
@@ -395,28 +407,40 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
         //mark this otp as used
     }
 
+
+
+
+
+
     protected void resend_btn_Click(object sender, EventArgs e)
     {
 
-        string EnteredEmail = Session["EnteredEmail"].ToString();
-        PatientInfo EmailInfo = new PatientInfo();
-        List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail(EnteredEmail);
-         PatientInfo SpecificPatientName;
+            string EnteredEmail = Request.QueryString["EnteredID"].ToString();
+            PatientInfo EmailInfo = new PatientInfo();
+            List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail(EnteredEmail);
+            PatientInfo SpecificPatientName;
 
-        SpecificPatientName = EmailInfo.GetSpecificPatientByEmail(EnteredEmail);
-        String FamilyAndGivenName = SpecificPatientName.Given_Name + SpecificPatientName.Family_Name;
-        id = pat.GetPatientIDByEmail(EnteredEmail);
+            SpecificPatientName = EmailInfo.GetSpecificPatientByEmail(EnteredEmail);
+            String FamilyAndGivenName = SpecificPatientName.Given_Name + SpecificPatientName.Family_Name;
+            id = pat.GetPatientIDByEmail(EnteredEmail);
 
-        //TODO generate otp
-        string otp = o.genOTP();
-        //TODO create the otp object
-        o = new OTP(id, otp);
-        //TODO send otp to table
-        int result = o.insertOTP();
-        Debug.Write("-------" + result);
-        //send otp and send resend otp email
-        MailUtilities sendPasswordRequest = new MailUtilities();
-        sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            //TODO generate otp
+            string otp = o.genOTP();
+            //TODO create the otp object
+            o = new OTP(id, otp);
+            //TODO send otp to table
+            int result = o.insertOTP();
+            Debug.Write("-------" + result);
+
+            string mobile = pat.GetPatientsMobile(id);
+
+            string msg = "This is your medicare portal OTP " + otp;
+
+            //send otp and send resend otp sms
+            MailUtilities sendPasswordRequest = new MailUtilities();
+            //sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            sendPasswordRequest.sendOTP(mobile, msg);
+
     }
 }
 

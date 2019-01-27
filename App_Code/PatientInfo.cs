@@ -188,10 +188,12 @@ public class PatientInfo
     }
 
     //Check if it exist or not, Not very sure if is new
-    public PatientInfo(string email,string tochangepw)
+    public PatientInfo(string email,string tochangepw,int loginattempts,string accountstatus)
     {
         this.email = email;
         this.tochangepw = tochangepw;
+        this.loginattempts = loginattempts;
+        this.accountstatus = accountstatus;
     }
     public PatientInfo(string email)
     {
@@ -615,7 +617,7 @@ public class PatientInfo
         List<PatientInfo> patients = new List<PatientInfo>();
 
 
-        string queryStr = "SELECT email,toChangePw from PatientInfo Where email = @Email";
+        string queryStr = "SELECT email,toChangePw,loginAttempts,accountStatus from PatientInfo Where email = @Email";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -629,7 +631,9 @@ public class PatientInfo
             {
                 string email = dr["email"].ToString();
                 string tochangepw = dr["toChangePw"].ToString();
-                PatientInfo a = new PatientInfo(email,tochangepw);
+                int loginattempts = Convert.ToInt32(dr["loginAttempts"]);
+                string accountstatus = dr["accountStatus"].ToString();
+                PatientInfo a = new PatientInfo(email,tochangepw, loginattempts, accountstatus);
                 patients.Add(a);
             }
 
@@ -808,6 +812,40 @@ public class PatientInfo
 
         return result;
     }
+
+    public int updatePatientLoginAttempt(string LoginNRIC)
+    {
+        int result = 0;
+
+
+        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
+
+        string queryStr = "UPDATE PatientInfo SET loginAttempts = @loginAttempts WHERE id=@LoginNRIC";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        cmd.Parameters.AddWithValue("@loginAttempts", 0);
+
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
+
+
+
 
     //get patient's mobile num
     public string GetPatientsMobile(string username)
