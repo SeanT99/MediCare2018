@@ -173,7 +173,7 @@ public partial class Login_Login : System.Web.UI.Page
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
 
-                        Response.Redirect("../Login/MandatoryChangePassword.aspx", false);
+                        Response.Redirect("../Login/MandatoryChangePasswordPage.aspx", false);
                     }
 
                     else if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "FALSE")
@@ -242,7 +242,7 @@ public partial class Login_Login : System.Web.UI.Page
                                 Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                                 NonAccountAttempt = 0;
 
-                                Response.Redirect("../Login/MandatoryChangePassword.aspx", false);
+                                Response.Redirect("../Login/MandatoryChangePasswordPage.aspx", false);
                             }
                             else
                             {

@@ -19,7 +19,6 @@ public partial class Patient_EditProfile_ChangePassword : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-
         //get the patient id from the session
         string id = Session["LoggedIn"].ToString();
         //check the old password and both new match
