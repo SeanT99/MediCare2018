@@ -58,9 +58,9 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
         bool pass = false;
 
         string hashStr = "";
+
         //add the username to the password then hash the summed string
         string ToHashUserLoginInput = id + Password;
-
 
         PatientInfo LoginInfo = new PatientInfo();
         PatientInfo UserLoginDetails = LoginInfo.GetLoginDetails(id);
