@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -10,6 +11,12 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
 {
     readonly MailUtilities mail = new MailUtilities();
     readonly PasswordUtility pwUtility = new PasswordUtility();
+    PasswordValidator pwValidator = new PasswordValidator();
+    string passwordDoNotMatch = "- Password Do Not Match!";
+    string passwordMinimum = "- Password Length Must Be More Than 6";
+    string passwordMaximum = "- Password Length Must Be Less Than 16";
+    string passwordUpper = "- Password Must Contain At Least 1 Uppercase Letter";
+    string passwordAlpha = "- Password Be Alphanumeric, Has No Special Symbols";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -28,6 +35,7 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
         PasswordUsedPreviouslyLabel.Visible = false;
         NewPasswordDoesNotMatchLabel.Visible = false;
         AlphaNumericLabel.Visible = false;
+        PasswordIncorrectLabel.Visible = false;
     }
 
     protected void details_Click(object sender, EventArgs e)
@@ -36,20 +44,41 @@ public partial class Login_MandatoryChangePasswordPage : System.Web.UI.Page
         string id = Session["LoggedIn"].ToString();
         //check the old password and both new match
         bool pass = passAuth(id, old_tb.Text);
-        //if pass
-        if (pass && (ChangePasswordField.Text == VerifyPasswordTextBox.Text))
+        string newPassword = ChangePasswordField.Text;
+        string confirmNewPassword = VerifyPasswordTextBox.Text;
+
+
+        if (!pass)
         {
-            // hash password and submit to database
-            string[] passHash = pwUtility.generateHash(id, ChangePasswordField.Text);
-            int result = pwUtility.updatePassword(id, passHash[0], passHash[1]);
+            PasswordIncorrectLabel.Visible = true;
+        }
+        //if pass
+        if (pass && (ChangePasswordField.Text == VerifyPasswordTextBox.Text) )
+        {
+            if (pwValidator.IsValid(newPassword) == true)
+            {
+                // hash password and submit to database
+                string[] passHash = pwUtility.generateHash(id, ChangePasswordField.Text);
+                int result = pwUtility.updatePassword(id, passHash[0], passHash[1]);
 
 
-            //send security alert
-            string[] email = mail.getPatientMailDetails(id);
-            mail.sendPasswordChanged(email[0], email[1]);
+                //send security alert
+                string[] email = mail.getPatientMailDetails(id);
+                mail.sendPasswordChanged(email[0], email[1]);
 
-            //show success message
-            Response.Write("<script>alert('Password updated successfully');location.href='../Appointment/OnlineAppt.aspx';</script>");
+                //show success message
+                Response.Write("<script>alert('Password updated successfully');location.href='../Appointment/OnlineAppt.aspx';</script>");
+            }          
+            else if (pwValidator.IsValid(newPassword) == false && newPassword.Equals(confirmNewPassword))
+            {
+                Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "PASSWORD MATCHES, BUT DOES NOT MEET THE PASSWORD REQURIEMENT" + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+                //AlphaNumericLabel.Visible = true;
+                Debug.WriteLine("Password matches, but not valid");
+            }
+        }
+        else if (!(ChangePasswordField.Text == VerifyPasswordTextBox.Text))
+        {
+            NewPasswordDoesNotMatchLabel.Visible = true;
         }
     }
 
