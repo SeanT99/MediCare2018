@@ -18,6 +18,9 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 {
     string id = "";
     MailUtilities mail = new MailUtilities();
+    OTP o = new OTP();
+    readonly PatientInfo pat = new PatientInfo();
+
     readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
     string passwordDoNotMatch = "- Password Do Not Match!";
     string passwordMinimum = "- Password Length Must Be More Than 6";
@@ -390,6 +393,27 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
             AlphaNumericLabel.Visible = true;
         }
         //mark this otp as used
+    }
+
+    protected void resend_btn_Click(object sender, EventArgs e)
+        PatientInfo EmailInfo = new PatientInfo();
+        List<PatientInfo> AllEmailContact = EmailInfo.GetPatientsEmail(EnteredEmail);
+         PatientInfo SpecificPatientName;
+
+        SpecificPatientName = EmailInfo.GetSpecificPatientByEmail(EnteredEmail);
+        String FamilyAndGivenName = SpecificPatientName.Given_Name + SpecificPatientName.Family_Name;
+        id = pat.GetPatientIDByEmail(EnteredEmail);
+
+        //TODO generate otp
+        string otp = o.genOTP();
+        //TODO create the otp object
+        o = new OTP(id, otp);
+        //TODO send otp to table
+        int result = o.insertOTP();
+        Debug.Write("-------" + result);
+        //send otp and send resend otp email
+        MailUtilities sendPasswordRequest = new MailUtilities();
+        sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
     }
 }
 
