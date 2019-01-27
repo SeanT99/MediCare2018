@@ -42,72 +42,76 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
     protected void details_Click(object sender, EventArgs e)
     {
+
+        String Username = ChangePassUsernameField.Text.ToUpper();
+        String NewPassword = ChangePasswordField.Text;
+        String VerifyNewPassword = VerifyPasswordTextBox.Text;
+
+        PatientInfo getUserInfo = new PatientInfo();
+        PatientInfo LoginDetails = getUserInfo.GetLoginDetails(Username); // Check if Username exist in db
+        Debug.WriteLine(LoginDetails.Id + "Test"); // pass
+        PasswordUtility CheckPassword = new PasswordUtility();
+        ChangePasswordUtility InsertOldPassword = new ChangePasswordUtility();
+        ChangePasswordUtility UpdateNewPasswordToPatientTable = new ChangePasswordUtility();
+        ChangePasswordUtility UpdateNewDataToPasswordTable = new ChangePasswordUtility();
+        PasswordValidator ValidatePassword = new PasswordValidator();
+        MailUtilities NotifyPasswordChanged = new MailUtilities();
+
         //if otp correct then allow the below
 
-        //checking otp
-        string username_session = ChangePassUsernameField.Text; //get current user's id
-        DateTime OTPdt = DateTime.Now; //get the current datetime
-        string OTP = "0";
-        string OTP_ID = "0";
-        string OTP_used = "1";
-        SqlConnection myConn = new SqlConnection(_connStr);
-        myConn.Open();
-
-        string checkOTP = "SELECT * FROM OTP WHERE patientID=@username AND otp_no=@OTP"; //find if got a otp record that tally with the input
-        SqlCommand cmd = new SqlCommand(checkOTP, myConn);
-        cmd.Parameters.AddWithValue("@username", username_session);
-        cmd.Parameters.AddWithValue("@OTP", otp_tb.Text);
-        try//try to retrieve any 
+        if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
         {
-            using (SqlDataReader rdr = cmd.ExecuteReader())
+
+            //checking otp
+            string username_session = ChangePassUsernameField.Text; //get current user's id
+            DateTime OTPdt = DateTime.Now; //get the current datetime
+            string OTP = "0";
+            string OTP_ID = "0";
+            string OTP_used = "1";
+            SqlConnection myConn = new SqlConnection(_connStr);
+            myConn.Open();
+
+            string checkOTP = "SELECT * FROM OTP WHERE patientID=@username AND otp_no=@OTP"; //find if got a otp record that tally with the input
+            SqlCommand cmd = new SqlCommand(checkOTP, myConn);
+            cmd.Parameters.AddWithValue("@username", username_session);
+            cmd.Parameters.AddWithValue("@OTP", otp_tb.Text);
+            try//try to retrieve any 
             {
-                while (rdr.Read())
+                using (SqlDataReader rdr = cmd.ExecuteReader())
                 {
-                    OTP_ID = rdr["otp_id"].ToString();
-                    OTP = rdr["otp_no"].ToString();
-                    OTPdt = (DateTime)rdr["otp_timestamp"];
-                    OTP_used = rdr["otp_used"].ToString();
+                    while (rdr.Read())
+                    {
+                        OTP_ID = rdr["otp_id"].ToString();
+                        OTP = rdr["otp_no"].ToString();
+                        OTPdt = (DateTime)rdr["otp_timestamp"];
+                        OTP_used = rdr["otp_used"].ToString();
+                    }
                 }
+
+                myConn.Close();
             }
-        }
-        catch (SqlException ex)
-        {
-            Debug.Write(ex);
-        }
-
-        if (OTP != "0")//if have record
-        {
-            Debug.WriteLine("OTP has record");
-            double XTIME = subtractMinutes(OTPdt, DateTime.Now);
-            Debug.Write(XTIME);
-            Debug.Write(XTIME + OTP_used);
-            if ((XTIME > 5) || (OTP_used == "1"))
+            catch (SqlException ex)
             {
-                //expired otp
-                lblError.Text = "Your OTP has expired.";
+                Debug.Write(ex);
             }
-            else
+
+            if (OTP != "0")//if have record
             {
-                Debug.WriteLine("STARTING TO INSERT PASSWORD");
-                //otp success
-                String Username = ChangePassUsernameField.Text.ToUpper();
-                String NewPassword = ChangePasswordField.Text;
-                String VerifyNewPassword = VerifyPasswordTextBox.Text;
-
-                PatientInfo getUserInfo = new PatientInfo();    
-                PatientInfo LoginDetails = getUserInfo.GetLoginDetails(Username); // Check if Username exist in db
-                Debug.WriteLine(LoginDetails.Id + "Test"); // pass
-                PasswordUtility CheckPassword = new PasswordUtility();
-                ChangePasswordUtility InsertOldPassword = new ChangePasswordUtility();
-                ChangePasswordUtility UpdateNewPasswordToPatientTable = new ChangePasswordUtility();
-                ChangePasswordUtility UpdateNewDataToPasswordTable = new ChangePasswordUtility();
-                PasswordValidator ValidatePassword = new PasswordValidator();
-                MailUtilities NotifyPasswordChanged = new MailUtilities();
-                List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
-                //Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
-
-                if (LoginDetails != null) // Check if Username exist in db / Valid NRIC Format
+                Debug.WriteLine("OTP has record");
+                double XTIME = subtractMinutes(OTPdt, DateTime.Now);
+                Debug.Write(XTIME);
+                Debug.Write(XTIME + OTP_used);
+                if ((XTIME > 5) || (OTP_used == "1"))
                 {
+                    //expired otp
+                    lblError.Text = "Your OTP has expired.";
+                }
+                else
+                {
+                    Debug.WriteLine("STARTING TO INSERT PASSWORD");
+                    //otp success
+                    List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
+                    Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
                     if (InfoNeededForUserToChangePassword.Count > 0 && ValidatePassword.IsValid(NewPassword) == true) // Check if Username exist in database, if does not, then password also cannot change
                     {                                              // To get new password + old salt       
                         if (NewPassword.Equals(VerifyNewPassword)) //if Username exist then continue to check new password and verify password if is the same
@@ -148,8 +152,8 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                                 NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
                                 Debug.WriteLine("Password not used");
 
-                                Response.Redirect("Forget_ConfirmChangedPassword.aspx",false);
-                                
+                                Response.Redirect("ConfirmChangedPassword.aspx", false);
+
                             }
                             PasswordExist = false;
                         }
@@ -161,18 +165,14 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                     //    //ChangePassUserErrorLabel.Visible = true;
                     //    //AlphaNumericLabel.Visible = true;
                     //    lblError.Text = "";
-                        
+
                     //    Debug.WriteLine("Password not valid, Username Invalid");
                     //}
-                    else if (ValidatePassword.IsValid(NewPassword) == false && !(NewPassword.Equals(VerifyNewPassword)))
+                    else if (!(NewPassword.Equals(VerifyNewPassword)))
                     {
-                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + NewAndVerifyPass + "\\r\\n" + "AND" + "\\r\\n" + "PASSWORD REQUIREMENT" + "\\r\\n" + passwordMinimum + "\\r\\n" + passwordMaximum + "\\r\\n" + passwordUpper + "\\r\\n" + passwordAlpha + "');</script>");
+                        Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "PASSWORD Does not match" + "\\r\\n" + "');</script>");
                         //AlphaNumericLabel.Visible = true;
-                        //NewPasswordDoesNotMatchLabel.Visible = true;
-                        Debug.WriteLine("Password Not Valid, Password does not match");
-
-
-
+                        Debug.WriteLine("Password Does not match");
                     }
                     else if (ValidatePassword.IsValid(NewPassword) == false && NewPassword.Equals(VerifyNewPassword))
                     {
@@ -180,17 +180,17 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                         //AlphaNumericLabel.Visible = true;
                         Debug.WriteLine("Password matches, but not valid");
                     }
-                }// End of Login != null IF Loop                           
-                //mark this otp as used
-                setUsed(username_session);
-            } //Insert Else statement ends here
-        }
-        else
+              //mark this otp as used
+                    setUsed(username_session);
+                } //Insert Else statement ends here
+            }
+        }// End of Login != null IF Loop 
+        else if(LoginDetails == null)
         {
-            lblError.Text = "The OTP you've input is incorrect.";
+            ChangePassUserErrorLabel.Visible = true;
+          
         }
 
-        myConn.Close();
 
     }
 
@@ -364,7 +364,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                         //string FullName = LoginDetails.Family_Name + " " + LoginDetails.Given_Name;
                         //NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
 
-                        Response.Redirect("Forget_ConfirmChangedPassword.aspx", false);
+                        Response.Redirect("ConfirmChangedPassword.aspx", false);
 
 
                         Debug.WriteLine("Password not used");
