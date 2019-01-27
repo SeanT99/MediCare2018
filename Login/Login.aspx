@@ -69,6 +69,8 @@
 
                 <div>
 
+                    <asp:Button ID="Button1" runat="server" CssClass="btn contactus" Text="Contact Us" CausesValidation="False" OnClick="Button1_Click"  />
+
                     <asp:Button ID="forgotPassword" runat="server" Text="Forgot Password?" CssClass="btn forgotPassword" Width="170px" OnClick="forgotPassword_Click" CausesValidation="false" />
 
                 </div>

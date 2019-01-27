@@ -30,7 +30,7 @@ public class PasswordUtility
         //hash the password
 
         //1. get the salt
-        byte[] salt; //new byte array for salt
+        byte[] salt; //new byte array for salt  
         new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);//generate the salt
 
         //2. concatenate the plaintext to the salt and hash it (using PBKDF2)

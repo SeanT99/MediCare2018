@@ -155,7 +155,7 @@ public partial class Login_Login : System.Web.UI.Page
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
 
-                        Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                        Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                     }
                     else if (UserLoginDetails.Acctype == "PATIENT   " && UserLoginDetails.Tochangepw == "FALSE     ")
                     {
@@ -223,7 +223,7 @@ public partial class Login_Login : System.Web.UI.Page
                                 Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                                 NonAccountAttempt = 0;
 
-                                Response.Redirect("../Patient/Patient_FirstLogin.aspx", false);
+                                Response.Redirect("../Login/Patient_FirstLogin.aspx", false);
                             }
                             else if (UserLoginDetails.Acctype != "PATIENT   ")
                             {
@@ -478,8 +478,13 @@ public partial class Login_Login : System.Web.UI.Page
             }
         }
 
-     
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Contact.aspx", false);
     }
+}
 
 
 

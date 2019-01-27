@@ -172,7 +172,7 @@ public class PatientInfo
     }
 
     //login constructor -- jj
-    public PatientInfo(string id, string login_password, string salt, string acctype, string tochangepw, string email, string family_name, string given_name)
+    public PatientInfo(string id, string login_password, string salt, string acctype, string tochangepw, string email, string family_name, string given_name,int loginattempts, string accountstatus)
     {
         this.id = id;
         this.login_password = login_password;
@@ -182,6 +182,8 @@ public class PatientInfo
         this.email = email;
         this.family_Name = family_name;
         this.given_Name = given_name;
+        this.loginattempts = loginattempts;
+        this.accountstatus = accountstatus;
 
     }
 
@@ -320,7 +322,7 @@ public class PatientInfo
         //strings for the object creation
 
         //query string
-        string queryStr = "SELECT id,login_password,salt,acctype,toChangePw,email,family_Name,given_Name FROM PatientInfo WHERE id = @LoginNRIC";
+        string queryStr = "SELECT id,login_password,salt,acctype,toChangePw,email,family_Name,given_Name,loginAttempts,accountStatus FROM PatientInfo WHERE id = @LoginNRIC";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -340,8 +342,10 @@ public class PatientInfo
             email = dr["email"].ToString();
             family_Name = dr["family_Name"].ToString();
             given_Name = dr["given_Name"].ToString();
+            int loginattempts = Convert.ToInt32(dr["loginAttempts"]);
+            string accountstatus = dr["accountStatus"].ToString();
 
-            x = new PatientInfo(id, login_password, salt, acctype, tochangepw, email, family_Name, given_Name);
+            x = new PatientInfo(id, login_password, salt, acctype, tochangepw, email, family_Name, given_Name,loginattempts,accountstatus);
         }
 
         //close connecetions
@@ -766,6 +770,36 @@ public class PatientInfo
         return result;
     }
 
+    public int updatePatientAccountStatus(string LoginNRIC, string accountStatus)
+    {
+        int result = 0;
+
+
+        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
+
+        string queryStr = "UPDATE PatientInfo SET accountStatus = @accountStatus WHERE id=@LoginNRIC";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
+        cmd.Parameters.AddWithValue("@accountStatus", accountStatus);
+
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.Write(e);
+        }
+
+        return result;
+    }
+
     //get patient's mobile num
     public string GetPatientsMobile(string username)
     {
@@ -797,36 +831,6 @@ public class PatientInfo
         }
         return mobile;
     }
+    
 
-    public int updatePatientAccountStatus(string LoginNRIC, string accountStatus)
-    {
-        int result = 0;
-
-
-        //id, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history
-
-        string queryStr = "UPDATE PatientInfo SET accountStatus = @accountStatus WHERE id=@LoginNRIC";
-
-        //open connections
-        SqlConnection conn = new SqlConnection(_connStr);
-        SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@LoginNRIC", LoginNRIC);
-        cmd.Parameters.AddWithValue("@accountStatus", accountStatus);
-
-
-        try
-        {
-            conn.Open();
-            result += cmd.ExecuteNonQuery();
-            conn.Close();
-        }
-        catch (Exception e)
-        {
-            Debug.Write(e);
-        }
-
-        return result;
-    }
-
-
-}
+} 

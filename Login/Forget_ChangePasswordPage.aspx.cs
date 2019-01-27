@@ -155,7 +155,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                                 NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
                                 Debug.WriteLine("Password not used");
 
-                                Response.Redirect("ConfirmChangedPassword.aspx", false);
+                                Response.Redirect("Forget_ConfirmChangedPassword.aspx", false);
 
                             }
                             PasswordExist = false;
