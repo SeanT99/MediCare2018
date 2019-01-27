@@ -62,7 +62,7 @@
 
                 <p class="form-group ml-sm-5">
 
-                    <asp:Button ID="LoginButton" runat="server" Text="LOGIN" CssClass="btn btn-primary col-sm-9 color1" OnClick="Login_Method" />
+                    <asp:Button ID="LoginButton" runat="server" Text="LOGIN" CssClass="btn btn-primary col-sm-9 color1" OnClick="Login_Method" style="left: 0px; top: 0px" />
 
 
                 </p>

@@ -188,10 +188,18 @@ public class PatientInfo
     }
 
     //Check if it exist or not, Not very sure if is new
+    public PatientInfo(string email,string tochangepw)
+    {
+        this.email = email;
+        this.tochangepw = tochangepw;
+    }
     public PatientInfo(string email)
     {
         this.email = email;
+      
     }
+
+
     //Check if it exist or not, Not very sure if is new
     public PatientInfo(string email,string given_Name, string family_Name)
     {
@@ -607,7 +615,7 @@ public class PatientInfo
         List<PatientInfo> patients = new List<PatientInfo>();
 
 
-        string queryStr = "SELECT email from PatientInfo Where email = @Email";
+        string queryStr = "SELECT email,toChangePw from PatientInfo Where email = @Email";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -620,7 +628,8 @@ public class PatientInfo
             while (dr.Read())
             {
                 string email = dr["email"].ToString();
-                PatientInfo a = new PatientInfo(email);
+                string tochangepw = dr["toChangePw"].ToString();
+                PatientInfo a = new PatientInfo(email,tochangepw);
                 patients.Add(a);
             }
 

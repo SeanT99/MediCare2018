@@ -35,6 +35,11 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
             Debug.Write("No Existing Email");
             EmailAddressDoNotExistLabel.Visible = true;
         }
+        else if (AllEmailContact[0].Tochangepw.Trim() == "TRUE")
+        {
+            Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "You Have Not Changed Your First Time Login Password, Please Login And Change Your Password First Before Trying To Change Your Password" + "\\r\\n" + "');</script>");
+            Response.Redirect("Login.aspx", false);
+        }
         else
         {
             SpecificPatientName = EmailInfo.GetSpecificPatientByEmail(EnteredEmail);

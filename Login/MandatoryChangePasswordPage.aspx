@@ -67,7 +67,7 @@
                     
                     <br />
                     <asp:Label ID="AlphaNumericLabel" runat="server" Text="Password Must Be Alphanumeric" ForeColor="Red"></asp:Label>
-                    <br />
+                    <br/>
                     <asp:Label ID="PasswordIncorrectLabel" runat="server" ForeColor="Red" Text="Your Old Password is Incorrect"></asp:Label>
                     <br />
 

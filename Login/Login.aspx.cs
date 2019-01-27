@@ -11,6 +11,10 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Web.Script.Serialization;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
 
 public partial class Login_Login : System.Web.UI.Page
 {
@@ -337,6 +341,7 @@ public partial class Login_Login : System.Web.UI.Page
                     //Straight login to admin page
                     if (UserLoginDetails.Acctype != "PATIENT   ")
                     {
+
                         //session ANSELM TEOH
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
                         Session["Acctype"] = UserLoginDetails.Acctype;
@@ -347,6 +352,38 @@ public partial class Login_Login : System.Web.UI.Page
                         // Create cookie with this guid value
                         Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                         NonAccountAttempt = 0;
+
+
+                        #region  Create auditlog for login
+                        //Connect database
+                        string connectionString;
+                        SqlConnection cnn = null;
+
+                        connectionString = ConfigurationManager.ConnectionStrings["MedicareContext"].ConnectionString;
+                        cnn = new SqlConnection(connectionString);
+
+                        if (cnn != null && cnn.State == ConnectionState.Closed)
+                        {
+                            cnn.Open();
+                        }
+
+                        string action = "LOGIN";
+                        string log = "User login " + LoginNRIC;
+                        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                                                        CultureInfo.InvariantCulture);
+
+                        SqlCommand cmd;
+                        String sql = "";
+
+                        sql = "INSERT [AuditLog] (Action, Log, Timestamp) VALUES (@Action, @Log, @Timestamp)";
+
+                        cmd = new SqlCommand(sql, cnn);
+                        cmd.Parameters.Add(new SqlParameter("@Action", SqlDbType.Text) { Value = action });
+                        cmd.Parameters.Add(new SqlParameter("@Log", SqlDbType.Text) { Value = log });
+                        cmd.Parameters.Add(new SqlParameter("@Timestamp", SqlDbType.DateTime) { Value = timestamp });
+
+                        Int32 rowsAffected = cmd.ExecuteNonQuery();
+                        #endregion
 
                         Response.Redirect("../Nurse/PatientRegistration.aspx", false);
                     }
@@ -383,6 +420,37 @@ public partial class Login_Login : System.Web.UI.Page
                             // Create cookie with this guid value
                             Response.Cookies.Add(new HttpCookie("AuthToken", guid));
                             NonAccountAttempt = 0;
+
+                            #region  Create auditlog for login
+                            //Connect database
+                            string connectionString;
+                            SqlConnection cnn = null;
+
+                            connectionString = ConfigurationManager.ConnectionStrings["MedicareContext"].ConnectionString;
+                            cnn = new SqlConnection(connectionString);
+
+                            if (cnn != null && cnn.State == ConnectionState.Closed)
+                            {
+                                cnn.Open();
+                            }
+
+                            string action = "LOGIN";
+                            string log = "User login " + LoginNRIC;
+                            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                                                            CultureInfo.InvariantCulture);
+
+                            SqlCommand cmd;
+                            String sql = "";
+
+                            sql = "INSERT [AuditLog] (Action, Log, Timestamp) VALUES (@Action, @Log, @Timestamp)";
+
+                            cmd = new SqlCommand(sql, cnn);
+                            cmd.Parameters.Add(new SqlParameter("@Action", SqlDbType.Text) { Value = action });
+                            cmd.Parameters.Add(new SqlParameter("@Log", SqlDbType.Text) { Value = log });
+                            cmd.Parameters.Add(new SqlParameter("@Timestamp", SqlDbType.DateTime) { Value = timestamp });
+
+                            Int32 rowsAffected = cmd.ExecuteNonQuery();
+                            #endregion
 
 
 
@@ -431,7 +499,19 @@ public partial class Login_Login : System.Web.UI.Page
         }
 
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Checking Captcha Success True Or False
         public bool CheckReCaptcha()
