@@ -92,7 +92,7 @@ public partial class Patient_EditProfile_Edit : System.Web.UI.Page
         string[] emaildet = mail.getPatientMailDetails(id);
 
         // send email to the user 
-        mail.sendSecQnChanged(emaildet[0], emaildet[1]);
+        mail.sendAccModded(emaildet[0], emaildet[1]);
 
         if (result > 0)
         {
