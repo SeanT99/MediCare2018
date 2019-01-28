@@ -26,7 +26,7 @@ public class MailUtilities
     readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
 
-    public MailUtilities(){}
+    public MailUtilities() { }
 
     //for custom mailing text
     public void sendCustomMail(string email, string subject, string body)
@@ -44,7 +44,7 @@ public class MailUtilities
         mail.To.Add(new MailAddress(email));
 
         //to set the contents of the email
-        mail.Subject =  subject;
+        mail.Subject = subject;
         mail.Body = body;
 
         mail.BodyEncoding = System.Text.Encoding.UTF8;
@@ -58,8 +58,8 @@ public class MailUtilities
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
         int result = 1;
-        
-        string body ="Hi " + name + ",<br/>Welcome to your new MediCare account.<br/><br/>" +"This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
+
+        string body = "Hi " + name + ",<br/>Welcome to your new MediCare account.<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
 
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
@@ -70,7 +70,7 @@ public class MailUtilities
         //Setting From , To and CC
         mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
         mail.To.Add(new MailAddress(email));
-        
+
 
         //to set the contents of the email
         mail.Subject = "Welcome To MediCare Portal!!!";
@@ -78,7 +78,7 @@ public class MailUtilities
         mail.IsBodyHtml = true;
 
         mail.BodyEncoding = System.Text.Encoding.UTF8;
-        
+
         try
         {
             smtpClient.Send(mail);
@@ -92,7 +92,7 @@ public class MailUtilities
 
         return result;
 
-        }
+    }
 
     //for notice of account deletion
     public int sendDeletedMail(string email, string name)
@@ -100,7 +100,7 @@ public class MailUtilities
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
         int result = 1;
-        
+
         string body = "Hi " + name + ",<br/><br/><b>Your MediCare account has been successfully deleted.</b><br/><br/>" + "Please contact the clinic at 6458 9900 if your account has been deleted wrongly.<br/>";
 
         smtpClient.UseDefaultCredentials = false;
@@ -219,7 +219,7 @@ public class MailUtilities
     }
 
 
-    public int NotifyMedicareEmail(string email,string name,string dob)
+    public int NotifyMedicareEmail(string email, string name, string dob)
     {
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
@@ -259,6 +259,50 @@ public class MailUtilities
         return result;
 
     }
+
+    public int UserRequestChangePasswordEmail(string email, string name, string dob)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+        int result = 1;
+
+        string body = "This User Have Requested To Reset His/Her Account Password, please verify the user: <br/><br/>" + "Patient ID: " + name + "<br/> DOB: " + dob + "<br/> Email: " + email;
+
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        MailMessage mail = new MailMessage();
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress("aspmedicare2018@gmail.com"));
+
+
+        //to set the contents of the email
+        mail.Subject = "Request To Reset Password";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
+
+    }
+
+
+
+
 
     public int sendAccountBlockedEmail(string email, string name)
     {
@@ -346,7 +390,7 @@ public class MailUtilities
         return result;
     }
 
-    public string[] getPatientMailDetails (string id)
+    public string[] getPatientMailDetails(string id)
     {
         string[] x = null;
 
@@ -365,14 +409,14 @@ public class MailUtilities
             //store the data into object
             string name = dr["given_Name"].ToString();
             string email = dr["email"].ToString();
-            x = new string[] {email, name};
+            x = new string[] { email, name };
         }
 
         //close connecetions
         conn.Close();
         dr.Close();
         dr.Dispose();
-        
+
 
 
         return x;
@@ -392,7 +436,8 @@ public class MailUtilities
             body = "Hi " + name + ",<br/>Your password has been changed successfully<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" >Click Here To Change Your Password</a> ";
             mail.Subject = "MediCare Account Security Alert";
         }
-        else {
+        else
+        {
             body = "Hi " + name + ",<br/>You Requested To Change Your Password. The OTP is as follows: " + otp + "<br/><br/>" + "Click on the link below to change your password<br/><b>" + " " + "</b><br/><br/>" + " <a href=\"http://localhost:50581/Login/ChangePasswordPage.aspx\" > Login Here</a> ";
             mail.Subject = "MediCare Portal Change Password Request";
         }
@@ -400,7 +445,7 @@ public class MailUtilities
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
         smtpClient.EnableSsl = true;
         smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        
+
 
         //Setting From , To and CC
         mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
@@ -597,6 +642,47 @@ public class MailUtilities
 
     }
 
+  //for notice of security qn change
+    public int sendAccModded(string email, string name)
+    {
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+        int result = 1;
+
+        string body = "Hi " + name + ",<br/><br/><b>Your MediCare account details has been modified.</b><br/><br/>" + "Please contact the clinic at 6458 9900 if your account has not been changed by you.<br/>";
+
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
+        smtpClient.EnableSsl = true;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        MailMessage mail = new MailMessage();
+
+        //Setting From , To and CC
+        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
+        mail.To.Add(new MailAddress(email));
+
+
+        //to set the contents of the email
+        mail.Subject = "MediCare Account Security Alert";
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
+        mail.BodyEncoding = System.Text.Encoding.UTF8;
+
+        try
+        {
+            smtpClient.Send(mail);
+
+        }
+        catch (SmtpException ex)
+        {
+            Debug.Write(ex);
+            result = 0;
+        }
+
+        return result;
+    }
+    
     public int sendResendOTPMail(string email, string name, string otp)
     {
         SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
@@ -648,46 +734,6 @@ public class MailUtilities
 
     }
 
-    //for notice of security qn change
-    public int sendAccModded(string email, string name)
-    {
-        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-
-        int result = 1;
-
-        string body = "Hi " + name + ",<br/><br/><b>Your MediCare account details has been modified.</b><br/><br/>" + "Please contact the clinic at 6458 9900 if your account has not been changed by you.<br/>";
-
-        smtpClient.UseDefaultCredentials = false;
-        smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
-        smtpClient.EnableSsl = true;
-        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        MailMessage mail = new MailMessage();
-
-        //Setting From , To and CC
-        mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
-        mail.To.Add(new MailAddress(email));
-
-
-        //to set the contents of the email
-        mail.Subject = "MediCare Account Security Alert";
-        mail.Body = body;
-        mail.IsBodyHtml = true;
-
-        mail.BodyEncoding = System.Text.Encoding.UTF8;
-
-        try
-        {
-            smtpClient.Send(mail);
-
-        }
-        catch (SmtpException ex)
-        {
-            Debug.Write(ex);
-            result = 0;
-        }
-
-        return result;
-    }
 
 
     public string sendOTP(string mobile, string message)

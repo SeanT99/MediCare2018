@@ -22,23 +22,38 @@ public partial class Login_ConfirmChangedPassword : System.Web.UI.Page
         string name = NameTB.Text.Trim();
         string email = emailTB.Text.Trim();
         string dob = DobTB.Text.Trim();
+        string Option = "";
 
+        Label1.Text = "";
         PatientInfo y = new PatientInfo();
         PatientInfo CheckUserExist = y.GetLoginDetails(name);
         MailUtilities x = new MailUtilities();
-        
 
-        Label1.Text = "";
+        if (OptionRadio.SelectedIndex == 0)
+        {
+            Option = "Unblock Of Account";
+        }
+        else
+        {
+            Option = "Reset Password";
+        }
+        
 
         if (CheckUserExist == null)
         {
             Label1.Text = "User / Email Address does not exist";
         }
-        else
+        else if (Option == "Unblock Of Account")
         {
-            x.NotifyMedicareEmail(email,name,dob);
-            Response.Redirect("Login.aspx",false);
+            x.NotifyMedicareEmail(email, name, dob);
+            Response.Redirect("Login.aspx", false);
         }
+        else if (Option == "Reset Password")
+        {
+            x.UserRequestChangePasswordEmail(email,name,dob);
+            Response.Redirect("Login.aspx", false);
+        }
+       
 
 
 
