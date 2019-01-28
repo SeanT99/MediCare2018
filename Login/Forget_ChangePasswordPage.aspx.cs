@@ -157,6 +157,9 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                                 NotifyPasswordChanged.sendChangePasswordMail(LoginDetails.Email, FullName, "");
                                 Debug.WriteLine("Password not used");
 
+                                //mark this otp as used
+                                setUsed(username_session);
+
                                 Response.Redirect("Forget_ConfirmChangedPassword.aspx", false);
 
                             }
@@ -185,8 +188,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                         //AlphaNumericLabel.Visible = true;
                         Debug.WriteLine("Password matches, but not valid");
                     }
-              //mark this otp as used
-                    setUsed(username_session);
+              
                 } //Insert Else statement ends here
 
             }
