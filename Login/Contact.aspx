@@ -83,7 +83,7 @@
                             <br />
                         </td>
                         <td>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="RequiredFieldValidator"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="OptionRadio"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                 </table>

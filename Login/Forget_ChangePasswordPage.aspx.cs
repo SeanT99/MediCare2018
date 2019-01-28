@@ -440,8 +440,8 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
             //send otp and send resend otp sms
             MailUtilities sendPasswordRequest = new MailUtilities();
-            sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
-            //sendPasswordRequest.sendOTP(mobile, msg);
+            //sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            sendPasswordRequest.sendOTP(mobile, msg);
 
     }
 }

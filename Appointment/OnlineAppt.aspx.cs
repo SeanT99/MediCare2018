@@ -15,7 +15,24 @@ public partial class Appointment_OnlineAppt : System.Web.UI.Page
     Boolean valid = true;
     protected void Page_Load(object sender, EventArgs e)
     {
-        tbPatientID.Text = Session["LoggedIn"].ToString();
+        //check if is patient session
+        if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
+        {
+            if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
+            {
+                Response.Redirect("../Login/Login.aspx", false);
+            }
+            else
+            {
+                tbPatientID.Text = Session["LoggedIn"].ToString();
+            }
+        }
+        else
+        {
+            Response.Redirect("../Login/Login.aspx", false);
+        }
+
+        
     }
 
 
