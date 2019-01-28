@@ -37,6 +37,9 @@
 
                     <asp:RequiredFieldValidator ID="UsernameValidator" runat="server" ErrorMessage="Please Enter A Valid Username" ControlToValidate="UsernameField" ForeColor="Red"></asp:RequiredFieldValidator>
 
+                    <br />
+                    <asp:Label ID="Label3" runat="server" ForeColor="Red" Text="Invalid Username"></asp:Label>
+
                 </div>
 
                 <div class="form-group ml-sm-5">
