@@ -21,7 +21,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 318px">Date of Birth (dd/mm/YYYY)</td>
+            <td style="width: 318px">Date of Birth (YYYY-mm-dd)</td>
             <td>
                 <asp:Label ID="dobLBL" runat="server" Text=" "></asp:Label>
             </td>
