@@ -10,8 +10,8 @@
     <script src="../Scripts/bootstrap.bundle.js"></script>
     <script src="../Scripts/bootstrap.js"></script>
     <link href="../CSS/LoginOrRegister.css" rel="stylesheet" />
-    <link href="../CSS/ForgotPassword.css" rel="stylesheet" />
 
+    <link href="../CSS/ForgotPassword.css" rel="stylesheet" />
     <title>Login</title>
 
 
@@ -39,9 +39,9 @@
                     <br />
                     <asp:Label ID="otp_lbl" runat="server" Text="OTP:"></asp:Label>
                     <br />
-                    <asp:TextBox ID="otp_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px" MaxLength="6"></asp:TextBox>
+                    <asp:TextBox ID="otp_tb" runat="server" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px" MaxLength="6"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="OTP Cannot Be Empty" ForeColor="Red" ControlToValidate="otp_tb"></asp:RequiredFieldValidator>
-                    <asp:Button ID="resend_btn" runat="server" CssClass="btn btn-primary col-sm-3 ml-sm-5 mt-sm-2 color1" CausesValidation="False" OnClick="resend_btn_Click" Text="RESEND" />
+                    <asp:Button ID="resend_btn" runat="server"  Style="margin-right:-100px;" CssClass="btn btn-primary col-sm-3 ml-sm-5 mt-sm-2 color1 " CausesValidation="False" OnClick="resend_btn_Click" Text="RESEND"/>
                     <br />
                 </div>
 
@@ -52,9 +52,9 @@
 
 
                     <asp:TextBox ID="ChangePasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>                  
+                    <asp:RequiredFieldValidator ID="NewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ForeColor="Red" ControlToValidate="ChangePasswordField">New Password Cannot Be Empty</asp:RequiredFieldValidator>
                     <br />
-                    
+
 
 
 
@@ -68,14 +68,14 @@
 
                 <p class="form-group ml-sm-5">
 
-                    <asp:TextBox ID="VerifyPasswordTextBox" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" style="left: 0px; top: 0px"></asp:TextBox>
+                    <asp:TextBox ID="VerifyPasswordTextBox" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2" Style="left: 0px; top: 0px"></asp:TextBox>
 
                     <asp:RequiredFieldValidator ID="VerifyNewPasswordValidator" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="VerifyPasswordTextBox" ForeColor="Red">Verify Password Field Cannot Be Empty</asp:RequiredFieldValidator>
                     <br />
                     <asp:Label ID="NewPasswordDoesNotMatchLabel" runat="server" ForeColor="Red" Text="New Password Does Not Match"></asp:Label>
                     <br />
                     <asp:Label ID="PasswordUsedPreviouslyLabel" runat="server" ForeColor="Red" Text="Password Used Previously, Please Choose Another Password"></asp:Label>
-                    
+
                     <br />
                     <asp:Label ID="AlphaNumericLabel" runat="server" Text="Password Must Be Alphanumeric" ForeColor="Red"></asp:Label>
                     <br />

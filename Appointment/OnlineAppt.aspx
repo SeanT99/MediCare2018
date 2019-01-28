@@ -12,9 +12,6 @@
             <!-- comment -->
             <table class="table table-primary table-responsive-sm " style="height: 39%">
                 <tr>
-                    <td style="width: 521px; height: 27px;">Please enter your details! Don&#39;t leave any field blank thanks</td>
-                </tr>
-                <tr>
                     <td style="width: 521px; height: 67px;">
                         Patient ID: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control" Enabled="False"></asp:TextBox>
                         &nbsp;

@@ -15,6 +15,8 @@ public partial class Patient_EditProfile_ChangeSecQn : System.Web.UI.Page
 {
     string id = "";
     MailUtilities mail = new MailUtilities();
+    OTP o = new OTP();
+    readonly PatientInfo pat = new PatientInfo();
     readonly string _connStr = ConfigurationManager.ConnectionStrings["MediCareContext"].ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -140,5 +142,30 @@ public partial class Patient_EditProfile_ChangeSecQn : System.Web.UI.Page
     public double subtractMinutes(DateTime start, DateTime end)
     {
         return (end - start).TotalMinutes;
+    }
+
+    protected void resend_btn_Click(object sender, EventArgs e)
+    {
+
+        id = Session["LoggedIn"].ToString();
+
+        //string[] email = mail.getPatientMailDetails(id);
+
+        //TODO generate otp
+        string otp = o.genOTP();
+        //TODO create the otp object
+        o = new OTP(id, otp);
+        //TODO send otp to table
+        int result = o.insertOTP();
+        Debug.Write("-------" + result);
+
+        string mobile = pat.GetPatientsMobile(id);
+
+        string msg = "This is your medicare portal OTP " + otp;
+
+        //send otp and send resend otp sms
+        MailUtilities sendPasswordRequest = new MailUtilities();
+        //sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+        sendPasswordRequest.sendOTP(mobile, msg);
     }
 }

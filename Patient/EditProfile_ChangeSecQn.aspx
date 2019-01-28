@@ -3,15 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
-    <table style="width:100%;">
+    
+    <table style="width:60%; margin-left: 25%; margin-top: 6%; border-style: solid; ">
         <tr>
         <td style="font-weight: bold; height: 23px;" colspan="2">Please select your new security questions and answers below</td>
         </tr>
         <tr>
         <td style="width: 318px; font-weight: bold; height: 23px;">OTP</td>
             <td >
-                <asp:TextBox ID="otpTB" runat="server" AutoCompleteType="Disabled" MaxLength="6" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="otpTB" runat="server" AutoCompleteType="Disabled" MaxLength="6"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="otpTB" ErrorMessage="Please enter your OTP" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
+                <asp:Button ID="resend_btn" runat="server" CssClass="btn btn-primary col-sm-3 ml-sm-5 mt-sm-2 color1" CausesValidation="False" OnClick="resend_btn_Click" Text="RESEND" />
             </td>
         </tr>
         <td style="width: 318px; font-weight: bold; height: 23px;">Question 1</td>
@@ -30,7 +32,7 @@
         <tr>
             <td style="width: 318px; font-weight: bold; ">Answer </td>
             <td style="height: 26px">
-                <asp:TextBox ID="sqAns1TB" runat="server" Width="883px" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp:TextBox ID="sqAns1TB" runat="server" Width="838px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="sqAns1TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
             </td>
         </tr>
@@ -51,7 +53,7 @@
         <tr>
             <td style="width: 318px; font-weight: bold; ">Answer</td>
             <td style="height: 26px">
-                <asp:TextBox ID="sqAns2TB" runat="server" Width="883px" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp:TextBox ID="sqAns2TB" runat="server" Width="838px" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="sqAns2TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
             </td>
         </tr>

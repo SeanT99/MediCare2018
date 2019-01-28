@@ -22,7 +22,7 @@
            <a class="navbar-brand mr-sm-4" href="/Appointment/OnlineAppt.aspx">MediCare</a>
            <ul class="nav navbar-nav mr-auto">
                <li class="nav-item">
-                   <a class ="nav-link" href="../Appointment/OnlineAppt.aspx">Appointment</a>
+                   <a class ="nav-link" href="../Appointment/OnlineAppt.aspx">Book Appointment</a>
                </li>
                <li class="nav-item">
                    <a class ="nav-link" href="../Patient/EditProfile_View.aspx">Manage Profile</a>

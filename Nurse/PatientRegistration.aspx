@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Nurse.master" AutoEventWireup="true" CodeFile="PatientRegistration.aspx.cs" Inherits="Nurse_Registration" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <table style="width:100%;">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server" >
+     <table style="width:45%; margin-left: 30%; border-style: solid; border-collapse:inherit; margin-top: 1%;">
         <tr>
             <td colspan="2" style="font-weight: bold; height: 26px; font-size: x-large; text-transform: none; text-decoration: underline;">PATIENT REGISTRATION</td>
         </tr>
@@ -44,7 +44,7 @@
         <tr>
             <td style="width: 318px">ID Type</td>
             <td>
-                <asp:DropDownList ID="idDDL" runat="server" Width="217px">
+                <asp:DropDownList ID="idDDL" runat="server" Width="264px">
                     <asp:ListItem Selected="True">Please select ID Type</asp:ListItem>
                     <asp:ListItem Value="NRIC" Text="NRIC"/>
                     <asp:ListItem Value="Passport No." Text="Passport No."/>
@@ -71,7 +71,7 @@
         <tr>
             <td style="width: 318px; height: 33px;">Email</td>
             <td style="height: 33px">
-                <asp:TextBox ID="emailTB" runat="server" autocomplete="off"></asp:TextBox>
+                <asp:TextBox ID="emailTB" runat="server" autocomplete="off" Width="51%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="emailTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="emailTB" ErrorMessage="This is an invalid email" Font-Bold="True" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                 <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="This email has been registered before." Font-Bold="True" ForeColor="Red" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>
@@ -80,7 +80,7 @@
         <tr>
             <td style="width: 318px">Mobile Phone</td>
             <td>
-                <asp:TextBox ID="mobileTB" runat="server" Width="265px" TextMode="Phone" MaxLength="8" autocomplete="off"></asp:TextBox>
+                <asp:TextBox ID="mobileTB" runat="server" Width="265px" TextMode="Phone" MaxLength="8" autocomplete="off" ></asp:TextBox>
                 <asp:RequiredFieldValidator ID="MBRequiredField" runat="server" ControlToValidate="mobileTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="mobileTB" ErrorMessage="Only numbers allowed" Font-Bold="True" ForeColor="Red" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             </td>
@@ -95,7 +95,7 @@
         <tr>
             <td style="width: 318px">Blk/House Number</td>
             <td>
-                <asp:TextBox ID="blkTB" runat="server" Width="147px"></asp:TextBox>
+                <asp:TextBox ID="blkTB" runat="server" Width="264px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -109,7 +109,7 @@
         <tr>
             <td style="width: 318px">Unit Number</td>
             <td>
-                <asp:TextBox ID="unitTB" runat="server" Width="147px"></asp:TextBox>
+                <asp:TextBox ID="unitTB" runat="server" Width="264px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -121,7 +121,7 @@
         <tr>
             <td style="width: 318px">Postal Code</td>
             <td>
-                <asp:TextBox ID="postalTB" runat="server" Width="147px" MaxLength="6" autocomplete="off"></asp:TextBox>
+                <asp:TextBox ID="postalTB" runat="server" Width="264px" MaxLength="6" autocomplete="off"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="postalTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="postalTB" ErrorMessage="Only numbers allowed" Font-Bold="True" ForeColor="Red" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             </td>
@@ -143,7 +143,7 @@
         <tr>
             <td style="width: 318px">Contact number</td>
             <td>
-                <asp:TextBox ID="ecNumberTB" runat="server" Width="265px" TextMode="Phone" MaxLength="8" autoComplete="off"></asp:TextBox>
+                <asp:TextBox ID="ecNumberTB" runat="server" Width="264px" TextMode="Phone" MaxLength="8" autoComplete="off"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="ecNumberTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
                 <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ecNumberTB" ErrorMessage="Only numbers allowed" Font-Bold="True" ForeColor="Red" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             </td>
@@ -151,7 +151,7 @@
         <tr>
             <td style="width: 318px; height: 26px;">Relationship</td>
             <td style="height: 26px">
-                <asp:TextBox ID="ecRelationshipTB" runat="server" Width="265px"></asp:TextBox>
+                <asp:TextBox ID="ecRelationshipTB" runat="server" Width="264px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="ecRelationshipTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
             </td>
         </tr>
@@ -173,10 +173,15 @@
             <td style="height: 101px">
                 <asp:TextBox ID="medHistTB" runat="server" Height="93px" TextMode="MultiLine" Width="481px"></asp:TextBox>
             </td>
+           
         </tr>
+         <tr>
+             <td></td>
+          <td><asp:Button ID="SubmitBtn" runat="server" Text="Submit Records" Width="160px" OnClick="SubmitBtn_Click" /></td>
+          </tr>
         
     </table>
-    <asp:Button ID="SubmitBtn" runat="server" Text="Submit Records" Width="160px" OnClick="SubmitBtn_Click" />
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">

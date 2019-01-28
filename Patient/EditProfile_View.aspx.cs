@@ -11,6 +11,7 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
     PatientInfo x = new PatientInfo();
     string id = "";
     OTP o = new OTP();
+    readonly PatientInfo pat = new PatientInfo();
     readonly MailUtilities mail = new MailUtilities();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -75,8 +76,18 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
             // remove
             Debug.Write(email[0]+"\n");
             string l = email[0];
+
+            string mobile = pat.GetPatientsMobile(id);
+
+            string msg = "This is your medicare portal OTP " + otp;
+
+            //send otp and change pw email
+            MailUtilities sendPasswordRequest = new MailUtilities();
+            //sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            sendPasswordRequest.sendOTP(mobile, msg);
+            
             // send otp to user
-            mail.sendOTP(id,l,otp);
+            //mail.sendOTP(id,l,otp);
             // redirect to change qn pg
             Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx", false);
         }

@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
-<table style="width:100%;">
+<table style="width:36%; border-style: solid; margin-left: 35%;">
         <tr>
             <td colspan="2" style="font-weight: bold">Basic Patient Info&nbsp;</td>
         </tr>
@@ -81,7 +81,7 @@
         <tr>
             <td style="width: 318px; height: 26px;">Street Name</td>
             <td style="height: 26px">
-                <asp:TextBox ID="streetTB" runat="server" Width="515px"></asp:TextBox>
+                <asp:TextBox ID="streetTB" runat="server" Width="492px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="streetTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
 
             </td>
@@ -95,7 +95,7 @@
         <tr>
             <td style="width: 318px">Building Name</td>
             <td>
-                <asp:TextBox ID="buildingTB" runat="server" Width="515px"></asp:TextBox>
+                <asp:TextBox ID="buildingTB" runat="server" Width="492px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -116,7 +116,7 @@
         <tr>
             <td style="width: 318px; height: 33px;">Name</td>
             <td style="height: 33px">
-                <asp:TextBox ID="ecNameTB" runat="server" Width="515px"></asp:TextBox>
+                <asp:TextBox ID="ecNameTB" runat="server" Width="492px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="ecNameTB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red"/>
             </td>
         </tr>
@@ -162,11 +162,12 @@
         </tr>
        
         <tr>
+            <td>
+            </td>
             <td style="width: 318px">
                 <asp:Button ID="SaveBtn" runat="server" OnClick="SaveBtn_Click" Text="Save Changes" Width="120px" Autopostback="true"/>
-            </td>
-            <td>
-                &nbsp;</td>
+            </td> 
+            
         </tr>
        
         </table>

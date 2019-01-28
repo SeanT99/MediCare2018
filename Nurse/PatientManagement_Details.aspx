@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Nurse.master" AutoEventWireup="true" CodeFile="PatientManagement_Details.aspx.cs" Inherits="Nurse_PatientManagement_Details" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <table style="width:100%;">
+    <table style="width:31%; margin-left: 38%; border-collapse: inherit; margin-top: 3%; border-style: solid;">
+        <tr>
+            <td colspan="2" style="font-weight: bold; height: 26px; font-size: x-large; text-transform: none; text-decoration: underline;">VIEW DETAILS</td>
+        </tr>
         <tr>
             <td colspan="2" style="font-weight: bold">Basic Patient Info&nbsp;</td>
         </tr>

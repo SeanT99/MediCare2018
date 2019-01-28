@@ -5,7 +5,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
 
-    <table style="width:100%;">
+    <table style="width:36%; border-style: solid; margin-left: 35%; margin-top: 2%;">
+         <tr>
+            <td colspan="2" style="font-weight: bold; height: 26px; margin-top:1%; font-size: x-large; text-transform: none; text-decoration: underline;">Your Profile</td>
+        </tr>
         <tr>
             <td colspan="2" style="font-weight: bold">Basic Patient Info&nbsp;</td>
         </tr>
