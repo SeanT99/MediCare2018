@@ -28,6 +28,8 @@ public partial class Login_Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        //-------------------SESSION FIXATION-------------------------
         if (!IsPostBack)
         {
             //check session (remove code if cookie error)
@@ -37,13 +39,9 @@ public partial class Login_Login : System.Web.UI.Page
                 //check for token
                 if (Session["AuthToken"].ToString() == (Request.Cookies["AuthToken"].Value.ToString()))
                 {
-                    //-----------redirect to correct homepage--------------------------
-                    //-----------patient to online apt,nurse to patient reg------------   
+                   
 
                     //if account is patient
-                    //-----------retrieve and check for acc type-----------------------
-
-
                     string Acctype = HttpContext.Current.Session["Acctype"].ToString();
                     if (Acctype.TrimEnd() == "PATIENT")
                     {
@@ -58,6 +56,7 @@ public partial class Login_Login : System.Web.UI.Page
 
                 else
                 {
+                    // recheck session
                     Response.Redirect("../Login/Login.aspx", false);
                 }
 
@@ -147,7 +146,9 @@ public partial class Login_Login : System.Web.UI.Page
                 {
                     if (UserLoginDetails.Acctype.Trim() == "PATIENT" && UserLoginDetails.Tochangepw.Trim() == "TRUE")
                     {
-                        //session ANSELM TEOH
+
+
+                        //session ANSELM TEOH CHECK FOR SESSION
                         Session["LoggedIn"] = UsernameField.Text.Trim().ToUpper();
                         Session["Acctype"] = UserLoginDetails.Acctype;
                         //create a new GUID and save into session
@@ -295,6 +296,8 @@ public partial class Login_Login : System.Web.UI.Page
             Response.Write("<script>alert('" + "*** PLEASE TAKE NOTE *** " + "\\r\\n" + "YOUR ACCOUNT HAS BEEN LOCKED, PLEASE CONTACT ADMINSTRATOR FOR ASSISTANCE" + "\\r\\n" + "');</script>");
             //Create another page for email and redirect them
         }
+
+
         //------------------------ADMIN--------------------------------
         else if (UserLoginDetails != null && UserLoginDetails.Acctype == "ADMIN     ") //Admin account with catpcha validation
         {

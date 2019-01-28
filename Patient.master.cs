@@ -9,6 +9,8 @@ public partial class Patient : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        //check if is patient session
         if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
         {
             if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
