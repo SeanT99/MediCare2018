@@ -81,4 +81,9 @@ public partial class Patient_EditProfile_View : System.Web.UI.Page
             Response.Redirect("/Patient/EditProfile_ChangeSecQn.aspx", false);
         }
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("/Patient/EditProfile_ChangePassword.aspx",false);
+    }
 }

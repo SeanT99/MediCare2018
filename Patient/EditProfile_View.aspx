@@ -149,7 +149,8 @@
         <tr>
             <td colspan="2">
                 <asp:Button ID="EditBtn" runat="server" OnClick="EditBtn_Click" Text="Edit Profile" />
-                <asp:Button ID="ChangeQnBtn" runat="server" Text="Change Security Questions" OnClick="ChangeQnBtn_Click" Width="230px" />
+                <asp:Button ID="ChangeQnBtn" runat="server" Text="Change Security Questions" OnClick="ChangeQnBtn_Click" Width="221px" />
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Change Password" Width="152px" />
             </td>
         </tr>
        
