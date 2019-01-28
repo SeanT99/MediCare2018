@@ -38,6 +38,7 @@
                     <td>
                         <asp:Label ID="paymentDetails_lbl" runat="server" Text="Payment Details" Font-Bold="true" Font-Size="Large"></asp:Label>
                         <br />
+                        <br />
                         <asp:Label ID="cardholdername_lbl" runat="server" Text="Card Holder's Name"></asp:Label>
                         <br />
                         <asp:TextBox ID="cardholdername_tb" runat="server" Width="254px" AutoCompleteType="Disabled"></asp:TextBox>
@@ -57,6 +58,8 @@
 
                         <asp:RequiredFieldValidator ID="rfv_expiryDate" runat="server" ControlToValidate="expiryDateMM_tb" ErrorMessage="Please enter the expiry date." ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:RequiredFieldValidator ID="rvf_ccv" runat="server" ControlToValidate="cvv_tb" ErrorMessage="Please enter the CCV." ForeColor="Red"></asp:RequiredFieldValidator>
+                        <br />
+                        <asp:CheckBox ID="SaveCreditCard" runat="server" Text="Save Credit Card" />
                       
                         <br />
                         

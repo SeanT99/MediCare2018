@@ -167,6 +167,106 @@ public class PatientPayment
         return x;
     }
 
+    public int CreditCardInsert()
+    {
+        string msg = null;
+        int result = 0;
+        string queryStr = "INSERT INTO CreditCardTransaction(patientID, cardHolderName, creditcardNo, strkey, iv)"
+            + "values (@patientID, @cardHolderName, @creditcardNo, @key, @iv)";
+        try
+        {
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@patientID", this.patientID);
+            cmd.Parameters.AddWithValue("@cardHolderName", this.cardHolderName);
+            cmd.Parameters.AddWithValue("@creditcardNo", this.creditcardNo);
+            cmd.Parameters.AddWithValue("@key", this.key);
+            cmd.Parameters.AddWithValue("@iv", this.iv);
+
+            conn.Open();
+            result += cmd.ExecuteNonQuery(); // Returns no. of rows affected. Must be > 0
+            conn.Close();
+            return result;
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+            return 0;
+        }
+    }//end Insert
+
+    public int CreditCardDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM CreditCardTransaction WHERE patientID = @patientID";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@patientID", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
+    }
+
+    public PatientPayment GetCreditCard(string patient_id)
+    {
+        PatientPayment x = null;
+
+        //strings for the object creation
+        string patientID, cardHolderName, creditcardNo;
+
+        //query string
+        string queryStr = "SELECT patientID, cardHolderName, creditcardNo, strkey, iv FROM CreditCardTransaction WHERE patientID = @patientID";
+
+        //open connections, insert param and execute query
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@patientID", patient_id);
+        try
+        {
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                //store the data into object
+                patientID = dr["patientID"].ToString();
+                cardHolderName = dr["cardHolderName"].ToString();
+                creditcardNo = dr["creditcardNo"].ToString();
+                key = dr["strkey"].ToString();
+                iv = dr["iv"].ToString();
+
+                x = new PatientPayment(patientID, cardHolderName, creditcardNo, key, iv);
+            }
+
+            //close connecetions
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+        }
+        catch (SqlException e)
+        {
+            Debug.Write(e);
+        }
+
+
+        return x;
+    }
+
+
+
 
 
 

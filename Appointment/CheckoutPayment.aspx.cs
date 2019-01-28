@@ -25,7 +25,7 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
             confirmationTiming.Text = Session["apptTiming"].ToString();
             confirmationDate.Text = Session["apptDate"].ToString();
 
-            patient = patient.GetPatientCreditCardDetails(Session["LoggedIn"].ToString());
+            patient = patient.GetCreditCard(Session["LoggedIn"].ToString());
 
         if (patient != null)
             {
@@ -100,6 +100,12 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
             if (result == 1)
             {
                 payment.PatientPaymentInsert();
+                if (SaveCreditCard.Checked == true)
+                {
+                    //insert credit card
+                    payment.CreditCardDelete(patientID);
+                    payment.CreditCardInsert();
+                }
             }
         }
 
