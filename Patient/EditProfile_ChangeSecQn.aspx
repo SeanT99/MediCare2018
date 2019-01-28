@@ -55,28 +55,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="sqAns2TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
             </td>
         </tr>
-        <tr>
-            <td style="font-weight: bold; "d>Question 3</td>
-            <td class="auto-style5">
-                <asp:DropDownList ID="sq3DDL" runat="server">
-                    <asp:ListItem Selected="True">-Select Question-</asp:ListItem>
-                    <asp:ListItem>What was your childhood nickname?</asp:ListItem>
-                    <asp:ListItem>Where did you attend primary school?</asp:ListItem>
-                    <asp:ListItem>Where were you when you had your first kiss?</asp:ListItem>
-                    <asp:ListItem>What is your favourite teacher&#39;s name?</asp:ListItem>
-                    <asp:ListItem>Where were you during 9/11?</asp:ListItem>
-                </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfv4" runat="server" ControlToValidate="sq3DDL" InitialValue="-Select Question-" ErrorMessage="Please select a question" Font-Bold="True" ForeColor="Red"/>
-
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 318px; font-weight: bold; ">Answer</td>
-            <td style="height: 26px">
-                <asp:TextBox ID="sqAns3TB" runat="server" Width="883px" AutoCompleteType="Disabled"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="sqAns3TB" ErrorMessage="This is a required field" Font-Bold="True" ForeColor="Red" />
-            </td>
-        </tr>
+       
         <tr>
             <td style="width: 318px; font-weight: bold; ">
                 <asp:Label ID="lblError" runat="server" Text=""></asp:Label>

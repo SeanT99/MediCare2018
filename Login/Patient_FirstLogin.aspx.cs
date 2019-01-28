@@ -14,16 +14,27 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //check if is patient session
+        if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
+        {
+            if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
+            {
+                Response.Redirect("../Login/Login.aspx", false);
+            }
+        }
+        else
+        {
+            Response.Redirect("../Login/Login.aspx", false);
+        }
 
     }
 
     protected void details_Click(object sender, EventArgs e)
     {
         string id = Session["LoggedIn"].ToString();//TODO add the id details
-        string q1, q2, q3;
+        string q1, q2;
         q1 = sq1DDL.SelectedItem.Text.ToUpper();
         q2 = sq2DDL.SelectedItem.Text.ToUpper();
-        q3 = sq3DDL.SelectedItem.Text.ToUpper();
 
         //For Validating password
         PasswordValidator ValidatePass = new PasswordValidator();
@@ -42,7 +53,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
             // validate to make sure no 2 security qn is the same
             //12 13
             //23
-            if (q1 == q2 || q1 == q3 || q2 == q3)
+            if (q1 == q2)
             {
                 Response.Write("<script>alert('Please select different questions!');</script>");
             }
@@ -55,7 +66,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
 
                 //submit the security questions to database
-                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text, q3, sqAns3TB.Text);
+                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text, q2, sqAns2TB.Text);
                 x.SecurityQuestionUpdate(id);
 
                 String hashPassword = passHash[1].ToString().Trim();

@@ -84,10 +84,9 @@ public partial class Patient_EditProfile_ChangeSecQn : System.Web.UI.Page
                 string q1, q2, q3;
                 q1 = sq1DDL.SelectedItem.Text.ToUpper();
                 q2 = sq2DDL.SelectedItem.Text.ToUpper();
-                q3 = sq3DDL.SelectedItem.Text.ToUpper();
 
                 //submit the security questions to database
-                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text.ToUpper(), q2, sqAns2TB.Text.ToUpper(), q3, sqAns3TB.Text.ToUpper());
+                SecurityQuestion x = new SecurityQuestion(q1, sqAns1TB.Text.ToUpper(), q2, sqAns2TB.Text.ToUpper());
                 int result = x.SecurityQuestionUpdate(id);
 
                 if (result > 0)

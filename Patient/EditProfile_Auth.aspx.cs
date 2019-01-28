@@ -26,45 +26,10 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
                 {
                     //retrieve the security qns and answer
                     q = q.SecurityQuestionGet(HttpContext.Current.Session["LoggedIn"].ToString());
-                    //generate 2 random numbers
-                    ran = ranNum();
-
-                    //set the security questions to the labels
-                    if (ran[0] == "1")
-                    {
-                        question1 = q.Sec_qn1;
-                        ans1 = q.Sec_ans1;
-                    }
-                    else if (ran[0] == "2")
-                    {
-                        question1 = q.Sec_qn2;
-                        ans1 = q.Sec_ans2;
-                    }
-                    else if (ran[0] == "3")
-                    {
-                        question1 = q.Sec_qn3;
-                        ans1 = q.Sec_ans3;
-                    }
-
-                    if (ran[1] == "1")
-                    {
-                        question2 = q.Sec_qn1;
-                        ans2 = q.Sec_ans1;
-                    }
-                    else if (ran[1] == "2")
-                    {
-                        question2 = q.Sec_qn2;
-                        ans2 = q.Sec_ans2;
-                    }
-                    else if (ran[1] == "3")
-                    {
-                        question2 = q.Sec_qn3;
-                        ans2 = q.Sec_ans3;
-                    }
-
-
-                    Q1Lbl.Text = question1;
-                    Q2Lbl.Text = question2;
+                    Q1Lbl.Text = q.Sec_qn1;
+                    Q2Lbl.Text = q.Sec_qn2;
+                    ans1 = q.Sec_ans1.ToUpper();
+                    ans2 = q.Sec_ans2.ToUpper();
                 }
             }
         }
@@ -90,33 +55,4 @@ public partial class Patient_EditProfile_Auth : System.Web.UI.Page
             Response.Write("<script>alert('One/more of the answer(s) is wrong');</script>");
     }
 
-    public string[] ranNum()
-    {
-        //get a value
-        string valid = "123";
-        string a = random(valid);
-        //remove a from valid
-        if (a == "1")
-            valid = "23";
-        else if (a == "2")
-            valid = "13";
-        else if (a == "3")
-            valid = "12";
-        //get b value
-        string b = random(valid);
-        
-        
-        string[] result = new string[] { a, b };
-        return result;
-    }
-
-    public string random(string valid)
-    {
-        StringBuilder res = new StringBuilder();
-        Random rnd = new Random();
-        
-        res.Append(valid[rnd.Next(valid.Length)]);
-        
-        return res.ToString();
-    }
 }

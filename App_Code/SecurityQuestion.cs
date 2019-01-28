@@ -21,28 +21,25 @@ public class SecurityQuestion
     string sec_ans1 = "";
     string sec_qn2 = "";
     string sec_ans2 = "";
-    string sec_qn3 = "";
-    string sec_ans3 = "";
+    
 
     public string Sec_qn1 { get => sec_qn1; set => sec_qn1 = value; }
     public string Sec_ans1 { get => sec_ans1; set => sec_ans1 = value; }
     public string Sec_qn2 { get => sec_qn2; set => sec_qn2 = value; }
     public string Sec_ans2 { get => sec_ans2; set => sec_ans2 = value; }
-    public string Sec_qn3 { get => sec_qn3; set => sec_qn3 = value; }
-    public string Sec_ans3 { get => sec_ans3; set => sec_ans3 = value; }
+   
 
     public SecurityQuestion()
     {
     }
 
-    public SecurityQuestion(string sec_qn1, string sec_ans1, string sec_qn2, string sec_ans2, string sec_qn3, string sec_ans3)
+    public SecurityQuestion(string sec_qn1, string sec_ans1, string sec_qn2, string sec_ans2)
     {
         this.sec_qn1 = sec_qn1;
         this.sec_ans1 = sec_ans1;
         this.sec_qn2 = sec_qn2;
         this.sec_ans2 = sec_ans2;
-        this.sec_qn3 = sec_qn3;
-        this.sec_ans3 = sec_ans3;
+     
     }
 
     //retrieve user's security questions and ans
@@ -54,7 +51,7 @@ public class SecurityQuestion
         string sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3;
 
         //query string
-        string queryStr = "SELECT sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3 FROM PatientInfo WHERE id = @id";
+        string queryStr = "SELECT sec_qn1, sec_ans1, sec_qn2, sec_ans2 FROM PatientInfo WHERE id = @id";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -74,11 +71,9 @@ public class SecurityQuestion
                 sec_ans1 = dr["sec_ans1"].ToString();
                 sec_qn2 = dr["sec_qn2"].ToString();
                 sec_ans2 = dr["sec_ans2"].ToString();
-                sec_qn3 = dr["sec_qn3"].ToString();
-                sec_ans3 = dr["sec_ans3"].ToString();
-                
+               
 
-                x = new SecurityQuestion(sec_qn1, sec_ans1, sec_qn2, sec_ans2, sec_qn3, sec_ans3);
+                x = new SecurityQuestion(sec_qn1, sec_ans1, sec_qn2, sec_ans2);
             }
 
             //close connecetions
@@ -99,7 +94,7 @@ public class SecurityQuestion
         int result = 0;
 
         //query string
-        string queryStr = "UPDATE PatientInfo SET sec_qn1 = @q1, sec_ans1 = @a1, sec_qn2 = @q2, sec_ans2 = @a2, sec_qn3 = @q3, sec_ans3 = @a3, toChangePw = 'FALSE' WHERE id = @id";
+        string queryStr = "UPDATE PatientInfo SET sec_qn1 = @q1, sec_ans1 = @a1, sec_qn2 = @q2, sec_ans2 = @a2, toChangePw = 'FALSE' WHERE id = @id";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -109,8 +104,7 @@ public class SecurityQuestion
         cmd.Parameters.AddWithValue("@a1", Sec_ans1);
         cmd.Parameters.AddWithValue("@q2", Sec_qn2);
         cmd.Parameters.AddWithValue("@a2", Sec_ans2);
-        cmd.Parameters.AddWithValue("@q3", Sec_qn3);
-        cmd.Parameters.AddWithValue("@a3", Sec_ans3);
+        
 
         try
         {
