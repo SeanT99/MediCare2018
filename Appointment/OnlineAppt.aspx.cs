@@ -12,6 +12,7 @@ using System.IO;
 
 public partial class Appointment_OnlineAppt : System.Web.UI.Page
 {
+    Boolean valid = true;
     protected void Page_Load(object sender, EventArgs e)
     {
         tbPatientID.Text = Session["LoggedIn"].ToString();
@@ -21,8 +22,27 @@ public partial class Appointment_OnlineAppt : System.Web.UI.Page
     protected void buttonApptConfirm_Click(object sender, EventArgs e)
     {
         string apptTiming = ddlApptTime.Text;
-        string apptDate = ddlApptDate.Text;
-        Response.Redirect("CheckoutPayment.aspx?Parameter=" + apptTiming + "&Parameter2=" + apptDate);
+        string apptDate = Calendar1.SelectedDate.ToString("dd/MM/yyyy");
+        //string apptDate = apptDate_tb.Text;
+
+        string userId = Session["LoggedIn"].ToString();
+        //Current.Response.Write("<script>alert('" + Session["LoggedIn"].ToString() + "');</script>");
+
+        PatientAppt patientApptCheck = new PatientAppt();
+
+        if (patientApptCheck.checkPatientDate(userId, apptDate) != null)
+        {
+            Current.Response.Write("<script>alert('You have a booking appointment on this date. Please select another date');</script>");
+        }
+        else
+        {
+            Session["apptTiming"] = apptTiming;
+            Session["apptDate"] = apptDate;
+
+            Response.Redirect("CheckoutPayment.aspx");
+
+
+        }
 
 
 
@@ -38,5 +58,13 @@ public partial class Appointment_OnlineAppt : System.Web.UI.Page
 
     }
 
-   
+    protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
+    {
+        if (e.Day.Date.CompareTo(DateTime.Today) < 0)
+        {
+            e.Day.IsSelectable = false;
+        }
+    }
+
+
 }

@@ -22,16 +22,16 @@ public partial class Appointment_CheckoutPayment : System.Web.UI.Page
         {
 
 
-        confirmationTiming.Text = Request.QueryString["Parameter"].ToString();
-        confirmationDate.Text = Request.QueryString["Parameter2"].ToString();
+            confirmationTiming.Text = Session["apptTiming"].ToString();
+            confirmationDate.Text = Session["apptDate"].ToString();
 
-        patient = patient.GetPatientCreditCardDetails(Session["LoggedIn"].ToString());
+            patient = patient.GetPatientCreditCardDetails(Session["LoggedIn"].ToString());
 
         if (patient != null)
             {
                 cardholdername_tb.Text = patient.CardHolderName;
                 creditNo_tb.Text = decrypt(patient.CreditcardNo, patient.Key, patient.Iv);
-                creditNo_tb.Text = string.Format("************{0}", creditNo_tb.Text.Trim().Substring(12, 4));
+                //creditNo_tb.Text = string.Format("************{0}", creditNo_tb.Text.Trim().Substring(12, 4));
 
             }  
 

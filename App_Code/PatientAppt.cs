@@ -52,7 +52,7 @@ public class PatientAppt
         //Check if there are any resultsets
         if (dr.Read())
         {
-            patientID = dr["patientID"].ToString();
+            patientID = dr["patient"].ToString();
             apptTiming = dr["apptTiming"].ToString();
             apptDate = dr["apptDate"].ToString();
             patientApptDetails = new PatientAppt(patientID, apptTiming, apptDate);
@@ -68,7 +68,37 @@ public class PatientAppt
     }
 
 
-    
+    public PatientAppt checkPatientDate(string patient_ID, string date)
+    {
+        PatientAppt patientApptDetails = null;
+        string patientID, apptTiming, apptDate;
+        string queryStr = "SELECT * FROM PatientAppt WHERE patient = @patientID AND apptDate = @apptDate";
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@patientID", patient_ID);
+        cmd.Parameters.AddWithValue("@apptDate", date);
+        conn.Open();
+        SqlDataReader dr = cmd.ExecuteReader();
+        //Check if there are any resultsets
+        if (dr.Read())
+        {
+            patientID = dr["patient"].ToString();
+            apptTiming = dr["apptTiming"].ToString();
+            apptDate = dr["apptDate"].ToString();
+            patientApptDetails = new PatientAppt(patientID, apptTiming, apptDate);
+        }
+        else
+        {
+            patientApptDetails = null;
+        }
+        conn.Close();
+        dr.Close();
+        dr.Dispose();
+        return patientApptDetails;
+    }
+
+
+
 
     public int PatientApptInsert()
     {
@@ -96,7 +126,17 @@ public class PatientAppt
             return 0;
         }
         return result;
-
+        
     }//end Insert
-    
+
+
+
+
+
+
+
+
+
+
+
 }

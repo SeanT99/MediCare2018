@@ -31,7 +31,13 @@
                             <asp:ListItem>4:00 PM</asp:ListItem>
                         </asp:DropDownList>
                         <br />
-                        Available appointment dates:&nbsp; <asp:DropDownList CssClass="form-control"
+                        Available appointment dates:&nbsp;
+                        <br />
+                        <%--<asp:TextBox ID="apptDate_tb" runat="server" TextMode="Date" ></asp:TextBox>--%>
+<%--                       <asp:RequiredFieldValidator ID="apptDate_rfv" runat="server" ErrorMessage="Please select an appointment date" ForeColor="Red" ControlToValidate="apptDate_tb"></asp:RequiredFieldValidator>
+                        <asp:CustomValidator ID="apptDate_cv" runat="server" ErrorMessage="Please select an appointment date that is today/after today" ForeColor="Red" ControlToValidate="apptDate_tb" OnServerValidate="apptDateValid_ServerValidate"></asp:CustomValidator>--%>
+                         <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender"></asp:Calendar>
+                        <%--<asp:DropDownList CssClass="form-control"
     id="ddlApptDate"
     runat="server"
     dataTextFormatString="{0:dd/MM/yyyy} ">
@@ -42,7 +48,7 @@
                             <asp:ListItem>25/05/2019</asp:ListItem>
                             <asp:ListItem>26/05/2019</asp:ListItem>
                             <asp:ListItem>27/05/2019</asp:ListItem>
-                        </asp:DropDownList>
+                        </asp:DropDownList>--%>
                         <br />
                     </td>
                 </tr>

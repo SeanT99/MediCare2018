@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <form id="Form1" class="container-fluid" style="height: 100%;" runat="server">
+    <form id="Form1" class="container-fluid" style="height: 100%;" runat="server" defaultbutton="details">
 
         <div class="row" style="height: 100%;">
             <div class="container-fluid col-sm-6" style="background-size: cover; background-image: url(../Img/ex.jpeg); background-repeat: no-repeat; background-position-x: center; opacity: 0.85; filter: grayscale(30%);">
