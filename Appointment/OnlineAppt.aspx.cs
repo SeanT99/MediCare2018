@@ -30,10 +30,16 @@ public partial class Appointment_OnlineAppt : System.Web.UI.Page
 
         PatientAppt patientApptCheck = new PatientAppt();
 
-        if (patientApptCheck.checkPatientDate(userId, apptDate) != null)
+        if (apptDate == "01/01/0001")
+        {
+            Current.Response.Write("<script>alert('You have not select a booking appointment date. Please select a date');</script>");
+        }
+
+        else if (patientApptCheck.checkPatientDate(userId, apptDate) != null)
         {
             Current.Response.Write("<script>alert('You have a booking appointment on this date. Please select another date');</script>");
         }
+
         else
         {
             Session["apptTiming"] = apptTiming;
