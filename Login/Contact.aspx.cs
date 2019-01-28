@@ -46,12 +46,14 @@ public partial class Login_ConfirmChangedPassword : System.Web.UI.Page
         else if (Option == "Unblock Of Account")
         {
             x.NotifyMedicareEmail(email, name, dob);
-            Response.Redirect("Login.aspx", false);
+            Response.Write("<script>alert('Request Has Been Send, Please Wait Until Your Account Is Unlocked');location.href='Login.aspx?id=" + "';</script>");
+            
         }
         else if (Option == "Reset Password")
         {
             x.UserRequestChangePasswordEmail(email,name,dob);
-            Response.Redirect("Login.aspx", false);
+            Response.Write("<script>alert('Your Request Has Been Sent, Please Wait For Ur New Password');location.href='Login.aspx?id=" + "';</script>");
+          
         }
        
 

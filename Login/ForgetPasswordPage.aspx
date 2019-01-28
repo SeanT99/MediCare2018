@@ -39,7 +39,10 @@
         </div>
     
     <p class="form-group ml-sm-5">
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="EmailAddressField" ErrorMessage="RequiredFieldValidator" ForeColor="Red">Email Address Cannot Be Empty</asp:RequiredFieldValidator>
+        <br />
         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="EmailAddressField" ErrorMessage="RegularExpressionValidator" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">Please Enter A Valid Email Address</asp:RegularExpressionValidator>
+        
         <br />
         <asp:Label ID="EmailAddressDoNotExistLabel" runat="server" Text="Email Address Do Not Exist" ForeColor="Red"></asp:Label>
         <br />

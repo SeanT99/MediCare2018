@@ -46,13 +46,6 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
 
 
         }
-        else if (AllEmailContact[0].Loginattempts > 0 && AllEmailContact[0].Accountstatus.Trim() == "AVAILABLE")
-        {
-
-            Response.Write("<script>alert('You Are Not Allowed To Change Your Password If You Have Failed Login Attempt, Please Login Succesfully And Try Again');location.href='Login.aspx?id=" + "';</script>");
-
-
-        }
         else if (AllEmailContact[0].Accountstatus.Trim() == "LOCKED" && AllEmailContact[0].Loginattempts > 5)
         {
 

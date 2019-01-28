@@ -159,7 +159,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
                                 //mark this otp as used
                                 setUsed(username_session);
-
+                                Response.Write("<script>alert('Your Password Has Been Changed Successfully');location.href='Login.aspx?id=" + "';</script>");
                                 Response.Redirect("Forget_ConfirmChangedPassword.aspx", false);
 
                             }
