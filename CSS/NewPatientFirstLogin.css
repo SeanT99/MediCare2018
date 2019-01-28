@@ -40,6 +40,9 @@
 #NewPasswordTB{
     margin-left:-150px;
 }
+#OldPasswordTB{
+    margin-left:-150px;
+}
 #ConfirmPasswordTB {
     margin-left: -150px;
 }

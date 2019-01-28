@@ -46,6 +46,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="auto-style3" style="font-weight: bold;">Old Password</td>
+                    <td>
+                        <asp:TextBox ID="OldPasswordTB" runat="server" Width="280px" CssClass="OldPasswordTB" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+                         <asp:Label ID="PasswordIncorrectLabel" runat="server" ForeColor="Red" Text="Your Old Password is Incorrect" Font-Bold="True"></asp:Label>
+                    </td>
+                </tr>
+                 <tr>
                     <td class="auto-style3" style="font-weight: bold;">New Password</td>
                     <td>
                         <asp:TextBox ID="NewPasswordTB" runat="server" Width="280px" CssClass="NewPasswordTB" AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
