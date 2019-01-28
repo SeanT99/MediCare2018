@@ -32,7 +32,7 @@ public partial class Patient_EditProfile_ChangePassword : System.Web.UI.Page
         {
             // hash password and submit to database
             string[] passHash = pwUtility.generateHash(id, ChangePasswordField.Text);
-            int result = pwUtility.updatePassword(id, passHash[0], passHash[1]);
+            int result = pwUtility.ResetPassword(id, passHash[0], passHash[1], "FALSE");
 
 
             //send security alert
@@ -84,7 +84,7 @@ public partial class Patient_EditProfile_ChangePassword : System.Web.UI.Page
             hashStr = Convert.ToBase64String(hashBytes);
 
 
-            if (hashStr == UserLoginDetails.Login_password && UserLoginDetails.Acctype != "PATIENT   ")
+            if (hashStr == UserLoginDetails.Login_password)
             {
                 pass = true;
             }

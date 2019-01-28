@@ -58,7 +58,7 @@ public class PasswordUtility
     {
         int result = 0;
 
-        string queryStr = "UPDATE PatientInfo SET salt = @salt, login_password = @hash WHERE id = @id";
+        string queryStr = "UPDATE PatientInfo SET salt = @salt, login_password = @hash, toChangePassword = 'TRUE      ' WHERE id = @id";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
