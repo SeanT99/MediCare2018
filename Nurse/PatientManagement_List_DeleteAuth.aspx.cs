@@ -43,6 +43,7 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         result = PasswordDelete(deleteid);
         result = apptDelete(deleteid);
         result = payDelete(deleteid);
+        result = CreditCardDelete(deleteid);
         
         int pass = -1;
 
@@ -226,6 +227,31 @@ public partial class Nurse_PatientManagement_List_DeleteAuth : System.Web.UI.Pag
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
         cmd.Parameters.AddWithValue("@id", id);
+
+        try
+        {
+            conn.Open();
+            result += cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        catch (SqlException ex)
+        {
+            Debug.Write(ex);
+        }
+
+        return result;
+    }
+
+    public int CreditCardDelete(String id)
+    {
+        int result = 0;
+
+        string queryStr = "DELETE FROM CreditCardTransaction WHERE patientID = @patientID";
+
+        //open connections
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@patientID", id);
 
         try
         {
