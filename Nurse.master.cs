@@ -18,8 +18,10 @@ public partial class Admin2 : System.Web.UI.MasterPage
                 Response.Redirect("Login.aspx", false);
             }
 
-            else if (Session['Acctype'].ToString() != ) {
-
+            // wrong account
+            else if (Session["Acctype"].ToString().Trim() != "ADMIN")
+            {
+                Response.Redirect("../Unauthorized.aspx");
             }
         }
         else

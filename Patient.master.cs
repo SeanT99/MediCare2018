@@ -17,6 +17,11 @@ public partial class Patient : System.Web.UI.MasterPage
             {
                 Response.Redirect("../Login/Login.aspx", false);
             }
+            // wrong account
+            else if (Session["Acctype"].ToString().Trim() != "PATIENT")
+            {
+                Response.Redirect("../Unauthorized.aspx");
+            }
         }
         else
         {
