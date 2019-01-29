@@ -116,7 +116,7 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
                     Debug.WriteLine("STARTING TO INSERT PASSWORD");
                     //otp success
                     List<ChangePasswordUtility> InfoNeededForUserToChangePassword = InsertOldPassword.GetOldPasswordDetails(Username);
-                    Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
+                    //Debug.WriteLine("Infoneeded Username" + " " + InfoNeededForUserToChangePassword[0].Id);
                     if (InfoNeededForUserToChangePassword.Count > 0 && ValidatePassword.IsValid(NewPassword) == true) // Check if Username exist in database, if does not, then password also cannot change
                     {                                              // To get new password + old salt       
                         if (NewPassword.Equals(VerifyNewPassword)) //if Username exist then continue to check new password and verify password if is the same
@@ -440,8 +440,8 @@ public partial class Login_ChangePasswordPage : System.Web.UI.Page
 
             //send otp and send resend otp sms
             MailUtilities sendPasswordRequest = new MailUtilities();
-            //sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
-            sendPasswordRequest.sendOTP(mobile, msg);
+            sendPasswordRequest.sendResendOTPMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
+            //sendPasswordRequest.sendOTP(mobile, msg);
 
     }
 }

@@ -24,8 +24,10 @@
                         Available appointment timings:&nbsp;
                         <asp:TextBox ID="confirmationTiming" runat="server" Enabled="False"></asp:TextBox>
                         <br />
-                        Available appointment dates:&nbsp; 
+                        <br />
+                        Available appointment dates:&nbsp; &nbsp;&nbsp;
                         <asp:TextBox ID="confirmationDate" runat="server" Enabled="False"></asp:TextBox>
+                        <br />
                         <br />
                         Bookings Fee:
                         <asp:Label ID="fee_lbl" runat="server" Text="$15.00"></asp:Label>
@@ -36,7 +38,7 @@
 
                 <tr>
                     <td>
-                        <asp:Label ID="paymentDetails_lbl" runat="server" Text="Payment Details" Font-Bold="true" Font-Size="Large"></asp:Label>
+                        <asp:Label ID="paymentDetails_lbl" runat="server" Text="Credit Card Payment Details" Font-Bold="true" Font-Size="Large"></asp:Label>
                         <br />
                         <br />
                         <asp:Label ID="cardholdername_lbl" runat="server" Text="Card Holder's Name"></asp:Label>
@@ -65,7 +67,7 @@
                         
                        
                         <asp:RangeValidator ID="rv_expiryDateMM" runat="server" ErrorMessage="Please enter the valid month." MaximumValue="12" MinimumValue="0" ControlToValidate="expiryDateMM_tb" ForeColor="Red"></asp:RangeValidator>
-                        
+                        <br />
                         <asp:Label ID="lblResult" runat="server"></asp:Label> <br />
                         
                        

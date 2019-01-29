@@ -72,7 +72,7 @@ public partial class Login_ForgetPasswordPage : System.Web.UI.Page
             //send otp and change pw sms
             MailUtilities sendPasswordRequest = new MailUtilities();
             sendPasswordRequest.sendChangePasswordMail(SpecificPatientName.Email, FamilyAndGivenName, otp);
-           // sendPasswordRequest.sendOTP(mobile, msg);
+            //sendPasswordRequest.sendOTP(mobile, msg);
 
 
             Response.Redirect("ForgetPasswordEmailConfirmation.aspx?EnteredID="+EnteredEmail, false);

@@ -382,7 +382,7 @@ public partial class Login_Login : System.Web.UI.Page
                         }
                         else if ((hashStr == UserLoginDetails.Login_password)) // After captcha returned True if is completed, check If Username, Password and Captcha is all completed then allow login for user
                         {
-
+                            // not = to patient means NURSE
                             if (UserLoginDetails.Acctype != "PATIENT   ")
                             {
                                 //session ANSELM TEOH

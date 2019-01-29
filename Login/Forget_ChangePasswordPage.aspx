@@ -80,7 +80,7 @@
                     <asp:Label ID="AlphaNumericLabel" runat="server" Text="Password Must Be Alphanumeric" ForeColor="Red"></asp:Label>
                     <br />
                     <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
-
+                    <br />
                     <asp:Button ID="details" runat="server" Text="Submit" CssClass="btn btn-primary col-sm-9 color1" OnClick="details_Click" Style="left: 0px; top: 0px" />
 
 

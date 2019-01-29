@@ -13,7 +13,7 @@
             <table class="table table-primary table-responsive-sm " style="height: 39%">
                 <tr>
                     <td style="width: 521px; height: 67px;">
-                        Patient ID: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control" Enabled="False"></asp:TextBox>
+                        Username: &nbsp;<asp:TextBox ID="tbPatientID" runat="server"  CssClass="form-control" Enabled="False"></asp:TextBox>
                         &nbsp;
                     </td>
                 </tr>
@@ -26,6 +26,7 @@
                             <asp:ListItem>2:00 PM</asp:ListItem>
                             <asp:ListItem>3:00 PM</asp:ListItem>
                             <asp:ListItem>4:00 PM</asp:ListItem>
+                            <asp:ListItem>5:00 PM</asp:ListItem>
                         </asp:DropDownList>
                         <br />
                         Available appointment dates:&nbsp;
