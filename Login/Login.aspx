@@ -35,7 +35,7 @@
 
                     <asp:TextBox ID="UsernameField" runat="server" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
 
-                    <asp:RequiredFieldValidator ID="UsernameValidator" runat="server" ErrorMessage="Please Enter A Valid Username" ControlToValidate="UsernameField" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="UsernameValidator" runat="server" ErrorMessage="Please Enter A Valid Username" ControlToValidate="UsernameField" ForeColor="Red">Username Cannot Be Empty</asp:RequiredFieldValidator>
 
                     <br />
                     <asp:Label ID="Label3" runat="server" ForeColor="Red" Text="Invalid Username"></asp:Label>
@@ -46,7 +46,7 @@
                     <asp:Label ID="Label2" runat="server" Text="Password:" CssClass="col-form-label"></asp:Label>
 
                     <asp:TextBox ID="PasswordField" runat="server" TextMode="Password" CssClass="form-control col-sm-9 mt-sm-2"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="PasswordValidator" runat="server" ErrorMessage="Please Enter A Valid Password" ControlToValidate="PasswordField" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="PasswordValidator" runat="server" ControlToValidate="PasswordField" ForeColor="Red">Password Cannot Be Empty</asp:RequiredFieldValidator>
                 </div>
 
                 <div class="form-group ml-sm-5">

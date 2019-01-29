@@ -320,7 +320,7 @@ public class MailUtilities
 
         //Setting From , To and CC
         mail.From = new MailAddress("aspmedicare2018@gmail.com", "MediCare Portal");
-        mail.To.Add(new MailAddress("yap_junjiang12@hotmail.com"));
+        mail.To.Add(new MailAddress(email));
 
 
         //to set the contents of the email
