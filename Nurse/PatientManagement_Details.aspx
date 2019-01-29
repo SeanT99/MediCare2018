@@ -139,9 +139,21 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 318px">Pre-existing medical conditions and history</td>
+            <td style="width: 318px">Pre-existing Medical Conditions and History</td>
             <td>
                 <asp:Label ID="historyLBL" runat="server" Text=" "></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 318px">&nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 318px">Account Block Status</td>
+            <td>
+                <asp:Label ID="BlockLbl" runat="server"></asp:Label>
+
             </td>
         </tr>
         <tr>

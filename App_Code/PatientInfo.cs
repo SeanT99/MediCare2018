@@ -148,7 +148,7 @@ public class PatientInfo
         this.kin_contact = emergency_contact;
     }
     //details constructor
-    public PatientInfo(string id, string id_Type, string family_Name, string given_Name, string gender, string dob, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history)
+    public PatientInfo(string id, string id_Type, string family_Name, string given_Name, string gender, string dob, string email, string mobileNumber, string homeNumber, string address_blk, string address_street, string address_unit, string address_building, string address_postal, string kin_name, string kin_contact, string kin_relationship, string medical_allergies, string medical_history, string accountstatus)
     {
         this.id = id;
         this.id_Type = id_Type;
@@ -169,6 +169,7 @@ public class PatientInfo
         this.kin_relationship = kin_relationship;
         this.medical_allergies = medical_allergies;
         this.medical_history = medical_history;
+        this.accountstatus = accountstatus;
     }
 
     //login constructor -- jj
@@ -443,10 +444,10 @@ public class PatientInfo
         PatientInfo x = null;
 
         //strings for the object creation
-        string id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history;
+        string id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, status;
 
         //query string
-        string queryStr = "SELECT id,id_Type,family_Name,given_Name,gender,dob,email,mobileNumber,homeNumber,address_blk,address_street,address_unit,address_building,address_postal,kin_name,kin_contact, kin_relationship,medical_allergies,medical_history FROM PatientInfo WHERE id = @id";
+        string queryStr = "SELECT id,id_Type,family_Name,given_Name,gender,dob,email,mobileNumber,homeNumber,address_blk,address_street,address_unit,address_building,address_postal,kin_name,kin_contact, kin_relationship,medical_allergies,medical_history, accountStatus FROM PatientInfo WHERE id = @id";
 
         //open connections, insert param and execute query
         SqlConnection conn = new SqlConnection(_connStr);
@@ -479,8 +480,9 @@ public class PatientInfo
                 kin_relationship = dr["kin_relationship"].ToString();
                 medical_allergies = dr["medical_allergies"].ToString();
                 medical_history = dr["medical_history"].ToString();
+                status = dr["accountStatus"].ToString();
 
-                x = new PatientInfo(id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history);
+                x = new PatientInfo(id, id_Type, family_Name, given_Name, gender, dob, email, mobileNumber, homeNumber, address_blk, address_street, address_unit, address_building, address_postal, kin_name, kin_contact, kin_relationship, medical_allergies, medical_history, status);
             }
 
             //close connecetions

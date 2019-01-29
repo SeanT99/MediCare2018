@@ -38,6 +38,7 @@ public partial class Nurse_PatientManagement_Details : System.Web.UI.Page
         ecRelationshipLBL.Text = x.Kin_relationship;
         allergyLBL.Text = x.Medical_allergies;
         historyLBL.Text = x.Medical_history;
+        BlockLbl.Text = x.Accountstatus;
 
     }
 

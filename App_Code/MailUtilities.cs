@@ -59,7 +59,7 @@ public class MailUtilities
 
         int result = 1;
 
-        string body = "Hi " + name + ",<br/>Welcome to your new MediCare account.<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
+        string body = "Hi " + name + ",<br/>Welcome to your new MediCare account.<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:50581/Login/Login\">Login Here</a> ";
 
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
@@ -142,7 +142,7 @@ public class MailUtilities
 
         int result = 1;
 
-        string body = "Hi " + name + ",<br/>Your password has been reset.<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:49947/Login/Login\">Login Here</a> ";
+        string body = "Hi " + name + ",<br/>Your password has been reset.<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login at the link below and change the password on your first login.<br/>" + " <a href=\"http://localhost:50581/Login/Login\">Login Here</a> ";
 
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
@@ -183,7 +183,7 @@ public class MailUtilities
 
         int result = 1;
 
-        string body = "Hi " + name + ",<br/>Your password has been unblocked<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login with this new password and reset your first time password to start using your account again.<br/>" + " <a href=\"http://localhost:65233/Login/Login.aspx\">Login Here</a> ";
+        string body = "Hi " + name + ",<br/>Your password has been unblocked<br/><br/>" + "This is your new MediCare account password:<br/><b>" + password + "</b><br/><br/>" + "Please login with this new password and reset your first time password to start using your account again.<br/>" + " <a href=\"http://localhost:50581/Login/Login.aspx\">Login Here</a> ";
 
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
@@ -310,7 +310,7 @@ public class MailUtilities
 
         int result = 1;
 
-        string body = "Hi " + name + ",<br/>Your password has been blocked due to exceeding the amount of login attempts<br/><br/>" + "<br/><b>" + "</b><br/><br/>" + "Please Click On The Link Below To Contact Our Adminstrator For Assistance <br/>" + " <a href=\"http://localhost:65233/Login/Contact.aspx\">Contact Us</a> ";
+        string body = "Hi " + name + ",<br/>Your password has been blocked due to exceeding the amount of login attempts<br/><br/>" + "<br/><b>" + "</b><br/><br/>" + "Please Click On The Link Below To Contact Our Adminstrator For Assistance <br/>" + " <a href=\"http://localhost:50581/Login/Contact.aspx\">Contact Us</a> ";
 
         smtpClient.UseDefaultCredentials = false;
         smtpClient.Credentials = new System.Net.NetworkCredential("aspmedicare2018@gmail.com", "Exact123");
